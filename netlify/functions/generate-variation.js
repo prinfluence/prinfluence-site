@@ -42,7 +42,7 @@ exports.handler = async function (event) {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 1000,
         system:
           "You are an expert social media content strategist for creators. Generate exactly 3 high-converting, scroll-stopping content variations (hooks, ideas, or CTAs) based on the user's request. Number them 1. 2. 3. Be specific, bold, and audience-aware. Keep each under 2 sentences. Return only the 3 variations — no intro or explanation.",
