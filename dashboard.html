@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Products — Prinfluence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --paper:#F6F3EE;--panel:#FFFFFF;
+  --ink:#1C1620;--ink-soft:rgba(28,22,32,0.62);--ink-faint:rgba(28,22,32,0.40);
+  --line:rgba(28,22,32,0.12);--line-soft:rgba(28,22,32,0.06);
+  --rose:#CE4E84;--rose-deep:#A93567;
+  --gold:#C5A062;--gold-soft:rgba(197,160,98,0.20);
+  --mint:#A8E6C1;
+  --font-display:"Fraunces",Georgia,serif;
+  --font-sans:"DM Sans",system-ui,-apple-system,sans-serif;
+  --maxw:1100px;--gut:clamp(20px,5vw,48px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 60% 40% at 50% -10%,rgba(206,78,132,0.06),transparent),radial-gradient(ellipse 50% 30% at 100% 100%,rgba(197,160,98,0.07),transparent);pointer-events:none;z-index:0}
+
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:44px var(--gut) 80px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:16px}
+.brandmark{display:flex;align-items:center}
+.brandmark .word{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--ink)}
+.logo-influence{background:linear-gradient(100deg,#E9C977 0%,#D7A964 20%,#E29ABF 52%,#A99AEC 74%,#7EB8FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.logo-it{font-style:italic;font-weight:500;-webkit-text-fill-color:transparent}
+
+.member-pill{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:100px;padding:10px 18px;font-size:13.5px;color:var(--ink-soft)}
+.member-pill .email{color:var(--ink);font-weight:600}
+.logout-btn{font-size:12.5px;color:var(--rose);cursor:pointer;font-weight:500}
+.logout-btn:hover{text-decoration:underline}
+
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:14px}
+.page-title{font-family:var(--font-display);font-size:38px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px;line-height:1.08}
+.page-sub{font-size:16px;color:var(--ink-soft);margin-bottom:48px;font-weight:300;max-width:36em}
+
+.loading{display:flex;align-items:center;gap:12px;color:var(--ink-faint);font-size:14px;padding:60px 0;justify-content:center}
+.spinner{width:16px;height:16px;border:2px solid rgba(206,78,132,.25);border-top-color:var(--rose);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.product-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s}
+.product-card.unlocked:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(28,22,32,0.18)}
+.product-card.locked{opacity:.82}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.product-card.unlocked::before{background:var(--rose)}
+.product-card.locked::before{background:var(--line)}
+
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.status-badge{font-size:11px;font-weight:600;padding:5px 13px;border-radius:100px;display:flex;align-items:center;gap:7px;letter-spacing:.02em}
+.status-badge.unlocked{background:rgba(168,230,193,0.25);color:#2F6B47}
+.status-badge.locked{background:var(--paper);color:var(--ink-faint);border:1px solid var(--line)}
+.status-dot{width:6px;height:6px;border-radius:50%}
+.status-badge.unlocked .status-dot{background:#2F6B47}
+.status-badge.locked .status-dot{background:var(--ink-faint)}
+
+.product-icon{width:46px;height:46px;border-radius:13px;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:18px}
+.product-title{font-family:var(--font-display);font-size:21px;font-weight:600;margin-bottom:9px;letter-spacing:-.01em;line-height:1.2}
+.product-desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin-bottom:24px;font-weight:300}
+
+.action-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:all .25s cubic-bezier(.2,.7,.3,1);font-family:var(--font-sans)}
+.action-btn.unlocked{background:var(--rose);color:#fff}
+.action-btn.unlocked:hover{transform:translateY(-2px);box-shadow:0 16px 34px -12px var(--rose)}
+.action-btn.locked{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.action-btn.locked:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+
+.purchased-date{font-size:11.5px;color:var(--ink-faint);margin-top:14px}
+
+@media (max-width: 720px) {
+  .products-grid{grid-template-columns:1fr}
+  .topbar{flex-direction:column;align-items:flex-start}
+  .page-title{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brandmark">
+      <span class="word">Prin<span class="logo-influence"><span class="logo-it">fluence</span></span></span>
+    </div>
+    <div class="member-pill">
+      <span>Logged in as <span class="email" id="memberEmail">—</span></span>
+      <span class="logout-btn" onclick="logout()">Log out</span>
+    </div>
+  </div>
+
+  <div class="eyebrow">Member dashboard</div>
+  <div class="page-title">My products</div>
+  <div class="page-sub">Everything you've unlocked, all in one place.</div>
+
+  <div class="loading" id="loadingState">
+    <div class="spinner"></div> Checking your account...
+  </div>
+
+  <div class="products-grid" id="productsGrid" style="display:none"></div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://xavhjbcmqgoznuggzpep.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_oKv6t4MSb9mG8ggGedTwyQ_ZO3WeNEr';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const PRODUCTS = [
+  {
+    key: 'content-vault',
+    icon: '🗂️',
+    title: 'The Content Vault',
+    desc: 'Monthly-refreshed library of hooks, ideas & CTAs across 7 niches, plus the AI remix engine.',
+    url: 'content-vault.html',
+    landingUrl: 'content-vault-landing.html'
+  },
+  {
+    key: 'outreach-tracker',
+    icon: '📊',
+    title: 'Outreach Tracker + AI Pitch Analyzer',
+    desc: 'Track every brand conversation, calculate your rates, and analyze pitches with AI.',
+    url: 'outreach-tracker.html',
+    landingUrl: 'outreach-tracker-landing.html'
+  },
+  {
+    key: 'pitch-paid',
+    icon: '✦',
+    title: '[Pitch] $Paid, Period.',
+    desc: '10 pitch templates across 8 niches, built on the P.A.I.D. Framework.',
+    url: 'pitch-paid.html',
+    landingUrl: 'pitch-paid-landing.html'
+  },
+  {
+    key: 'dealworthy',
+    icon: '💼',
+    title: 'Deal Worthy — UGC Starter Kit',
+    desc: 'The complete brand-deal playbook: 12 pitch templates, rate calculator, 200+ brand list, contracts.',
+    url: 'dealworthy.html',
+    landingUrl: 'dealworthy-landing.html'
+  }
+];
+
+async function init() {
+  const email = sessionStorage.getItem('prinfluence_member_email');
+  if (!email) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  document.getElementById('memberEmail').textContent = email;
+
+  try {
+    const { data, error } = await sb
+      .from('purchases')
+      .select('product, created_at')
+      .eq('email', email);
+
+    if (error) throw error;
+
+    const purchasedMap = {};
+    (data || []).forEach(p => { purchasedMap[p.product] = p.created_at; });
+
+    renderProducts(purchasedMap);
+
+  } catch (err) {
+    console.error('Error loading purchases:', err);
+    document.getElementById('loadingState').innerHTML =
+      '<div style="color:var(--ink-soft)">Something went wrong loading your products. Please refresh or contact support.</div>';
+  }
+}
+
+function renderProducts(purchasedMap) {
+  const grid = document.getElementById('productsGrid');
+  const loading = document.getElementById('loadingState');
+
+  grid.innerHTML = PRODUCTS.map(p => {
+    const unlocked = !!purchasedMap[p.key];
+    const dateStr = unlocked ? new Date(purchasedMap[p.key]).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : null;
+
+    return `
+      <div class="product-card ${unlocked ? 'unlocked' : 'locked'}">
+        <div class="card-top">
+          <div class="status-badge ${unlocked ? 'unlocked' : 'locked'}">
+            <span class="status-dot"></span> ${unlocked ? 'Unlocked' : 'Not purchased'}
+          </div>
+        </div>
+        <div class="product-icon">${p.icon}</div>
+        <div class="product-title">${p.title}</div>
+        <div class="product-desc">${p.desc}</div>
+        ${unlocked
+          ? `<a class="action-btn unlocked" href="${p.url}">Open product →</a><div class="purchased-date">Purchased ${dateStr}</div>`
+          : `<a class="action-btn locked" href="${p.landingUrl}">View &amp; unlock →</a>`
+        }
+      </div>
+    `;
+  }).join('');
+
+  loading.style.display = 'none';
+  grid.style.display = 'grid';
+}
+
+function logout() {
+  sessionStorage.removeItem('prinfluence_member_email');
+  window.location.href = 'login.html';
+}
+
+init();
+</script>
+</body>
+</html>

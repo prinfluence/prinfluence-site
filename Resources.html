@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<template id="__bundler_thumbnail" data-bg-color="#0C0814">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#F5ADCE"/>
+        <stop offset="0.5" stop-color="#C8A0F0"/>
+        <stop offset="1" stop-color="#7EB8FF"/>
+      </linearGradient>
+    </defs>
+    <rect width="1200" height="800" fill="#0C0814"/>
+    <text x="600" y="420" text-anchor="middle" font-family="Georgia, serif" font-size="150" font-style="italic" font-weight="600" fill="url(#g)">Resources</text>
+    <text x="600" y="510" text-anchor="middle" font-family="monospace" font-size="34" letter-spacing="14" fill="#E274A0">PRINFLUENCE</text>
+  </svg>
+</template>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resources — Prinfluence</title>
+<meta name="description" content="Free resources for creators and marketers using AI. Weekly YouTube videos, templates and downloads." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="prinfluence.css" />
+<style>
+  /* ===== RESOURCES — balanced dark ===== */
+  .theme-dark {
+    --paper: #0C0814; --paper-2: #130C1C; --panel: #1B1228;
+    --ink: #F7F0F6; --ink-2: rgba(247,240,246,0.74); --ink-soft: rgba(247,240,246,0.64);
+    --ink-faint: rgba(247,240,246,0.44); --line: rgba(255,255,255,0.11); --line-soft: rgba(255,255,255,0.06);
+  }
+  body.theme-dark { background: var(--paper); }
+  .eyebrow { color: var(--creator-pink); }
+
+  .r-hero { position: relative; overflow: hidden; padding: clamp(150px, 16vw, 196px) 0 clamp(40px, 5vw, 60px); text-align: center; }
+  .r-hero::before { content:""; position:absolute; inset:-25% -10% auto -10%; height:138%; filter:blur(28px); opacity:.95; z-index:0;
+    background: radial-gradient(36% 46% at 20% 16%, rgba(226,116,160,0.36), transparent 60%), radial-gradient(34% 46% at 82% 14%, rgba(126,184,255,0.28), transparent 60%), radial-gradient(40% 50% at 55% 92%, rgba(200,160,240,0.28), transparent 62%); }
+  .r-hero .wrap { position: relative; z-index: 1; }
+  .r-hero h1 { font-family: var(--font-display); font-weight: 540; font-size: clamp(38px, 5.6vw, 80px); line-height: 0.98; letter-spacing: -0.028em; max-width: 15em; margin: 24px auto 0; text-wrap: balance; }
+  .r-hero h1 .grad { background: var(--holo-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; font-weight: 500; }
+  .r-hero .sub { margin: 24px auto 0; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink-2); max-width: 28em; }
+
+  /* EMAIL CAPTURE */
+  .email-cap { max-width: 600px; margin: 38px auto 0; }
+  .email-row { display: flex; gap: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); border-radius: 100px; padding: 7px 7px 7px 22px; }
+  .email-row input { flex: 1; background: none; border: none; outline: none; color: var(--ink); font-family: var(--font-sans); font-size: 16px; min-width: 0; }
+  .email-row input::placeholder { color: var(--ink-faint); }
+  .email-done { display: none; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: 100px; border: 1px solid rgba(168,230,193,0.4); background: rgba(168,230,193,0.1); color: #A8E6C1; font-weight: 600; }
+  .email-micro { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; color: var(--ink-faint); margin-top: 14px; }
+  @media (max-width: 520px) { .email-row { flex-direction: column; border-radius: 22px; padding: 14px; } .email-row .btn { justify-content: center; } }
+
+  /* COMING SOON overlay (videos + blog) */
+  .coming-soon { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px;
+    background: linear-gradient(160deg, rgba(20,12,30,0.55), rgba(10,6,18,0.72)); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  .coming-soon .cs-pill { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: #150C1E;
+    background: var(--holo); background-size: 200% 100%; padding: 9px 18px; border-radius: 100px; box-shadow: 0 10px 26px -10px rgba(200,160,240,0.6); animation: csShimmer 5s linear infinite; }
+  .coming-soon .cs-pill .spk { font-size: 12px; animation: csTwinkle 2.4s ease-in-out infinite; }
+  .coming-soon .cs-sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+  @keyframes csShimmer { 0% { background-position: 0 50%; } 100% { background-position: 200% 50%; } }
+  @keyframes csTwinkle { 0%,100% { opacity:.6; transform: scale(.85) rotate(0); } 50% { opacity:1; transform: scale(1.15) rotate(20deg); } }
+  /* dim the placeholder image beneath so the overlay reads as intentional */
+  .yt-thumb image-slot, .blog-thumb image-slot, .bf-img image-slot { filter: saturate(.6) brightness(.7); }
+
+  /* BLOG */
+  .blog-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 44px; }
+  .blog-featured { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(24px, 3vw, 48px); align-items: center; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); transition: transform .4s cubic-bezier(.2,.7,.3,1), border-color .4s, box-shadow .4s; }
+  .blog-featured:hover { transform: translateY(-5px); border-color: rgba(226,116,160,0.5); box-shadow: 0 40px 80px -40px rgba(200,160,240,0.4); }
+  .blog-featured .bf-img { position: relative; align-self: stretch; min-height: 320px; }
+  .blog-featured image-slot { width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,.7,.3,1); }
+  .blog-featured:hover image-slot { transform: scale(1.04); }
+  .bf-flag { position: absolute; top: 16px; left: 16px; z-index: 2; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #150C1E; background: var(--holo); padding: 7px 14px; border-radius: 100px; font-weight: 600; }
+  .blog-featured .bf-body { padding: clamp(28px, 3vw, 48px) clamp(28px, 3vw, 48px) clamp(28px, 3vw, 48px) 0; }
+  .blog-featured .bf-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--creator-pink); display: flex; gap: 14px; flex-wrap: wrap; }
+  .blog-featured h3 { font-family: var(--font-display); font-weight: 540; font-size: clamp(26px, 3.2vw, 40px); line-height: 1.08; letter-spacing: -0.018em; margin-top: 16px; }
+  .blog-featured p { color: var(--ink-2); font-size: 16px; line-height: 1.6; margin-top: 16px; max-width: 38ch; }
+  .blog-featured .bf-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 24px; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .blog-featured .bf-link .arr { transition: transform .25s; }
+  .blog-featured:hover .bf-link .arr { transform: translateX(4px); }
+  @media (max-width: 760px) { .blog-featured { grid-template-columns: 1fr; } .blog-featured .bf-img { min-height: 240px; } .blog-featured .bf-body { padding: 0 clamp(24px,5vw,32px) clamp(28px,5vw,36px); } }
+
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2.2vw, 28px); margin-top: clamp(20px, 2.5vw, 28px); }
+  .blog-card { display: flex; flex-direction: column; cursor: pointer; }
+  .blog-thumb { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/10; background: var(--panel); }
+  .blog-card image-slot { width: 100%; height: 100%; transition: transform .5s cubic-bezier(.2,.7,.3,1); }
+  .blog-card:hover image-slot { transform: scale(1.05); }
+  .blog-cat { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.28); backdrop-filter: blur(8px); padding: 5px 11px; border-radius: 100px; }
+  .blog-card h4 { font-family: var(--font-display); font-weight: 540; font-size: 20px; line-height: 1.16; letter-spacing: -0.01em; margin-top: 16px; }
+  .blog-card p { color: var(--ink-2); font-size: 14.5px; margin-top: 8px; line-height: 1.5; }
+  .blog-card .bc-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-top: 12px; }
+  @media (max-width: 860px) { .blog-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px) { .blog-grid { grid-template-columns: 1fr; } }
+
+  /* YT grid */
+  .yt-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 44px; }
+  .yt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2.2vw, 28px); }
+  .yt-card { cursor: pointer; }
+  .yt-thumb { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; background: var(--panel); }
+  .yt-card image-slot { width: 100%; height: 100%; transition: transform .5s cubic-bezier(.2,.7,.3,1); }
+  .yt-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.94); display: grid; place-items: center; transition: transform .3s; z-index: 2; }
+  .yt-card:hover .yt-play { transform: translate(-50%,-50%) scale(1.08); }
+  .yt-card:hover image-slot { transform: scale(1.04); }
+  .yt-title { font-family: var(--font-display); font-weight: 540; font-size: 20px; line-height: 1.16; margin-top: 16px; letter-spacing: -0.01em; }
+  .yt-desc { color: var(--ink-2); font-size: 14.5px; margin-top: 8px; line-height: 1.5; }
+  .yt-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-top: 10px; }
+  @media (max-width: 860px) { .yt-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px) { .yt-grid { grid-template-columns: 1fr; } }
+
+  /* DOWNLOADS */
+  .dl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .dl { display: flex; flex-direction: column; padding: clamp(26px,2.8vw,36px); border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); transition: transform .4s cubic-bezier(.2,.7,.3,1), border-color .4s; }
+  .dl:hover { transform: translateY(-5px); border-color: rgba(226,116,160,0.5); }
+  .dl .dk { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .dl h3 { font-family: var(--font-display); font-weight: 540; font-size: 23px; margin-top: 14px; letter-spacing: -0.01em; }
+  .dl p { color: var(--ink-2); font-size: 14.5px; margin-top: 10px; line-height: 1.55; flex: 1; }
+  .dl .btn { margin-top: 22px; align-self: flex-start; }
+  .dl { position: relative; }
+  .dl .dl-soon { position: absolute; top: 16px; right: 16px; display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #150C1E; background: var(--holo); background-size: 200% 100%; padding: 6px 12px; border-radius: 100px; box-shadow: 0 8px 20px -8px rgba(200,160,240,0.55); animation: csShimmer 5s linear infinite; }
+  .dl .dl-soon .spk { font-size: 10px; animation: csTwinkle 2.4s ease-in-out infinite; }
+  .dl .btn.is-soon { background: rgba(255,255,255,0.06); color: var(--ink-faint); border: 1px solid var(--line); cursor: default; pointer-events: none; }
+  @media (max-width: 760px) { .dl-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="theme-dark">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brandmark" href="Home.html"><span class="word">Prin<span class="it">fluence</span></span></a>
+      <div class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="Brands.html">For Brands</a>
+        <a href="Creators.html">For Creators</a>
+        <a href="About.html">About</a>
+        <a href="Resources.html" class="active">Resources</a>
+      </div>
+      <div class="nav-right">
+        <a href="login.html" style="font-size:14px;color:var(--ink-2);margin-right:18px;text-decoration:none">My Products</a>
+        <a class="btn btn-rose" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="drawer">
+    <button class="close" aria-label="Close">&times;</button>
+    <a href="Home.html">Home</a>
+    <a href="Brands.html">For Brands</a>
+    <a href="Creators.html">For Creators</a>
+    <a href="About.html">About</a>
+    <a href="Resources.html">Resources</a>
+    <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank" style="color:var(--creator-pink)">Book a Call</a>
+    <a href="login.html">My Products</a>
+  </div>
+
+  <!-- HERO + EMAIL -->
+  <header class="r-hero" data-screen-label="Resources / Hero">
+    <div class="wrap">
+      <span class="eyebrow center reveal">Free resources</span>
+      <h1 class="reveal d1">AI tips for creators &amp; marketers — <span class="grad">free, weekly.</span></h1>
+      <p class="sub reveal d2">Get the playbook in your inbox. One short email a week with a real AI workflow you can use whether you're building a brand or your creator business.</p>
+      <div class="email-cap reveal d3">
+        <form data-email-form>
+          <div class="email-row">
+            <input type="email" placeholder="you@email.com" required aria-label="Email address" />
+            <button type="submit" class="btn btn-holo">Subscribe</button>
+          </div>
+          <div class="email-done" data-email-done><span>✓</span> You're in — check your inbox to confirm.</div>
+        </form>
+        <p class="email-micro">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOG -->
+  <section class="sec sec-tight" data-screen-label="Resources / Blog">
+    <div class="wrap">
+      <div class="blog-head">
+        <div class="sec-head reveal">
+          <span class="eyebrow">From the blog</span>
+          <h2 class="sec-title">Latest from the blog</h2>
+          <p class="sec-desc">Deep dives on using AI to optimize content — fresh tactics for brands and creators.</p>
+        </div>
+        <a class="btn btn-ghost reveal d1" href="#" style="border-color:rgba(255,255,255,0.2);color:#fff;">All posts <span class="arr">→</span></a>
+      </div>
+
+      <!-- Featured: latest post -->
+      <a class="blog-featured reveal" href="#">
+        <div class="bf-img">
+          <span class="bf-flag">✦ Coming soon</span>
+          <image-slot id="r-blog-featured" shape="rect" placeholder="Latest post cover"></image-slot>
+          <span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span>
+        </div>
+        <div class="bf-body">
+          <div class="bf-meta"><span>AI &amp; Content</span><span>8 min read</span><span>May 2026</span></div>
+          <h3>The AI Content Workflow I'd Build From Scratch in 2026</h3>
+          <p>If I started today with zero audience and zero clients, this is the exact AI system I'd set up first — the tools, the prompts, and the order I'd build them in.</p>
+          <span class="bf-link">Read the post <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <!-- Recent posts -->
+      <div class="blog-grid">
+        <a class="blog-card reveal" href="#">
+          <div class="blog-thumb"><span class="blog-cat">SEO</span><image-slot id="r-blog-1" shape="rect" placeholder="Post 1 cover"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span></div>
+          <h4>How to Rank #1 With AI Without Sounding Like a Robot</h4>
+          <p>The editing pass that makes AI-written content actually rank — and read like you.</p>
+          <div class="bc-meta">6 min read</div>
+        </a>
+        <a class="blog-card reveal d1" href="#">
+          <div class="blog-thumb"><span class="blog-cat">Workflow</span><image-slot id="r-blog-2" shape="rect" placeholder="Post 2 cover"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span></div>
+          <h4>One Idea, 20 Posts: My AI Repurposing System</h4>
+          <p>Turn a single video or article into a month of on-brand content, on autopilot.</p>
+          <div class="bc-meta">7 min read</div>
+        </a>
+        <a class="blog-card reveal d2" href="#">
+          <div class="blog-thumb"><span class="blog-cat">Tools</span><image-slot id="r-blog-3" shape="rect" placeholder="Post 3 cover"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span></div>
+          <h4>The AI Marketing Stack Replacing Whole Teams</h4>
+          <p>Seven tools that quietly do the work of a full department — and how they fit together.</p>
+          <div class="bc-meta">9 min read</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE -->
+  <section class="sec sec-tight" data-screen-label="Resources / Videos">
+    <div class="wrap">
+      <div class="yt-head">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Watch on YouTube</span>
+          <h2 class="sec-title">Latest videos</h2>
+          <p class="sec-desc">Every video is built for both sides of the table — the same AI workflow, useful to brands and creators alike.</p>
+        </div>
+        <a class="btn reveal d1" href="https://www.youtube.com/@Prinfluence" target="_blank" style="background:linear-gradient(115deg,#CE4E84 0%,#A93567 45%,#C5A062 100%);color:#fff;border:none;font-weight:600;">Subscribe on YouTube <span class="arr">→</span></a>
+      </div>
+      <div class="yt-grid">
+        <a class="yt-card reveal" href="#">
+          <div class="yt-thumb"><image-slot id="r-yt-1" shape="rect" placeholder="Thumbnail 1"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New videos dropping soon</span></span><span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="yt-title">I made a month of content in a single day with AI</div>
+          <div class="yt-desc">The exact end-to-end workflow — from idea to scheduled posts.</div>
+          <div class="yt-meta">14 min · Latest</div>
+        </a>
+        <a class="yt-card reveal d1" href="#">
+          <div class="yt-thumb"><image-slot id="r-yt-2" shape="rect" placeholder="Thumbnail 2"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New videos dropping soon</span></span><span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="yt-title">The AI content system, explained start to finish</div>
+          <div class="yt-desc">How the agents, prompts and approval steps actually fit together.</div>
+          <div class="yt-meta">19 min · Popular</div>
+        </a>
+        <a class="yt-card reveal d2" href="#">
+          <div class="yt-thumb"><image-slot id="r-yt-3" shape="rect" placeholder="Thumbnail 3"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New videos dropping soon</span></span><span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="yt-title">5 AI tools I use every single week (and why)</div>
+          <div class="yt-desc">My current stack for content, research and outreach.</div>
+          <div class="yt-meta">12 min</div>
+        </a>
+        <a class="yt-card reveal" href="#">
+          <div class="yt-thumb"><image-slot id="r-yt-4" shape="rect" placeholder="Thumbnail 4"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New videos dropping soon</span></span><span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="yt-title">AI agents that run your content while you sleep</div>
+          <div class="yt-desc">Build a team of AI agents that plan, write and schedule — hands-off, on autopilot.</div>
+          <div class="yt-meta">9 min</div>
+        </a>
+        <a class="yt-card reveal d1" href="#">
+          <div class="yt-thumb"><image-slot id="r-yt-5" shape="rect" placeholder="Thumbnail 5"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New videos dropping soon</span></span><span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="yt-title">I Used Claude Code to Hit #1 on Google (Steal My Exact SEO Workflow)</div>
+          <div class="yt-desc">The AI-powered SEO system that's quietly outranking everyone — do it yourself.</div>
+          <div class="yt-meta">16 min</div>
+        </a>
+        <a class="yt-card reveal d2" href="#">
+          <div class="yt-thumb"><image-slot id="r-yt-6" shape="rect" placeholder="Thumbnail 6"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New videos dropping soon</span></span><span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="yt-title">7 AI Tools Doing the Work of a Full Marketing Team</div>
+          <div class="yt-desc">The exact stack replacing whole departments — set it up before your competitors do.</div>
+          <div class="yt-meta">11 min</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREEBIES (coming soon) -->
+  <section class="sec" style="background:var(--paper-2);" data-screen-label="Resources / Downloads">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:44px;">
+        <span class="eyebrow">Free downloads</span>
+        <h2 class="sec-title">Grab a head start</h2>
+        <p class="sec-desc">A few free templates on the way to help you get going — no purchase needed.</p>
+      </div>
+      <div class="dl-grid">
+        <div class="dl reveal">
+          <span class="dl-soon"><span class="spk">✦</span> Coming soon</span>
+          <div class="dk">Template</div>
+          <h3>The 1-Page Pitch</h3>
+          <p>The exact structure for a brand pitch that gets opened, read and answered. Fill-in-the-blanks.</p>
+          <span class="btn is-soon">Coming soon</span>
+        </div>
+        <div class="dl reveal d1">
+          <span class="dl-soon"><span class="spk">✦</span> Coming soon</span>
+          <div class="dk">Notion</div>
+          <h3>AI Content Calendar</h3>
+          <p>A plug-and-play calendar to plan a month of content with AI prompts baked into every slot.</p>
+          <span class="btn is-soon">Coming soon</span>
+        </div>
+        <div class="dl reveal d2">
+          <span class="dl-soon"><span class="spk">✦</span> Coming soon</span>
+          <div class="dk">Cheat-sheet</div>
+          <h3>Creator Rate Guide</h3>
+          <p>Ballpark rates by platform, niche and deliverable — so you never undercharge again.</p>
+          <span class="btn is-soon">Coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-screen-label="Resources / Footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="word">Prin<span class="it">fluence</span></div>
+          <p class="ftag">AI-powered marketing for brands and creators.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h5>Explore</h5>
+            <a href="Brands.html">For Brands</a>
+            <a href="Creators.html">For Creators</a>
+            <a href="About.html">About</a>
+            <a href="Resources.html">Resources</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="https://www.youtube.com/@Prinfluence" target="_blank">YouTube</a>
+            <a href="https://www.linkedin.com/in/nwoye/" target="_blank">LinkedIn</a>
+            <a href="https://www.tiktok.com/@prinfluence.ugc" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/prinfluence.ugc" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copy">© 2026 Prinfluence. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#">Privacy</a>
+          <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="image-slot.js"></script>
+  <script src="prinfluence.js"></script>
+</body>
+</html>

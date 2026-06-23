@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<template id="__bundler_thumbnail" data-bg-color="#100A14">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F5ADCE"/><stop offset="0.5" stop-color="#C8A0F0"/><stop offset="1" stop-color="#7EB8FF"/></linearGradient></defs>
+    <rect width="1200" height="800" fill="#100A14"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="130" font-weight="600" fill="#F7F0F4">Prin<tspan font-style="italic" fill="url(#g)">fluence</tspan></text>
+    <text x="600" y="512" text-anchor="middle" font-family="monospace" font-size="26" letter-spacing="12" fill="#E274A0">ABOUT</text>
+  </svg>
+</template>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — Prinfluence</title>
+<meta name="description" content="I'm Prin, founder of Prinfluence — AI marketing for creators and brands. The story behind the brand." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="prinfluence.css" />
+<style>
+  /* ===== ABOUT — balanced dark, personal ===== */
+  .theme-dark {
+    --paper: #100A14; --paper-2: #170F1C; --panel: #201528;
+    --ink: #F7F0F4; --ink-2: rgba(247,240,244,0.74); --ink-soft: rgba(247,240,244,0.64);
+    --ink-faint: rgba(247,240,244,0.44); --line: rgba(255,255,255,0.11); --line-soft: rgba(255,255,255,0.06);
+  }
+  body.theme-dark { background: var(--paper); }
+
+  .a-hero { position: relative; overflow: hidden; padding: clamp(150px, 16vw, 200px) 0 clamp(40px, 5vw, 70px); }
+  .a-hero::before { content:""; position:absolute; inset:-25% -10% auto -10%; height:135%; filter:blur(28px); opacity:.9; z-index:0;
+    background: radial-gradient(36% 46% at 16% 16%, rgba(226,116,160,0.32), transparent 60%), radial-gradient(34% 46% at 86% 20%, rgba(197,160,98,0.26), transparent 60%); }
+  .a-hero .wrap { position: relative; z-index: 1; }
+  .a-grid { display: grid; grid-template-columns: 0.62fr 0.38fr; gap: clamp(36px, 5vw, 80px); align-items: center; }
+  .a-photo { position: relative; perspective: 1400px; }
+  /* lifting-off-the-page photo */
+  .a-photo .lift {
+    position: relative; border-radius: 18px; overflow: hidden; display: block; width: 100%;
+    transform: rotateY(13deg) rotateX(5deg) rotate(-2deg);
+    transform-origin: center 60%;
+    box-shadow: 28px 40px 70px -28px rgba(0,0,0,0.7), 0 10px 24px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+    transition: transform .6s cubic-bezier(.2,.7,.3,1), box-shadow .6s cubic-bezier(.2,.7,.3,1);
+    animation: floatLift 6s ease-in-out infinite;
+  }
+  .a-photo .lift img { display: block; width: 100%; height: auto; }
+  .a-photo .lift::after { content:""; position:absolute; inset:0; border-radius:18px; pointer-events:none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.16), transparent 38%); }
+  .a-photo:hover .lift { transform: rotateY(7deg) rotateX(2deg) rotate(-1deg) translateY(-8px) scale(1.02); box-shadow: 34px 52px 90px -30px rgba(0,0,0,0.75), 0 14px 30px -12px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.09); }
+  @keyframes floatLift { 0%,100% { transform: rotateY(13deg) rotateX(5deg) rotate(-2deg) translateY(0); } 50% { transform: rotateY(13deg) rotateX(5deg) rotate(-2deg) translateY(-12px); } }
+  /* glow pad beneath, sells the float */
+  .a-photo::before { content:""; position:absolute; left:8%; right:8%; bottom:-6%; height:18%; z-index:-1;
+    background: radial-gradient(60% 100% at 50% 0%, rgba(226,116,160,0.45), transparent 70%); filter: blur(22px); }
+  /* sparkles, top-left of photo */
+  .a-sparkles { position: absolute; top: -34px; left: -30px; width: 200px; height: 180px; z-index: 4; pointer-events: none; }
+  .a-sparkles .spk { position: absolute; fill: none; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px currentColor); }
+  .a-sparkles .s1 { top: 4px; left: 18px; width: 34px; height: 34px; color: #F5ADCE; animation: twinkleA 3.2s ease-in-out infinite; }
+  .a-sparkles .s2 { top: 48px; left: -8px; width: 22px; height: 22px; color: #C8A0F0; animation: twinkleA 2.6s ease-in-out .5s infinite; }
+  .a-sparkles .s3 { top: 88px; left: 30px; width: 16px; height: 16px; color: #7EB8FF; animation: twinkleA 3.6s ease-in-out 1.1s infinite; }
+  .a-sparkles .s4 { top: 22px; left: 70px; width: 13px; height: 13px; color: #E9C977; animation: twinkleA 2.9s ease-in-out 1.7s infinite; }
+  .a-sparkles .spk path { fill: currentColor; stroke: none; }
+  @keyframes twinkleA { 0%,100% { opacity: .25; transform: scale(.7) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(18deg); } }
+  .a-photo .ribbon { position: absolute; bottom: 18px; left: -16px; z-index: 3; background: var(--rose); color: #fff; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 11px 18px; border-radius: 100px; box-shadow: 0 16px 34px -14px rgba(0,0,0,.6); }
+  .a-name { font-family: var(--font-display); font-weight: 540; font-size: clamp(48px, 8vw, 104px); line-height: 0.92; letter-spacing: -0.03em; margin-top: 22px; }
+  .a-name .it { font-style: italic; font-weight: 500; }
+  .a-role { font-size: clamp(17px, 1.6vw, 21px); color: var(--ink-2); margin-top: 20px; max-width: 24em; }
+  .a-role b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 860px) { .a-grid { grid-template-columns: 1fr; } .a-photo { max-width: 360px; } .a-photo .lift { transform: none; animation: none; } .a-photo:hover .lift { transform: translateY(-6px); } }
+
+  /* STORY */
+  .story { max-width: 760px; margin: 0 auto; }
+  .story .lead { font-family: var(--font-display); font-weight: 540; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.18; letter-spacing: -0.018em; }
+  .story .lead em { font-style: italic; color: var(--rose); }
+  .story p { color: var(--ink-2); font-size: clamp(17px, 1.4vw, 19px); line-height: 1.7; margin-top: 26px; }
+  .story p:first-of-type { margin-top: 34px; }
+
+  /* NOW trio */
+  .now-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .now { padding: clamp(24px,2.6vw,34px); border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,0.03); }
+  .now .nk { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .now .nh { font-family: var(--font-display); font-weight: 540; font-size: 21px; margin-top: 12px; }
+  .now p { color: var(--ink-2); font-size: 14.5px; margin-top: 10px; line-height: 1.55; }
+  @media (max-width: 760px) { .now-grid { grid-template-columns: 1fr; } }
+
+  /* CTA */
+  .a-cta { text-align: center; position: relative; overflow: hidden; padding: clamp(72px,9vw,130px) 0; }
+  .a-cta::before { content:""; position:absolute; inset:-20% -10% auto -10%; height:130%; filter:blur(28px); opacity:.8; z-index:0;
+    background: radial-gradient(40% 50% at 30% 30%, rgba(226,116,160,0.3), transparent 60%), radial-gradient(40% 50% at 72% 40%, rgba(197,160,98,0.24), transparent 60%); }
+  .a-cta .wrap { position: relative; z-index: 1; }
+  .a-cta h2 { font-family: var(--font-display); font-weight: 540; font-size: clamp(34px,5.2vw,68px); line-height: 1.0; letter-spacing: -0.025em; max-width: 14em; margin: 0 auto; }
+  .a-cta h2 em { font-style: italic; color: var(--rose); }
+  .a-cta .btns { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  /* gradient book-a-call button */
+  .theme-dark .btn-grad { background: var(--holo); background-size: 200% 100%; background-position: 0 50%; color: #150C1E; border: 1px solid transparent; font-weight: 700; transition: background-position .6s ease, transform .25s, box-shadow .25s; }
+  .theme-dark .btn-grad:hover { background-position: 100% 50%; transform: translateY(-2px); box-shadow: 0 18px 40px -14px rgba(200,160,240,0.6); }
+</style>
+</head>
+<body class="theme-dark">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brandmark" href="Home.html"><span class="word">Prin<span class="it">fluence</span></span></a>
+      <div class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="Brands.html">For Brands</a>
+        <a href="Creators.html">For Creators</a>
+        <a href="About.html" class="active">About</a>
+        <a href="Resources.html">Resources</a>
+      </div>
+      <div class="nav-right">
+        <a href="login.html" style="font-size:14px;color:var(--ink-2);margin-right:18px;text-decoration:none">My Products</a>
+        <a class="btn btn-rose" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="drawer">
+    <button class="close" aria-label="Close">&times;</button>
+    <a href="Home.html">Home</a>
+    <a href="Brands.html">For Brands</a>
+    <a href="Creators.html">For Creators</a>
+    <a href="About.html">About</a>
+    <a href="Resources.html">Resources</a>
+    <a href="login.html">My Products</a>
+    <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank" style="color:var(--rose)">Book a Call</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="a-hero" data-screen-label="About / Hero">
+    <div class="wrap">
+      <div class="a-grid">
+        <div class="a-photo reveal">
+          <div class="a-sparkles" aria-hidden="true">
+            <svg class="spk s1" viewBox="0 0 24 24"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12 6.9-1.2 11.4-5.7 12-12z"/></svg>
+            <svg class="spk s2" viewBox="0 0 24 24"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12 6.9-1.2 11.4-5.7 12-12z"/></svg>
+            <svg class="spk s3" viewBox="0 0 24 24"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12 6.9-1.2 11.4-5.7 12-12z"/></svg>
+            <svg class="spk s4" viewBox="0 0 24 24"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12 6.9-1.2 11.4-5.7 12-12z"/></svg>
+          </div>
+          <div class="lift"><img src="assets/about-prin.png" alt="Prin, founder of Prinfluence" /></div>
+          <div class="ribbon">Maryland, USA</div>
+        </div>
+        <div class="a-intro">
+          <span class="eyebrow reveal">Hi, I'm</span>
+          <h1 class="a-name reveal d1">Prin<span class="it">.</span></h1>
+          <p class="a-role reveal d2"><b>Founder, Prinfluence</b> — AI marketing for creators and brands.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- STORY -->
+  <section class="sec" data-screen-label="About / Story">
+    <div class="wrap">
+      <div class="story">
+        <p class="lead reveal">I build AI-powered marketing systems for brands — and I teach creators how to use the <em>same tools</em> to grow.</p>
+        <p class="reveal d1">Prinfluence started with a simple frustration: marketing was still being done by hand, slowly, while AI was quietly changing what a small team could actually produce. I wanted to close that gap — for the brands I work with and for the creators figuring it out on their own.</p>
+        <p class="reveal d1">So I built both sides. An agency that designs AI content systems for travel, lifestyle and tech brands. And a set of digital products that give creators the same edge — better pitches, smarter outreach, fairer rates.</p>
+        <p class="reveal d1">These days I split my time between client work, building tools, and a YouTube channel where I show both how to actually use AI — not just talk about it. Same playbook, two audiences.</p>
+        <p class="reveal d1">When I'm not in a doc or on camera, I'm probably outside somewhere in Maryland, planning the next thing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOW -->
+  <section class="sec sec-tight" data-screen-label="About / Now">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:40px;">
+        <span class="eyebrow">What I'm doing now</span>
+        <h2 class="sec-title">Three things, <em style="font-style:italic;color:var(--rose)">one playbook</em></h2>
+      </div>
+      <div class="now-grid">
+        <div class="now reveal"><div class="nk">For brands</div><div class="nh">The agency</div><p>Designing and running AI content systems that scale output without scaling the team.</p></div>
+        <div class="now reveal d1"><div class="nk">For creators</div><div class="nh">The products</div><p>Building tools that help creators pitch better, charge more and land more brand deals.</p></div>
+        <div class="now reveal d2"><div class="nk">For everyone</div><div class="nh">The channel</div><p>Teaching real AI workflows on YouTube — practical, weekly, no hype.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="a-cta" data-screen-label="About / CTA">
+    <div class="wrap">
+      <h2 class="reveal">Want to <em>work together</em> — or just learn?</h2>
+      <div class="btns reveal d1">
+        <a class="btn btn-rose btn-lg" href="https://www.youtube.com/@Prinfluence" target="_blank">Watch my YouTube <span class="arr">→</span></a>
+        <a class="btn btn-grad btn-lg" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a call <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-screen-label="About / Footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="word">Prin<span class="it">fluence</span></div>
+          <p class="ftag">AI-powered marketing for brands and creators.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h5>Explore</h5>
+            <a href="Brands.html">For Brands</a>
+            <a href="Creators.html">For Creators</a>
+            <a href="About.html">About</a>
+            <a href="Resources.html">Resources</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="Resources.html">YouTube</a>
+            <a href="https://www.linkedin.com/in/nwoye/" target="_blank">LinkedIn</a>
+            <a href="https://www.tiktok.com/@prinfluence.ugc" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/prinfluence.ugc" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copy">© 2026 Prinfluence. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#">Privacy</a>
+          <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="image-slot.js"></script>
+  <script src="prinfluence.js"></script>
+</body>
+</html>

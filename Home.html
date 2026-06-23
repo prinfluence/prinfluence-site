@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<template id="__bundler_thumbnail" data-bg-color="#0A0612">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F5ADCE"/><stop offset="0.5" stop-color="#C8A0F0"/><stop offset="1" stop-color="#7EB8FF"/></linearGradient></defs>
+    <rect width="1200" height="800" fill="#0A0612"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="130" font-weight="600" fill="#F7F0F6">Prin<tspan font-style="italic" fill="url(#g)">fluence</tspan></text>
+    <text x="600" y="512" text-anchor="middle" font-family="monospace" font-size="26" letter-spacing="12" fill="#E274A0">ONE SITE · TWO PATHS</text>
+  </svg>
+</template>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prinfluence — AI-powered marketing for brands & creators</title>
+<meta name="description" content="One site. Two paths. AI-powered marketing for brands that want to scale — and creators who want to land more brand deals." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="prinfluence.css" />
+<style>
+  /* ============ HOMEPAGE — dark, dramatic ============ */
+  .theme-dark {
+    --paper: #0A0612; --paper-2: #100A1A; --panel: #181030;
+    --ink: #F7F0F6; --ink-2: rgba(247,240,246,0.70); --ink-soft: rgba(247,240,246,0.64);
+    --ink-faint: rgba(247,240,246,0.42); --line: rgba(255,255,255,0.11); --line-soft: rgba(255,255,255,0.06);
+  }
+  body.theme-dark { background: var(--paper); }
+
+  /* HERO */
+  .home-hero { padding: clamp(90px, 11vw, 130px) 0 clamp(20px, 2.5vw, 32px); text-align: center; position: relative; overflow: hidden; }
+  .aurora {
+    position: absolute; inset: -25% -12% auto -12%; height: 135%; z-index: 0; pointer-events: none;
+    filter: blur(28px); opacity: .95;
+    background:
+      radial-gradient(38% 48% at 18% 22%, rgba(226,116,160,0.40), transparent 60%),
+      radial-gradient(34% 46% at 82% 12%, rgba(126,184,255,0.30), transparent 60%),
+      radial-gradient(44% 54% at 55% 80%, rgba(200,160,240,0.34), transparent 62%),
+      radial-gradient(28% 40% at 90% 72%, rgba(197,160,98,0.26), transparent 60%);
+    animation: auroraDrift 19s ease-in-out infinite alternate;
+  }
+  @keyframes auroraDrift { from { transform: translate3d(-2%,-1%,0) scale(1); } to { transform: translate3d(3%,2%,0) scale(1.09); } }
+  .home-hero .wrap { position: relative; z-index: 1; }
+  .home-hero h1 {
+    font-family: var(--font-display); font-weight: 540;
+    font-size: clamp(40px, 6.6vw, 96px); line-height: 0.98; letter-spacing: -0.03em;
+    max-width: 15em; margin: 26px auto 0; text-wrap: balance;
+  }
+  .home-hero h1 .line2 { display: block; }
+  .home-hero h1 .rotator { color: transparent; }
+  .home-hero h1 .rotator .rot-word {
+    background: var(--holo-text); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; font-style: italic; font-weight: 500;
+  }
+  .home-hero .sub { margin: 30px auto 0; font-size: clamp(17px, 1.6vw, 21px); color: var(--ink-2); max-width: 24em; }
+  .scroll-cue { margin-top: 34px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 9px; }
+  .scroll-cue .down { display: inline-block; animation: bob 2s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(5px);} }
+
+  /* THE FORK */
+  .fork-wrap { padding: 0 clamp(16px, 3vw, 40px) clamp(20px, 3vw, 32px); }
+  .fork { display: flex; gap: 14px; position: relative; max-width: 1480px; margin: 0 auto; min-height: clamp(360px, 46vh, 480px); }
+  .fork-half {
+    flex: 1; position: relative; overflow: hidden; border-radius: 28px; cursor: pointer;
+    display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(28px, 3.4vw, 56px);
+    transition: flex .65s cubic-bezier(.4,0,.2,1), box-shadow .4s; text-decoration: none;
+  }
+  .fork:has(.fork-half:hover) .fork-half:not(:hover) { flex: 0.82; }
+  .fork-half:hover { flex: 1.34; }
+  .fork-half::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: .55;
+  }
+  /* BRANDS — warm dark (bordeaux/espresso + gold) */
+  .fork-brand {
+    background:
+      radial-gradient(85% 80% at 86% 8%, rgba(197,160,98,0.34), transparent 60%),
+      radial-gradient(72% 82% at 8% 98%, rgba(206,78,132,0.30), transparent 60%),
+      linear-gradient(155deg, #2C1722 0%, #1C0E16 58%, #160A11 100%);
+    color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.09);
+  }
+  .fork-brand:hover { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 44px 96px -42px rgba(197,160,98,0.5); }
+  /* CREATORS — cool dark holographic */
+  .fork-creator {
+    background:
+      radial-gradient(90% 80% at 12% 8%, rgba(226,116,160,0.34), transparent 60%),
+      radial-gradient(80% 80% at 92% 20%, rgba(126,184,255,0.26), transparent 60%),
+      radial-gradient(70% 90% at 62% 112%, rgba(200,160,240,0.32), transparent 62%),
+      linear-gradient(155deg, #140C24 0%, #0C0816 70%);
+    color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.09);
+  }
+  .fork-creator:hover { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 44px 96px -42px rgba(200,160,240,0.55); }
+
+  .fork-tag { font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 10px; margin-bottom: auto; align-self: flex-start; position: relative; z-index: 1; }
+  .fork-tag .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .fork-brand .fork-tag { color: var(--gold); }
+  .fork-brand .fork-tag .dot { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+  .fork-creator .fork-tag { color: var(--creator-pink); }
+  .fork-creator .fork-tag .dot { background: var(--creator-pink); box-shadow: 0 0 12px var(--creator-pink); }
+
+  .fork-body { margin-top: clamp(24px, 4vw, 60px); position: relative; z-index: 1; }
+  .fork-h { font-family: var(--font-display); font-weight: 540; letter-spacing: -0.022em; font-size: clamp(34px, 4vw, 60px); line-height: 1.0; }
+  .fork-brand .fork-h .it { font-style: italic; color: var(--gold); font-weight: 500; }
+  .fork-creator .fork-h .grad { background: var(--holo-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; font-weight: 500; }
+  .fork-p { margin-top: 16px; max-width: 24em; font-size: 16px; line-height: 1.55; color: rgba(255,255,255,0.74); }
+  .fork-cta { margin-top: 28px; display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; padding: 15px 28px; border-radius: 100px; white-space: nowrap; align-self: flex-start; transition: transform .25s, box-shadow .25s, background-position .6s; }
+  .fork-brand .fork-cta { background: linear-gradient(120deg, #E9C977, #C5A062); background-size: 200% 100%; color: #20160A; }
+  .fork-creator .fork-cta { background: var(--holo); background-size: 200% 100%; color: #150c1e; }
+  .fork-half:hover .fork-cta { transform: translateY(-2px); }
+  .fork-brand:hover .fork-cta { background-position: 100% 50%; box-shadow: 0 16px 36px -12px rgba(197,160,98,.6); }
+  .fork-creator:hover .fork-cta { background-position: 100% 50%; box-shadow: 0 16px 36px -12px rgba(200,160,240,.6); }
+  .fork-cta .arr { transition: transform .25s; }
+  .fork-half:hover .fork-cta .arr { transform: translateX(4px); }
+  .fork-or { position: absolute; top: 41%; left: 50%; transform: translate(-50%,-50%); z-index: 6; width: 56px; height: 56px; border-radius: 50%; background: var(--paper); color: var(--ink-soft); display: grid; place-items: center; pointer-events: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 0 0 1px var(--line), 0 10px 30px -8px rgba(0,0,0,.6); }
+
+  @media (max-width: 820px) {
+    .fork { flex-direction: column; min-height: 0; }
+    .fork-half { min-height: 400px; }
+    .fork:has(.fork-half:hover) .fork-half:not(:hover) { flex: 1; }
+    .fork-half:hover { flex: 1; }
+    .fork-or { display: none; }
+  }
+
+  /* MARQUEE */
+  .marquee-sec { padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; background: var(--paper-2); }
+  .marquee { display: flex; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+  .marquee-track { display: flex; align-items: center; flex-shrink: 0; animation: scrollx 34s linear infinite; }
+  .m-item { font-family: var(--font-display); font-size: clamp(22px, 3vw, 40px); font-weight: 500; padding: 10px 32px; white-space: nowrap; display: flex; align-items: center; gap: 32px; color: var(--ink); }
+  .m-item::after { content: "✦"; font-size: 0.36em; color: var(--rose); }
+  .m-item.gold::after { color: var(--gold); }
+  @keyframes scrollx { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+  /* CAPABILITIES */
+  .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 54px; }
+  .cap-card { background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); border: 1px solid var(--line); border-radius: 22px; padding: clamp(28px, 3vw, 40px); transition: transform .4s cubic-bezier(.2,.7,.3,1), border-color .4s, box-shadow .4s; }
+  .cap-card:hover { transform: translateY(-6px); border-color: rgba(226,116,160,0.5); box-shadow: 0 34px 64px -34px rgba(200,160,240,0.45); }
+  .cap-num { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; color: var(--rose); }
+  .cap-card h3 { font-family: var(--font-display); font-weight: 540; font-size: clamp(22px, 2.4vw, 28px); margin-top: 16px; letter-spacing: -0.01em; }
+  .cap-card p { color: var(--ink-2); margin-top: 12px; font-size: 15.5px; line-height: 1.55; }
+  .cap-card .tag { margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+  @media (max-width: 800px) { .cap-grid { grid-template-columns: 1fr; max-width: 460px; } }
+
+  /* STATS */
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: rgba(255,255,255,0.02); }
+  .stat { padding: clamp(36px, 4.5vw, 60px) clamp(24px, 3vw, 44px); border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: none; }
+  .stat .num { font-family: var(--font-display); font-size: clamp(46px, 6vw, 82px); font-weight: 560; letter-spacing: -0.025em; line-height: 1; background: var(--holo-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat.gold .num { background: linear-gradient(120deg, #F0D58A, #C5A062); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .lbl { color: var(--ink-2); margin-top: 16px; font-size: 15.5px; max-width: 15em; }
+  @media (max-width: 760px) { .stats-grid { grid-template-columns: 1fr; } .stat { border-right: none; border-bottom: 1px solid var(--line); } .stat:last-child { border-bottom: none; } }
+
+  /* AI ENGINE BAND */
+  .ai-band { position: relative; overflow: hidden; border-radius: 30px; padding: clamp(40px, 5vw, 82px); background: radial-gradient(80% 120% at 100% -12%, rgba(226,116,160,0.26), transparent 55%), radial-gradient(70% 100% at -6% 112%, rgba(126,184,255,0.22), transparent 58%), linear-gradient(160deg, #170D26 0%, #0C0816 100%); border: 1px solid var(--line); box-shadow: 0 50px 110px -50px rgba(10,6,18,0.85); }
+  .ai-head { max-width: 40em; position: relative; z-index: 1; }
+  .ai-pill { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: #fff; border: 1px solid rgba(255,255,255,0.16); padding: 8px 16px; border-radius: 100px; margin-bottom: 24px; }
+  .ai-pill .spark { color: var(--gold); font-size: 14px; animation: twinkle 2.6s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: .8; transform: scale(1) rotate(0); } 50% { opacity: 1; transform: scale(1.3) rotate(16deg); } }
+  .ai-title { font-family: var(--font-display); font-weight: 540; font-size: clamp(30px, 4.2vw, 56px); line-height: 1.0; letter-spacing: -0.022em; color: #fff; }
+  .ai-title em { font-style: italic; color: var(--gold); }
+  .ai-sub { color: var(--ink-2); font-size: clamp(16px, 1.5vw, 19px); margin-top: 20px; max-width: 36em; }
+  .ai-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; position: relative; z-index: 1; }
+  .ai-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 30px; transition: transform .3s, border-color .3s, background .3s; }
+  .ai-card:hover { transform: translateY(-5px); border-color: var(--gold); background: rgba(255,255,255,0.08); }
+  .ai-card .ic { font-size: 26px; }
+  .ai-card h4 { font-family: var(--font-display); font-weight: 540; font-size: 22px; margin-top: 16px; color: #fff; }
+  .ai-card p { color: var(--ink-2); font-size: 14.5px; margin-top: 10px; line-height: 1.5; }
+  @media (max-width: 860px) { .ai-cards { grid-template-columns: 1fr; } }
+
+  /* ABOUT STRIP */
+  .about-strip .ab-grid { display: grid; grid-template-columns: 0.42fr 0.58fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .about-strip .ab-photo { position: relative; }
+  .about-strip image-slot { width: 100%; aspect-ratio: 4/5; border-radius: 22px; overflow: hidden; }
+  .about-strip .ab-photo img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 22px; display: block; box-shadow: 0 30px 60px -28px rgba(0,0,0,.7); }
+  .about-strip .ab-ribbon { position: absolute; bottom: 18px; left: -16px; background: rgba(197,160,98,0.75); color: #20160A; backdrop-filter: blur(8px); border: 1px solid rgba(197,160,98,0.5); font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 11px 18px; border-radius: 100px; box-shadow: 0 16px 34px -14px rgba(0,0,0,.6); }
+  .about-strip .ab-lead { font-family: var(--font-display); font-weight: 540; font-size: clamp(24px, 3vw, 38px); line-height: 1.18; letter-spacing: -0.015em; }
+  .about-strip .ab-lead em { font-style: italic; color: var(--rose); }
+  .about-strip .ab-p { color: var(--ink-2); margin-top: 22px; font-size: 17px; max-width: 36em; }
+  .about-strip .ab-cta { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
+  @media (max-width: 760px) { .about-strip .ab-grid { grid-template-columns: 1fr; } .about-strip .ab-photo { max-width: 340px; } }
+
+  /* YOUTUBE STRIP */
+  .yt-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 44px; }
+  .yt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
+  .yt-card { cursor: pointer; }
+  .yt-thumb { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; background: var(--panel); }
+  .yt-card image-slot { width: 100%; height: 100%; transition: transform .5s cubic-bezier(.2,.7,.3,1); }
+  .yt-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.94); display: grid; place-items: center; transition: transform .3s; z-index: 2; }
+  .yt-card:hover .yt-play { transform: translate(-50%,-50%) scale(1.08); }
+  .yt-card:hover image-slot { transform: scale(1.04); }
+  /* green coming-soon corner sash */
+  .yt-sash { position: absolute; top: 0; right: 0; width: 132px; height: 132px; overflow: hidden; z-index: 5; pointer-events: none; }
+  .yt-sash span { position: absolute; top: 26px; right: -34px; width: 170px; transform: rotate(45deg); text-align: center;
+    background: linear-gradient(135deg, #1F8A5B, #34C77B); color: #fff; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: 7px 0;
+    box-shadow: 0 6px 16px -4px rgba(31,138,91,0.6); border-top: 1px solid rgba(255,255,255,0.25); border-bottom: 1px solid rgba(0,0,0,0.12); }
+  .yt-title { font-family: var(--font-display); font-weight: 540; font-size: 19px; line-height: 1.18; margin-top: 16px; letter-spacing: -0.01em; }
+  .yt-meta { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-top: 8px; }
+  .yt-badge { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(197,160,98,0.4); padding: 4px 9px; border-radius: 100px; margin-top: 12px; }
+  @media (max-width: 760px) { .yt-grid { grid-template-columns: 1fr; max-width: 460px; } }
+
+  /* CTA BAND */
+  .cta-band { text-align: center; padding: clamp(80px, 11vw, 150px) 0; position: relative; overflow: hidden; }
+  .cta-band .aurora { opacity: .8; }
+  .cta-band h2 { font-family: var(--font-display); font-weight: 540; font-size: clamp(38px, 6.4vw, 92px); line-height: 0.98; letter-spacing: -0.03em; position: relative; z-index: 1; text-wrap: balance; max-width: 14em; margin: 0 auto; }
+  .cta-band h2 em { font-style: italic; color: var(--rose); }
+  .cta-band .c-sub { position: relative; z-index: 1; margin: 26px auto 0; max-width: 30em; color: var(--ink-2); font-size: clamp(17px, 1.5vw, 20px); }
+  .cta-band .c-btns { position: relative; z-index: 1; margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* "My story" + "For brands" buttons echo the brands fork-side background */
+  .theme-dark .btn-gold {
+    background:
+      radial-gradient(130% 150% at 88% 6%, rgba(197,160,98,0.55), transparent 62%),
+      radial-gradient(130% 150% at 8% 100%, rgba(206,78,132,0.45), transparent 60%),
+      linear-gradient(155deg, #2C1722 0%, #1C0E16 58%, #160A11 100%);
+    color: #F7EFEA;
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+  .theme-dark .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -14px rgba(197,160,98,.5); border-color: rgba(197,160,98,0.5); }
+
+  /* Bottom "For creators" button echoes the creators fork-side background */
+  .theme-dark .btn-creators {
+    background:
+      radial-gradient(130% 150% at 12% 6%, rgba(226,116,160,0.5), transparent 62%),
+      radial-gradient(130% 150% at 92% 20%, rgba(126,184,255,0.4), transparent 60%),
+      radial-gradient(120% 150% at 62% 112%, rgba(200,160,240,0.45), transparent 62%),
+      linear-gradient(155deg, #140C24 0%, #0C0816 70%);
+    color: #F7F0F6;
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+  .theme-dark .btn-creators:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -14px rgba(200,160,240,.5); border-color: rgba(200,160,240,0.5); }
+
+  /* "Watch on YouTube" — glassy red bubble */
+  .theme-dark .btn-yt {
+    background: linear-gradient(180deg, rgba(255,72,72,0.34) 0%, rgba(255,0,0,0.16) 100%);
+    color: #fff; border: 1px solid rgba(255,255,255,0.28);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.45), inset 0 -10px 18px rgba(255,0,0,0.14), 0 10px 26px -12px rgba(255,0,0,0.5);
+  }
+  .theme-dark .btn-yt:hover { transform: translateY(-2px); background: linear-gradient(180deg, rgba(255,86,86,0.46) 0%, rgba(255,0,0,0.24) 100%); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.55), 0 16px 34px -12px rgba(255,0,0,0.55); }
+
+  /* Logo: "influence" = ONE continuous gold→blue gradient; "fluence" italic inside it, "Pr" stays ink */
+  .brandmark .word .logo-influence {
+    background: linear-gradient(100deg, #E9C977 0%, #D7A964 20%, #E29ABF 52%, #A99AEC 74%, #7EB8FF 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .brandmark .word .logo-influence .logo-it { font-style: italic; font-weight: 500; -webkit-text-fill-color: transparent; }
+
+  /* "My story" — glassy bubble in the Book-a-Call rose */
+  .theme-dark .btn-rose-glass {
+    background: linear-gradient(180deg, rgba(226,108,160,0.42) 0%, rgba(206,78,132,0.20) 100%);
+    color: #fff; border: 1px solid rgba(255,255,255,0.28);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.45), inset 0 -10px 18px rgba(206,78,132,0.16), 0 10px 26px -12px rgba(206,78,132,0.5);
+  }
+  .theme-dark .btn-rose-glass:hover { transform: translateY(-2px); background: linear-gradient(180deg, rgba(232,122,172,0.52) 0%, rgba(206,78,132,0.28) 100%); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.55), 0 16px 34px -12px rgba(206,78,132,0.55); }
+</style>
+</head>
+<body class="theme-dark">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brandmark" href="Home.html"><span class="word">Prin<span class="logo-influence"><span class="logo-it">fluence</span></span></span></a>
+      <div class="nav-links">
+        <a href="Home.html" class="active">Home</a>
+        <a href="Brands.html">For Brands</a>
+        <a href="Creators.html">For Creators</a>
+        <a href="About.html">About</a>
+        <a href="Resources.html">Resources</a>
+      </div>
+      <div class="nav-right">
+        <a href="login.html" style="font-size:14px;color:var(--ink-2);margin-right:18px;text-decoration:none">My Products</a>
+        <a class="btn btn-rose" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="drawer">
+    <button class="close" aria-label="Close">&times;</button>
+    <a href="Home.html">Home</a>
+    <a href="Brands.html">For Brands</a>
+    <a href="Creators.html">For Creators</a>
+    <a href="About.html">About</a>
+    <a href="Resources.html">Resources</a>
+    <a href="login.html">My Products</a>
+    <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank" style="color:var(--rose)">Book a Call</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="home-hero" data-screen-label="Home / Hero">
+    <div class="aurora"></div>
+    <div class="wrap">
+      <span class="eyebrow center reveal">One system · Two paths</span>
+      <h1 class="reveal d1">AI-powered marketing built to make you
+        <span class="line2"><span class="rotator" data-rotator data-words="scale.|stand out.|sell more.|land deals.|go viral.|grow."></span></span>
+      </h1>
+      <p class="sub reveal d2">For brands that want to scale — and creators who want to land more. Pick your path.</p>
+      <div class="scroll-cue reveal d3"><span class="down">↓</span> Choose your side</div>
+    </div>
+  </header>
+
+  <!-- THE FORK -->
+  <section class="fork-wrap" data-screen-label="Home / The Fork">
+    <div class="fork reveal">
+      <!-- BRANDS FIRST -->
+      <a class="fork-half fork-brand" href="Brands.html">
+        <span class="fork-tag"><span class="dot"></span> For brands</span>
+        <div class="fork-body">
+          <h2 class="fork-h">Scale your <span class="it">marketing.</span></h2>
+          <p class="fork-p">AI-powered UGC, content systems and strategy for travel, lifestyle and tech brands ready to grow — without growing headcount.</p>
+          <span class="fork-cta">I'm a brand <span class="arr">→</span></span>
+        </div>
+      </a>
+      <!-- CREATORS SECOND -->
+      <a class="fork-half fork-creator" href="Creators.html">
+        <span class="fork-tag"><span class="dot"></span> For creators</span>
+        <div class="fork-body">
+          <h2 class="fork-h">Land more <span class="grad">brand deals.</span></h2>
+          <p class="fork-p">Tools, trackers and AI-powered resources to help you pitch better, charge more, and book more UGC work.</p>
+          <span class="fork-cta">I'm a creator <span class="arr">→</span></span>
+        </div>
+      </a>
+      <div class="fork-or">or</div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee-sec" aria-hidden="true">
+    <div class="marquee">
+      <div class="marquee-track">
+        <span class="m-item">AI Content Systems</span><span class="m-item gold">UGC at Scale</span><span class="m-item">Pitch Tools</span><span class="m-item gold">Brand Strategy</span><span class="m-item">SEO + AI</span><span class="m-item gold">Creator Products</span>
+      </div>
+      <div class="marquee-track" aria-hidden="true">
+        <span class="m-item">AI Content Systems</span><span class="m-item gold">UGC at Scale</span><span class="m-item">Pitch Tools</span><span class="m-item gold">Brand Strategy</span><span class="m-item">SEO + AI</span><span class="m-item gold">Creator Products</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="sec" data-screen-label="Home / What we do">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">One system, two outcomes</span>
+        <h2 class="sec-title">The same AI engine — pointed at <em>your</em> goal.</h2>
+        <p class="sec-desc">Whether you're a brand scaling output or a creator chasing deals, it runs on the same modern AI workflows. Here's what that looks like.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap-card reveal">
+          <div class="cap-num">01</div>
+          <h3>Content engines</h3>
+          <p>AI agent systems that produce 10+ on-brand posts a day — consistent volume, consistent quality, across every channel.</p>
+          <div class="tag">For brands</div>
+        </div>
+        <div class="cap-card reveal d1">
+          <div class="cap-num">02</div>
+          <h3>Deal-winning tools</h3>
+          <p>Trackers, pitch frameworks and AI analyzers that help creators reach out smarter and land more paid brand work.</p>
+          <div class="tag">For creators</div>
+        </div>
+        <div class="cap-card reveal d2">
+          <div class="cap-num">03</div>
+          <h3>Strategy &amp; SEO</h3>
+          <p>AI-assisted positioning, keyword clusters and programmatic pages that compound — so growth keeps building over time.</p>
+          <div class="tag">For both</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="sec sec-tight" data-screen-label="Home / Stats">
+    <div class="wrap">
+      <div class="stats-grid reveal">
+        <div class="stat">
+          <div class="num"><span data-count="10" data-suffix="+">0</span>/day</div>
+          <div class="lbl">On-brand posts an AI content system ships for a single brand.</div>
+        </div>
+        <div class="stat gold">
+          <div class="num" data-count="4" data-suffix="">0</div>
+          <div class="lbl">Live creator products — built to land more brand deals.</div>
+        </div>
+        <div class="stat">
+          <div class="num">Weekly</div>
+          <div class="lbl">New AI marketing tactics on YouTube, for creators &amp; brands alike.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI ENGINE BAND -->
+  <section class="sec" data-screen-label="Home / AI Engine">
+    <div class="wrap">
+      <div class="ai-band reveal">
+        <div class="aurora" style="opacity:.4"></div>
+        <div class="ai-head">
+          <span class="ai-pill"><span class="spark">✦</span> Powered by AI, end to end</span>
+          <h2 class="ai-title">Not just "we use AI." <em>We build the system</em> that runs on it.</h2>
+          <p class="ai-sub">Most marketing is still done by hand. Prinfluence designs the AI workflows underneath — so output scales, quality holds, and you stay focused on the work only you can do.</p>
+        </div>
+        <div class="ai-cards">
+          <div class="ai-card">
+            <div class="ic">⚙︎</div>
+            <h4>Agentic content</h4>
+            <p>AI agents draft, format and schedule on-brand content daily — you approve, it ships.</p>
+          </div>
+          <div class="ai-card">
+            <div class="ic">✦</div>
+            <h4>Smart analysis</h4>
+            <p>AI scores pitches, audits brands and finds the gaps a human eye misses in seconds.</p>
+          </div>
+          <div class="ai-card">
+            <div class="ic">↗</div>
+            <h4>Compounding SEO</h4>
+            <p>Programmatic, AI-assisted pages and clusters that keep pulling in traffic over time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT STRIP -->
+  <section class="sec about-strip" data-screen-label="Home / About">
+    <div class="wrap">
+      <div class="ab-grid">
+        <div class="ab-photo reveal">
+          <img src="assets/prin-home.jpg" alt="Prin, founder of Prinfluence" />
+          <div class="ab-ribbon">Maryland, USA</div>
+        </div>
+        <div class="ab-body">
+          <span class="eyebrow reveal">The face behind the brand</span>
+          <p class="ab-lead reveal d1" style="margin-top:20px;">I'm Prin — founder of Prinfluence. I build <em>AI-powered marketing systems</em> for brands, and teach creators how to use the same tools to grow.</p>
+          <p class="ab-p reveal d2">Agency work for brands. Digital products for creators. And a YouTube channel showing both how to actually use AI — not just talk about it.</p>
+          <div class="ab-cta reveal d3">
+            <a class="btn btn-rose-glass" href="About.html">My story <span class="arr">→</span></a>
+            <span class="btn btn-yt" aria-disabled="true" style="cursor:default;pointer-events:none;opacity:.85;">Coming soon to YouTube</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE STRIP -->
+  <section class="sec sec-tight" style="background:var(--paper-2);" data-screen-label="Home / YouTube">
+    <div class="wrap">
+      <div class="yt-head">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Watch &amp; learn</span>
+          <h2 class="sec-title">AI, content &amp; growth — <em>every week</em></h2>
+          <p class="sec-desc">One channel, every angle. Each video breaks down a real AI workflow you can use whether you're scaling a brand or building your creator business.</p>
+        </div>
+        <a class="btn btn-ghost reveal d1" href="Resources.html">All videos <span class="arr">→</span></a>
+      </div>
+      <div class="yt-grid">
+        <a class="yt-card reveal" href="Resources.html">
+          <div class="yt-thumb">
+            <image-slot id="home-yt-1" shape="rect" placeholder="YouTube thumbnail 1"></image-slot>
+            <span class="yt-sash"><span>Coming soon</span></span>
+            <span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <div class="yt-title">I made a month of content in a single day with AI</div>
+          <div class="yt-meta">Latest · 14 min</div>
+        </a>
+        <a class="yt-card reveal d1" href="Resources.html">
+          <div class="yt-thumb">
+            <image-slot id="home-yt-2" shape="rect" placeholder="YouTube thumbnail 2"></image-slot>
+            <span class="yt-sash"><span>Coming soon</span></span>
+            <span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <div class="yt-title">The AI content system, explained start to finish</div>
+          <div class="yt-meta">Popular · 19 min</div>
+        </a>
+        <a class="yt-card reveal d2" href="Resources.html">
+          <div class="yt-thumb">
+            <image-slot id="home-yt-3" shape="rect" placeholder="YouTube thumbnail 3"></image-slot>
+            <span class="yt-sash"><span>Coming soon</span></span>
+            <span class="yt-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1620"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <div class="yt-title">5 AI tools I use every single week (and why)</div>
+          <div class="yt-meta">14 min</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band" data-screen-label="Home / CTA">
+    <div class="aurora"></div>
+    <div class="wrap">
+      <h2 class="reveal">Ready to put AI <em>to work?</em></h2>
+      <p class="c-sub reveal d1">Scaling a brand or building your creator business — there's a path here for you. Start with the one that fits.</p>
+      <div class="c-btns reveal d2">
+        <a class="btn btn-gold btn-lg" href="Brands.html">For brands <span class="arr">→</span></a>
+        <a class="btn btn-creators btn-lg" href="Creators.html">For creators</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-screen-label="Home / Footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="word">Prin<span class="it">fluence</span></div>
+          <p class="ftag">AI-powered marketing for brands and creators.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h5>Explore</h5>
+            <a href="Brands.html">For Brands</a>
+            <a href="Creators.html">For Creators</a>
+            <a href="About.html">About</a>
+            <a href="Resources.html">Resources</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="Resources.html">YouTube</a>
+            <a href="https://www.linkedin.com/in/nwoye/" target="_blank">LinkedIn</a>
+            <a href="https://www.tiktok.com/@prinfluence.ugc" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/prinfluence.ugc" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copy">© 2026 Prinfluence. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#">Privacy</a>
+          <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="image-slot.js"></script>
+  <script src="prinfluence.js"></script>
+</body>
+</html>

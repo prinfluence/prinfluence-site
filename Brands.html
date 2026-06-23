@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<template id="__bundler_thumbnail" data-bg-color="#181016">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#181016"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="130" font-weight="600" fill="#F7EFEA">Prin<tspan font-style="italic" fill="#C5A062">fluence</tspan></text>
+    <text x="600" y="512" text-anchor="middle" font-family="monospace" font-size="26" letter-spacing="12" fill="#C5A062">FOR BRANDS</text>
+  </svg>
+</template>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Brands — Prinfluence</title>
+<meta name="description" content="We don't just make content. We build your marketing system. AI-powered UGC, content scaling and SEO strategy for travel, lifestyle and tech brands." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="prinfluence.css" />
+<style>
+  /* ===== BRANDS — warm-dark editorial ===== */
+  .theme-warmdark {
+    --paper: #181016; --paper-2: #1F1118; --panel: #261823;
+    --ink: #F7EFEA; --ink-2: rgba(247,239,234,0.72); --ink-soft: rgba(247,239,234,0.64);
+    --ink-faint: rgba(247,239,234,0.44); --line: rgba(255,255,255,0.11); --line-soft: rgba(255,255,255,0.06);
+    --rose: #E06A98;
+  }
+  body.theme-warmdark { background: var(--paper); }
+  .eyebrow { color: var(--gold); }
+
+  /* HERO */
+  .b-hero { position: relative; overflow: hidden; padding: clamp(150px, 16vw, 200px) 0 clamp(56px, 7vw, 96px); }
+  .b-hero::before { content: ""; position: absolute; inset: -20% -10% auto -10%; height: 130%; z-index: 0; pointer-events: none; filter: blur(26px); opacity: .9;
+    background: radial-gradient(40% 50% at 82% 14%, rgba(197,160,98,0.34), transparent 60%), radial-gradient(40% 52% at 12% 90%, rgba(224,106,152,0.26), transparent 62%); }
+  .b-hero .wrap { position: relative; z-index: 1; }
+  .b-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .b-hero h1 { font-family: var(--font-display); font-weight: 540; font-size: clamp(40px, 5.4vw, 78px); line-height: 0.98; letter-spacing: -0.028em; margin-top: 24px; text-wrap: balance; }
+  .b-hero h1 em { font-style: italic; color: var(--gold); }
+  .b-hero .sub { margin-top: 26px; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink-2); max-width: 30em; }
+  .b-hero .cta-row { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .b-hero .micro { font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: .06em; }
+  .b-hero-visual { position: relative; }
+  .b-hero-visual image-slot { width: 100%; aspect-ratio: 5/6; border-radius: 22px; overflow: hidden; }
+  .b-hero-visual .hero-video { width: 100%; aspect-ratio: 5/6; border-radius: 22px; overflow: hidden; object-fit: cover; display: block; border: 1px solid var(--line); box-shadow: 0 40px 80px -40px rgba(0,0,0,0.65); }
+  .b-hero-visual .float { position: absolute; bottom: -18px; left: -18px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; box-shadow: 0 24px 50px -22px rgba(0,0,0,.6); max-width: 220px; }
+  .b-hero-visual .float .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  .b-hero-visual .float .v { font-family: var(--font-display); font-size: 30px; font-weight: 560; margin-top: 4px; letter-spacing: -0.02em; }
+  .b-hero-visual .float .d { font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+  @media (max-width: 860px) { .b-hero-grid { grid-template-columns: 1fr; } .b-hero-visual { max-width: 380px; order: -1; } }
+
+  /* PORTFOLIO */
+  .pf-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 44px; }
+  .pf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 24px); }
+  .pf-card { cursor: pointer; }
+  .pf-thumb { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: var(--panel); }
+  .pf-card image-slot { width: 100%; height: 100%; transition: transform .5s cubic-bezier(.2,.7,.3,1); }
+  .pf-card:hover image-slot { transform: scale(1.05); }
+  .pf-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 14px; }
+  .pf-cap .nm { font-family: var(--font-display); font-weight: 540; font-size: 18px; }
+  .pf-cap .rs { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; color: var(--gold); }
+  .pf-tag { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(8px); padding: 5px 11px; border-radius: 100px; }
+  @media (max-width: 820px) { .pf-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .pf-grid { grid-template-columns: 1fr; } }
+
+  /* SERVICES */
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
+  .svc { background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid var(--line); border-radius: 24px; padding: clamp(28px, 2.6vw, 38px); display: flex; flex-direction: column; transition: transform .4s cubic-bezier(.2,.7,.3,1), border-color .4s, box-shadow .4s; }
+  .svc:hover { transform: translateY(-6px); border-color: rgba(197,160,98,0.5); box-shadow: 0 36px 70px -36px rgba(197,160,98,0.35); }
+  .svc.hero-offer { background: radial-gradient(120% 100% at 50% 0%, rgba(197,160,98,0.16), transparent 60%), linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)); border-color: rgba(197,160,98,0.4); }
+  .svc .svc-num { font-family: var(--font-mono); font-size: 12px; color: var(--gold); letter-spacing: .1em; }
+  .svc .svc-flag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #20160A; background: var(--gold); padding: 5px 11px; border-radius: 100px; margin-bottom: 14px; }
+  .svc h3 { font-family: var(--font-display); font-weight: 540; font-size: clamp(22px, 2.4vw, 27px); margin-top: 14px; letter-spacing: -0.01em; line-height: 1.08; }
+  .svc .price { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin-top: 14px; color: var(--gold); }
+  .svc .price span { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-left: 8px; }
+  .svc p { color: var(--ink-2); margin-top: 14px; font-size: 15px; line-height: 1.55; }
+  .svc ul { list-style: none; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 11px; flex: 1; }
+  .svc li { font-size: 14px; color: var(--ink-2); display: flex; gap: 10px; align-items: flex-start; line-height: 1.45; }
+  .svc li::before { content: "✦"; color: var(--gold); font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+  .svc .btn { margin-top: 24px; justify-content: center; }
+  @media (max-width: 880px) { .svc-grid { grid-template-columns: 1fr; max-width: 460px; } }
+
+  /* HOW IT WORKS */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); }
+  .step { position: relative; padding-top: 28px; border-top: 2px solid var(--gold); }
+  .step .sn { font-family: var(--font-mono); font-size: 13px; color: var(--gold); letter-spacing: .1em; }
+  .step h4 { font-family: var(--font-display); font-weight: 540; font-size: clamp(22px, 2.4vw, 28px); margin-top: 14px; }
+  .step p { color: var(--ink-2); font-size: 15.5px; margin-top: 12px; line-height: 1.55; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* DIFFERENCE band */
+  .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .diff { padding: clamp(24px,2.6vw,34px); border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,0.03); }
+  .diff .dh { font-family: var(--font-display); font-weight: 540; font-size: 20px; }
+  .diff p { color: var(--ink-2); font-size: 14.5px; margin-top: 10px; line-height: 1.55; }
+  @media (max-width: 760px) { .diff-grid { grid-template-columns: 1fr; } }
+
+  /* BOOK CTA band */
+  .book-band { position: relative; overflow: hidden; border-radius: 30px; padding: clamp(48px, 6vw, 96px) clamp(28px, 4vw, 72px); text-align: center;
+    background: radial-gradient(80% 120% at 100% -10%, rgba(197,160,98,0.3), transparent 55%), radial-gradient(70% 110% at 0% 110%, rgba(224,106,152,0.26), transparent 58%), linear-gradient(160deg, #2A1620, #160A11);
+    border: 1px solid var(--line); box-shadow: 0 50px 110px -50px rgba(10,6,10,0.8); }
+  .book-band h2 { font-family: var(--font-display); font-weight: 540; font-size: clamp(32px, 4.6vw, 64px); line-height: 1.0; letter-spacing: -0.025em; max-width: 16em; margin: 0 auto; text-wrap: balance; position: relative; z-index: 1; }
+  .book-band h2 em { font-style: italic; color: var(--gold); }
+  .book-band .bb-sub { color: var(--ink-2); margin: 22px auto 0; max-width: 30em; font-size: 17px; position: relative; z-index: 1; }
+  .book-band .btn { margin-top: 34px; position: relative; z-index: 1; }
+  .book-band .bb-btns { margin-top: 34px; position: relative; z-index: 1; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .book-band .bb-btns .btn { margin-top: 0; }
+
+  /* Pink "View my portfolio" button */
+  .theme-warmdark .btn-pink { background: var(--rose); color: #fff; border: 1px solid transparent; }
+  .theme-warmdark .btn-pink:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px var(--rose); }
+
+  /* Gradient gold hero button */
+  .theme-warmdark .btn-gold-grad { background: linear-gradient(118deg, #F2C3D6 0%, #E8C988 34%, #B07D4E 66%, #CE4E84 100%); color: #2A1820; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 14px 32px -14px rgba(206,78,132,0.5); }
+  .theme-warmdark .btn-gold-grad:hover { transform: translateY(-2px); box-shadow: 0 20px 44px -16px rgba(206,78,132,0.62); }
+</style>
+</head>
+<body class="theme-warmdark">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brandmark" href="Home.html"><span class="word">Prin<span class="it">fluence</span></span></a>
+      <div class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="Brands.html" class="active">For Brands</a>
+        <a href="Creators.html">For Creators</a>
+        <a href="About.html">About</a>
+        <a href="Resources.html">Resources</a>
+      </div>
+      <div class="nav-right">
+        <a href="login.html" style="font-size:14px;color:var(--ink-2);margin-right:18px;text-decoration:none">My Products</a>
+        <a class="btn btn-pink" href="portfolio.html" target="_blank">View My Portfolio</a>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="drawer">
+    <button class="close" aria-label="Close">&times;</button>
+    <a href="Home.html">Home</a>
+    <a href="Brands.html">For Brands</a>
+    <a href="Creators.html">For Creators</a>
+    <a href="About.html">About</a>
+    <a href="Resources.html">Resources</a>
+    <a href="portfolio.html" target="_blank" style="color:var(--rose)">View My Portfolio</a>
+    <a href="login.html">My Products</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="b-hero" data-screen-label="Brands / Hero">
+    <div class="wrap">
+      <div class="b-hero-grid">
+        <div class="b-hero-copy">
+          <span class="eyebrow reveal">For brands</span>
+          <h1 class="reveal d1">We don't just make content. We build your <em>marketing system.</em></h1>
+          <p class="sub reveal d2">AI-powered UGC, content scaling and SEO strategy for travel, lifestyle and tech brands ready to grow — without growing headcount.</p>
+          <div class="cta-row reveal d3">
+            <a class="btn btn-gold-grad btn-lg" href="portfolio.html" target="_blank">Take a peek at my portfolio <span class="arr">→</span></a>
+            <span class="micro">Free · 30 min · no pressure</span>
+          </div>
+        </div>
+        <div class="b-hero-visual reveal d2">
+          <video class="hero-video" src="assets/brands-hero.mp4" autoplay loop muted playsinline></video>
+          <div class="float">
+            <div class="k">Output</div>
+            <div class="v">10+<span style="font-size:16px;color:var(--ink-2);font-family:var(--font-sans)"> / day</span></div>
+            <div class="d">on-brand posts, AI-powered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PORTFOLIO removed per request -->
+
+  <!-- SERVICES -->
+  <section class="sec" style="background:var(--paper-2);" data-screen-label="Brands / Services">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:48px;">
+        <span class="eyebrow">Ways to work together</span>
+        <h2 class="sec-title">Three ways to put AI <em>to work</em></h2>
+        <p class="sec-desc">Start with an audit, scale your content, or build long-term search growth. Most brands begin with one and grow into a system.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc reveal">
+          <div class="svc-num">01</div>
+          <h3>AI Brand Audit</h3>
+          <div class="price">$500–$1,500 <span>Project</span></div>
+          <p>A deep-dive analysis of your content, SEO, social presence and positioning — with a full AI-generated recommendations report.</p>
+          <ul>
+            <li>Content &amp; channel teardown</li>
+            <li>SEO + positioning gaps</li>
+            <li>AI recommendations report</li>
+            <li>Delivered in 5–7 business days</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Start with an audit</a>
+        </div>
+        <div class="svc hero-offer reveal d1">
+          <span class="svc-flag">Most popular</span>
+          <div class="svc-num">02</div>
+          <h3>AI Content Scaling</h3>
+          <div class="price">$2k–$5k <span>/ month</span></div>
+          <p>We build and run an AI agent content system that produces 10+ on-brand posts per day across your channels. Consistent volume, consistent quality.</p>
+          <ul>
+            <li>Custom AI content engine</li>
+            <li>10+ posts / day, on-brand</li>
+            <li>Multi-channel distribution</li>
+            <li>Monthly performance review</li>
+          </ul>
+          <a class="btn btn-gold" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a call <span class="arr">→</span></a>
+        </div>
+        <div class="svc reveal d2">
+          <div class="svc-num">03</div>
+          <h3>SEO + AI Strategy</h3>
+          <div class="price">$1.5k–$3k <span>/ month</span></div>
+          <p>AI-assisted SEO: content clusters, keyword strategy, programmatic pages and monthly reporting. Often bundled with content scaling.</p>
+          <ul>
+            <li>Keyword &amp; cluster strategy</li>
+            <li>Programmatic page builds</li>
+            <li>Monthly reporting</li>
+            <li>Bundles with Content Scaling</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Add SEO growth</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec" data-screen-label="Brands / How it works">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:52px;">
+        <span class="eyebrow">How it works</span>
+        <h2 class="sec-title">Three steps. <em>No guesswork.</em></h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="sn">Step 1</div>
+          <h4>Book a free call</h4>
+          <p>A relaxed 30 minutes. You tell me about your brand and goals; I tell you honestly whether AI can move the needle.</p>
+        </div>
+        <div class="step reveal d1">
+          <div class="sn">Step 2</div>
+          <h4>We audit &amp; plan</h4>
+          <p>I audit your current marketing and build a custom plan — the exact system, channels and cadence that fit your brand.</p>
+        </div>
+        <div class="step reveal d2">
+          <div class="sn">Step 3</div>
+          <h4>We execute. You grow.</h4>
+          <p>The AI system goes live. You approve the work, it ships daily, and we review performance together every month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENCE -->
+  <section class="sec sec-tight" data-screen-label="Brands / Difference">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:40px;">
+        <span class="eyebrow">Why Prinfluence</span>
+        <h2 class="sec-title">Built AI-native — <em>not bolted on</em></h2>
+      </div>
+      <div class="diff-grid">
+        <div class="diff reveal"><div class="dh">Volume without burnout</div><p>The system does the heavy lifting, so output scales without a bigger team or longer hours.</p></div>
+        <div class="diff reveal d1"><div class="dh">Quality stays on-brand</div><p>Every output runs through your voice, your guidelines and a human approval step before it ships.</p></div>
+        <div class="diff reveal d2"><div class="dh">One partner, one system</div><p>Content, SEO and strategy run on the same engine — so everything compounds instead of competing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK CTA -->
+  <section class="sec" id="book" data-screen-label="Brands / Book CTA">
+    <div class="wrap">
+      <div class="book-band reveal">
+        <h2>Ready to build a marketing system that <em>actually works?</em></h2>
+        <p class="bb-sub">Book a free discovery call. We'll figure out if it's a fit — no pressure, no pitch deck.</p>
+        <div class="bb-btns">
+          <a class="btn btn-gold btn-lg" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book your free discovery call <span class="arr">→</span></a>
+          <a class="btn btn-pink btn-lg" href="portfolio.html" target="_blank">View my portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-screen-label="Brands / Footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="word">Prin<span class="it">fluence</span></div>
+          <p class="ftag">AI-powered marketing for brands and creators.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h5>Explore</h5>
+            <a href="Brands.html">For Brands</a>
+            <a href="Creators.html">For Creators</a>
+            <a href="About.html">About</a>
+            <a href="Resources.html">Resources</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="Resources.html">YouTube</a>
+            <a href="https://www.linkedin.com/in/nwoye/" target="_blank">LinkedIn</a>
+            <a href="https://www.tiktok.com/@prinfluence.ugc" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/prinfluence.ugc" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copy">© 2026 Prinfluence. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#">Privacy</a>
+          <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="image-slot.js"></script>
+  <script src="prinfluence.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+/* ============================================================
+   PRINFLUENCE — shared design system
+   One site. Two paths. Built on the brand's two existing worlds:
+   · CREATOR world  = dark holographic (Deal Worthy DNA)
+   · BRAND world    = warm editorial   (Portfolio DNA)
+   · NEUTRAL shell  = warm off-white bridge between them
+   Connective signature colour: rose-pink. Shared accent: champagne gold.
+   ============================================================ */
+
+/* ---------- Neutral shell (homepage / shared chrome) ---------- */
+:root {
+  /* warm off-white bridge */
+  --paper:      #F6F3EE;
+  --paper-2:    #EFEAE1;
+  --panel:      #FFFFFF;
+  --ink:        #1C1620;   /* warm near-black */
+  --ink-2:      #5B5159;
+  --ink-soft:   rgba(28, 22, 32, 0.62);
+  --ink-faint:  rgba(28, 22, 32, 0.40);
+  --line:       rgba(28, 22, 32, 0.12);
+  --line-soft:  rgba(28, 22, 32, 0.06);
+
+  /* connective signature + shared accents */
+  --rose:       #CE4E84;   /* the Prinfluence thread */
+  --rose-deep:  #A93567;
+  --gold:       #C5A062;
+  --gold-soft:  rgba(197, 160, 98, 0.20);
+  --mint:       #A8E6C1;
+
+  /* world signature colours (for chips / split states) */
+  --creator-bg:   #0A0612;
+  --creator-pink: #E274A0;
+  --creator-lav:  #C8A0F0;
+  --creator-cyan: #7EB8FF;
+  --brand-paper:  #FBF6EF;
+  --brand-rose:   #CE4E84;
+  --brand-gold:   #C5A062;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans:    "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --maxw: 1240px;
+  --gut:  clamp(20px, 5vw, 72px);
+
+  /* holographic gradient (creator world) */
+  --holo:  linear-gradient(115deg, #F5ADCE 0%, #C8A0F0 38%, #7EB8FF 68%, #F5ADCE 100%);
+  --holo-text: linear-gradient(115deg, #ffffff 0%, #f5adce 28%, #c8a0f0 54%, #7eb8ff 80%, #ffffff 100%);
+}
+
+/* ---------- Reset ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--rose); color: #fff; }
+
+/* ---------- Layout helpers ---------- */
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gut); position: relative; }
+.wrap-wide { max-width: 1400px; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rose);
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 500;
+}
+.eyebrow::before {
+  content: ""; width: 26px; height: 1px;
+  background: currentColor; display: inline-block;
+}
+.eyebrow.center { justify-content: center; }
+.eyebrow.center::before { display: none; }
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 540;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+.serif-it { font-style: italic; font-weight: 500; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 15.5px; font-weight: 600;
+  padding: 15px 28px;
+  border-radius: 100px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform .25s cubic-bezier(.2,.7,.3,1), background .25s, color .25s, box-shadow .25s, border-color .25s;
+  white-space: nowrap;
+}
+.btn .arr { transition: transform .25s; display: inline-block; }
+.btn:hover .arr { transform: translateX(4px); }
+
+.btn-ink     { background: var(--ink); color: var(--paper); }
+.btn-ink:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(0,0,0,.45); }
+
+.btn-rose    { background: var(--rose); color: #fff; }
+.btn-rose:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px var(--rose); }
+
+.btn-gold    { background: var(--gold); color: #1A1206; }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px var(--gold); }
+
+.btn-ghost   { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+
+.btn-lg { font-size: 17px; padding: 18px 34px; }
+
+/* holographic button (creator world) */
+.btn-holo {
+  position: relative; color: #150c1e; border: none;
+  background: var(--holo); background-size: 200% 100%; background-position: 0 50%;
+  font-weight: 700;
+  transition: background-position .6s ease, transform .25s, box-shadow .25s;
+}
+.btn-holo:hover { background-position: 100% 50%; transform: translateY(-2px); box-shadow: 0 18px 40px -14px rgba(200,160,240,.6); }
+
+/* ---------- Navigation ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 80;
+  transition: background .3s, box-shadow .3s, padding .3s;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px var(--gut); max-width: 1400px; margin: 0 auto;
+  transition: padding .3s;
+}
+.nav.scrolled { background: color-mix(in srgb, var(--paper) 84%, transparent); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--line-soft); }
+.nav.scrolled .nav-inner { padding-top: 15px; padding-bottom: 15px; }
+.brandmark { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.brandmark .word {
+  font-family: var(--font-display); font-size: 23px; font-weight: 600;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.brandmark .word .it { font-style: italic; font-weight: 500; }
+.nav-links { display: flex; align-items: center; gap: 34px; }
+.nav-links a { font-size: 14.5px; font-weight: 500; color: var(--ink-soft); transition: color .2s; position: relative; }
+.nav-links a::after { content:""; position:absolute; left:0; bottom:-5px; height:1.5px; width:0; background: var(--rose); transition: width .25s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.menu-btn span { display: block; width: 24px; height: 2px; background: var(--ink); margin: 5px 0; transition: .3s; }
+
+@media (max-width: 880px) {
+  .nav-links { display: none; }
+  .menu-btn { display: block; }
+}
+
+/* mobile drawer */
+.drawer {
+  position: fixed; inset: 0; z-index: 90;
+  background: var(--paper); padding: 90px var(--gut) 40px;
+  display: flex; flex-direction: column; gap: 8px;
+  transform: translateY(-100%); transition: transform .4s cubic-bezier(.2,.7,.3,1);
+  visibility: hidden;
+}
+.drawer.open { transform: translateY(0); visibility: visible; }
+.drawer a { font-family: var(--font-display); font-size: 32px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.drawer .close { position: absolute; top: 26px; right: var(--gut); font-size: 30px; background: none; border: none; cursor: pointer; color: var(--ink); }
+
+/* ---------- Reveal on scroll ---------- */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2,.7,.3,1), transform .9s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .08s; }
+.reveal.d2 { transition-delay: .16s; }
+.reveal.d3 { transition-delay: .24s; }
+.reveal.d4 { transition-delay: .32s; }
+
+/* ---------- Section scaffolding ---------- */
+.sec { padding: clamp(72px, 9vw, 132px) 0; position: relative; }
+.sec-tight { padding: clamp(54px, 6vw, 88px) 0; }
+.sec-head { max-width: 30em; }
+.sec-title { font-family: var(--font-display); font-weight: 540; font-size: clamp(32px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -0.02em; margin-top: 18px; }
+.sec-title em { font-style: italic; color: var(--rose); font-weight: 500; }
+.sec-desc { max-width: 30em; color: var(--ink-2); font-size: 17px; margin-top: 18px; }
+
+/* ---------- Footer (shared) ---------- */
+.footer { border-top: 1px solid var(--line); padding: 56px 0 40px; background: var(--paper); }
+.footer-top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: flex-start; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+.footer .word { font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+.footer .word .it { font-style: italic; font-weight: 500; }
+.footer .ftag { color: var(--ink-soft); font-size: 15px; margin-top: 12px; max-width: 22em; }
+.footer-cols { display: flex; gap: 64px; flex-wrap: wrap; }
+.footer-col h5 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 15px; color: var(--ink-soft); padding: 6px 0; transition: color .2s; }
+.footer-col a:hover { color: var(--rose); }
+.footer-bottom { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 28px; }
+.footer-bottom .copy { font-size: 13.5px; color: var(--ink-faint); }
+.footer-social { display: flex; gap: 22px; }
+.footer-social a { font-size: 13.5px; color: var(--ink-soft); transition: color .2s; }
+.footer-social a:hover { color: var(--rose); }
+
+/* ---------- Spinning word rotator ---------- */
+.rotator { display: inline-flex; position: relative; overflow: hidden; height: 1.05em; vertical-align: bottom; }
+.rot-word { display: inline-block; white-space: nowrap; }
+.rot-in  { animation: rotIn .58s cubic-bezier(.2,.8,.2,1) both; }
+.rot-out { position: absolute; left: 0; top: 0; animation: rotOut .58s cubic-bezier(.6,0,.4,1) both; }
+@keyframes rotIn  { from { transform: translateY(112%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes rotOut { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-112%); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation-duration: .001ms !important; scroll-behavior: auto; }
+}
