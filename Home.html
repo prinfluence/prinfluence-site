@@ -114,11 +114,16 @@
   .fork-or { position: absolute; top: 41%; left: 50%; transform: translate(-50%,-50%); z-index: 6; width: 56px; height: 56px; border-radius: 50%; background: var(--paper); color: var(--ink-soft); display: grid; place-items: center; pointer-events: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 0 0 1px var(--line), 0 10px 30px -8px rgba(0,0,0,.6); }
 
   @media (max-width: 820px) {
-    .fork { flex-direction: column; min-height: 0; }
-    .fork-half { min-height: 400px; }
+    .fork { flex-direction: column; min-height: 0; gap: 10px; }
+    .fork-half { min-height: 168px; padding: 20px 22px !important; }
     .fork:has(.fork-half:hover) .fork-half:not(:hover) { flex: 1; }
     .fork-half:hover { flex: 1; }
     .fork-or { display: none; }
+  }
+
+  @media (max-width: 540px) {
+    .home-hero { padding: 78px 0 14px !important; }
+    .fork-half { min-height: 152px; }
   }
 
   /* MARQUEE */
@@ -269,7 +274,6 @@
         <a href="Resources.html">Resources</a>
       </div>
       <div class="nav-right">
-        <a href="login.html" style="font-size:14px;color:var(--ink-2);margin-right:18px;text-decoration:none">My Products</a>
         <a class="btn btn-rose" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
         <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
@@ -282,7 +286,6 @@
     <a href="Creators.html">For Creators</a>
     <a href="About.html">About</a>
     <a href="Resources.html">Resources</a>
-    <a href="login.html">My Products</a>
     <a href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank" style="color:var(--rose)">Book a Call</a>
   </div>
 
