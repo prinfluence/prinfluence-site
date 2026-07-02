@@ -6,96 +6,114 @@
 <title>Member Login — Prinfluence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
-  --paper:#F6F3EE;--panel:#FFFFFF;
-  --ink:#1C1620;--ink-soft:rgba(28,22,32,0.62);--ink-faint:rgba(28,22,32,0.40);
-  --line:rgba(28,22,32,0.12);--line-soft:rgba(28,22,32,0.06);
-  --rose:#CE4E84;--rose-deep:#A93567;
-  --gold:#C5A062;--gold-soft:rgba(197,160,98,0.20);
-  --mint:#A8E6C1;
-  --font-display:"Fraunces",Georgia,serif;
-  --font-sans:"DM Sans",system-ui,-apple-system,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-font-smoothing:antialiased}
-body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 60% 50% at 50% -10%,rgba(206,78,132,0.07),transparent),radial-gradient(ellipse 50% 40% at 100% 100%,rgba(197,160,98,0.08),transparent);pointer-events:none}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:#2A1030;background:#F7F0F6;-webkit-font-smoothing:antialiased}
+::selection{background:#C8A0F0;color:#fff}
+input{font-family:inherit}
+input::placeholder{color:#b3a7c0}
+@keyframes prinGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
 
-.card{position:relative;z-index:1;width:100%;max-width:440px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:48px 42px;box-shadow:0 30px 70px -40px rgba(28,22,32,0.18)}
+.page{min-height:100vh;background:#F7F0F6;position:relative;overflow:hidden}
+.glow-1{position:fixed;width:560px;height:560px;top:-220px;left:-180px;border-radius:50%;background:radial-gradient(circle,rgba(245,173,206,0.45),transparent 65%);filter:blur(40px);animation:prinGlow 12s ease-in-out infinite;pointer-events:none}
+.glow-2{position:fixed;width:520px;height:520px;bottom:-220px;right:-160px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,255,0.38),transparent 65%);filter:blur(40px);animation:prinGlow 14s ease-in-out infinite;pointer-events:none}
 
-.brandmark{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:10px}
-.brandmark .word{font-family:var(--font-display);font-size:25px;font-weight:600;letter-spacing:-0.02em;color:var(--ink)}
-.logo-influence{background:linear-gradient(100deg,#E9C977 0%,#D7A964 20%,#E29ABF 52%,#A99AEC 74%,#7EB8FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.logo-it{font-style:italic;font-weight:500;-webkit-text-fill-color:transparent}
+.screen{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px 56px}
 
-.eyebrow{text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:32px}
+.logo{margin:0 0 30px}
+.logo span{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:27px;letter-spacing:-0.02em;color:#2A1030}
+.logo .grad{font-style:italic;font-weight:500;background:linear-gradient(115deg,#2A1030 0%,#E274A0 30%,#C8A0F0 56%,#7EB8FF 82%,#2A1030 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 
-h1{font-family:var(--font-display);font-size:28px;font-weight:600;text-align:center;margin-bottom:10px;letter-spacing:-.02em;color:var(--ink)}
-.lead{font-size:14.5px;color:var(--ink-soft);text-align:center;margin-bottom:32px;line-height:1.6;font-weight:300}
+.card-border{width:100%;max-width:468px;padding:1.5px;border-radius:26px;background:linear-gradient(140deg,#F5ADCE,#C8A0F0,#7EB8FF);box-shadow:0 24px 60px rgba(42,16,48,0.14)}
+.card{background:#FFFFFF;border-radius:24.5px;padding:42px 40px 34px}
 
-.field{margin-bottom:18px}
-.field label{display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:8px;font-weight:500}
-.field input{width:100%;padding:14px 18px;background:var(--paper);border:1px solid var(--line);border-radius:12px;color:var(--ink);font-size:15px;font-family:var(--font-sans);outline:none;transition:border-color .2s}
-.field input:focus{border-color:var(--rose)}
-.field input::placeholder{color:var(--ink-faint)}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.26em;color:#CE4E84;margin:0 0 16px;text-align:center}
+h1{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:42px;line-height:1.05;letter-spacing:-0.01em;margin:0 0 14px;color:#2A1030;text-align:center}
+h1 .grad{font-style:italic;background:linear-gradient(120deg,#E274A0,#C8A0F0,#7EB8FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.lead{font-size:15px;line-height:1.6;color:#6f6580;margin:0 auto 28px;max-width:340px;text-align:center}
 
-.btn-login{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--rose);color:#fff;border:none;font-family:var(--font-sans);font-size:15.5px;font-weight:600;padding:16px 28px;border-radius:100px;cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s;margin-top:6px}
-.btn-login:hover{transform:translateY(-2px);box-shadow:0 16px 34px -12px var(--rose)}
-.btn-login:disabled{opacity:.55;cursor:not-allowed;transform:none}
-.btn-login .arr{transition:transform .25s}
-.btn-login:hover .arr{transform:translateX(4px)}
+label{display:block;font-size:13px;font-weight:600;color:#3a2f46;margin:0 0 7px}
+input[type=email]{width:100%;height:50px;padding:0 15px;border:1px solid #E6D8EE;background:#FBF7FC;border-radius:12px;font-size:15px;color:#2A1030;margin:0 0 18px;outline:none;transition:border-color .2s,box-shadow .2s}
+input[type=email]:focus{border-color:#C8A0F0;box-shadow:0 0 0 3px rgba(200,160,240,0.22);background:#fff}
 
-.msg{margin-top:18px;padding:14px 18px;border-radius:12px;font-size:13.5px;line-height:1.55;display:none;font-weight:400}
+.btn-go{width:100%;height:52px;border:none;background:linear-gradient(120deg,#E274A0,#C8A0F0);color:#fff;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 26px rgba(200,160,240,0.42);transition:filter .2s,opacity .2s;font-family:inherit}
+.btn-go:hover{filter:brightness(1.07)}
+.btn-go:disabled{opacity:.6;cursor:not-allowed}
+
+.secure-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:#9a8fa8;margin:13px 0 0}
+
+.divider{height:1px;background:#F0E7F4;margin:28px 0 22px}
+
+.chips-label{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.16em;color:#a89bb6;text-transform:uppercase;text-align:center;margin:0 0 16px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip{display:flex;align-items:center;gap:10px;padding:11px 14px;background:#FBF7FC;border:1px solid #F0E7F4;border-radius:12px}
+.chip-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#E274A0,#7EB8FF);flex:none}
+.chip span:last-child{font-size:13.5px;font-weight:600;color:#3a2f46}
+
+.msg{margin:14px 0 0;padding:13px 16px;border-radius:11px;font-size:13.5px;line-height:1.5;display:none}
 .msg.show{display:block}
-.msg.success{background:rgba(168,230,193,0.15);border:1px solid rgba(168,230,193,0.4);color:#2F6B47}
-.msg.error{background:rgba(206,78,132,0.08);border:1px solid rgba(206,78,132,0.25);color:var(--rose-deep)}
+.msg.success{background:rgba(168,230,193,0.25);color:#2F6B47}
+.msg.error{background:rgba(206,78,132,0.10);color:#A93567}
 
-.divider{display:flex;align-items:center;gap:14px;margin:32px 0 24px}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line)}
-.divider span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+.below{text-align:center;font-size:14px;color:#8e84a0;margin:24px 0 0}
+.below a{color:#CE4E84;text-decoration:none;font-weight:600}
+.below a:hover{text-decoration:underline}
 
-.products-preview{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
-.mini-card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 6px;text-align:center;font-size:10.5px;color:var(--ink-soft);font-weight:500;line-height:1.4}
-
-.footer-link{text-align:center;margin-top:28px;font-size:14px;color:var(--ink-faint)}
-.footer-link a{color:var(--rose);text-decoration:none;font-weight:500}
-.footer-link a:hover{text-decoration:underline}
+@media (max-width:480px){
+  .card{padding:34px 26px 28px}
+  h1{font-size:34px}
+  .chips{grid-template-columns:1fr}
+}
 </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HHHE3BLPL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-HHHE3BLPL3");
+</script>
 </head>
 <body>
 
-<div class="card">
-  <div class="brandmark">
-    <span class="word">Prin<span class="logo-influence"><span class="logo-it">fluence</span></span></span>
-  </div>
-  <div class="eyebrow">Member Access</div>
+<div class="page">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
 
-  <h1>Welcome back</h1>
-  <p class="lead">Enter the email you used at checkout — we'll check what you've purchased and take you straight to it.</p>
+  <div class="screen">
+    <div class="logo"><span>Prin<span class="grad">fluence</span></span></div>
 
-  <div class="field">
-    <label for="email">Email address</label>
-    <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
-  </div>
+    <div class="card-border">
+      <div class="card">
+        <div class="eyebrow">MEMBER ACCESS</div>
+        <h1>Welcome <span class="grad">back</span></h1>
+        <p class="lead">Enter the email you used at checkout — we'll find what you've purchased and take you straight to it.</p>
 
-  <button class="btn-login" id="loginBtn" onclick="checkAccess()">Access my products <span class="arr">→</span></button>
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
 
-  <div class="msg" id="msgBox"></div>
+        <button class="btn-go" id="loginBtn" onclick="checkAccess()">Access my products →</button>
 
-  <div class="divider"><span>Your products live here</span></div>
+        <p class="secure-note">🔒 We'll check your purchase history securely — no password needed.</p>
 
-  <div class="products-preview">
-    <div class="mini-card">Content<br>Vault</div>
-    <div class="mini-card">Outreach<br>Tracker</div>
-    <div class="mini-card">Pitch<br>Vault</div>
-    <div class="mini-card">Deal<br>Worthy</div>
-  </div>
+        <div class="msg" id="msgBox"></div>
 
-  <div class="footer-link">
-    Haven't purchased yet? <a href="Creators.html">See all products →</a>
+        <div class="divider"></div>
+
+        <div class="chips-label">Your products live here</div>
+        <div class="chips">
+          <div class="chip"><span class="chip-dot"></span><span>Content Vault</span></div>
+          <div class="chip"><span class="chip-dot"></span><span>Outreach Tracker</span></div>
+          <div class="chip"><span class="chip-dot"></span><span>Pitch Vault</span></div>
+          <div class="chip"><span class="chip-dot"></span><span>Deal Worthy</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="below">Haven't purchased yet? <a href="Creators.html">See all products →</a></p>
   </div>
 </div>
 
@@ -117,7 +135,7 @@ async function checkAccess() {
   }
 
   btn.disabled = true;
-  btn.innerHTML = 'Checking...';
+  btn.textContent = 'Checking...';
 
   try {
     const { data, error } = await sb
@@ -131,7 +149,7 @@ async function checkAccess() {
       msg.textContent = "We couldn't find any purchases under that email. Double-check it matches what you used at checkout, or reach out if you think this is a mistake.";
       msg.classList.add('show', 'error');
       btn.disabled = false;
-      btn.innerHTML = 'Access my products <span class="arr">→</span>';
+      btn.textContent = 'Access my products →';
       return;
     }
 
@@ -146,7 +164,7 @@ async function checkAccess() {
     msg.textContent = 'Something went wrong checking your account. Please try again in a moment.';
     msg.classList.add('show', 'error');
     btn.disabled = false;
-    btn.innerHTML = 'Access my products <span class="arr">→</span>';
+    btn.textContent = 'Access my products →';
   }
 }
 

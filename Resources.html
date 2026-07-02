@@ -120,6 +120,14 @@
   .dl .btn.is-soon { background: rgba(255,255,255,0.06); color: var(--ink-faint); border: 1px solid var(--line); cursor: default; pointer-events: none; }
   @media (max-width: 760px) { .dl-grid { grid-template-columns: 1fr; } }
 </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HHHE3BLPL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-HHHE3BLPL3");
+</script>
 </head>
 <body class="theme-dark">
 
@@ -178,45 +186,12 @@
           <h2 class="sec-title">Latest from the blog</h2>
           <p class="sec-desc">Deep dives on using AI to optimize content — fresh tactics for brands and creators.</p>
         </div>
-        <a class="btn btn-ghost reveal d1" href="#" style="border-color:rgba(255,255,255,0.2);color:#fff;">All posts <span class="arr">→</span></a>
+        <a class="btn reveal d1" href="blog.html" style="background:linear-gradient(115deg,#CE4E84 0%,#A93567 45%,#C5A062 100%);color:#fff;border:none;font-weight:600;">All posts <span class="arr">→</span></a>
       </div>
 
-      <!-- Featured: latest post -->
-      <a class="blog-featured reveal" href="#">
-        <div class="bf-img">
-          <span class="bf-flag">✦ Coming soon</span>
-          <image-slot id="r-blog-featured" shape="rect" placeholder="Latest post cover"></image-slot>
-          <span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span>
-        </div>
-        <div class="bf-body">
-          <div class="bf-meta"><span>AI &amp; Content</span><span>8 min read</span><span>May 2026</span></div>
-          <h3>The AI Content Workflow I'd Build From Scratch in 2026</h3>
-          <p>If I started today with zero audience and zero clients, this is the exact AI system I'd set up first — the tools, the prompts, and the order I'd build them in.</p>
-          <span class="bf-link">Read the post <span class="arr">→</span></span>
-        </div>
-      </a>
-
-      <!-- Recent posts -->
-      <div class="blog-grid">
-        <a class="blog-card reveal" href="#">
-          <div class="blog-thumb"><span class="blog-cat">SEO</span><image-slot id="r-blog-1" shape="rect" placeholder="Post 1 cover"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span></div>
-          <h4>How to Rank #1 With AI Without Sounding Like a Robot</h4>
-          <p>The editing pass that makes AI-written content actually rank — and read like you.</p>
-          <div class="bc-meta">6 min read</div>
-        </a>
-        <a class="blog-card reveal d1" href="#">
-          <div class="blog-thumb"><span class="blog-cat">Workflow</span><image-slot id="r-blog-2" shape="rect" placeholder="Post 2 cover"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span></div>
-          <h4>One Idea, 20 Posts: My AI Repurposing System</h4>
-          <p>Turn a single video or article into a month of on-brand content, on autopilot.</p>
-          <div class="bc-meta">7 min read</div>
-        </a>
-        <a class="blog-card reveal d2" href="#">
-          <div class="blog-thumb"><span class="blog-cat">Tools</span><image-slot id="r-blog-3" shape="rect" placeholder="Post 3 cover"></image-slot><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span><span class="cs-sub">New posts dropping soon</span></span></div>
-          <h4>The AI Marketing Stack Replacing Whole Teams</h4>
-          <p>Seven tools that quietly do the work of a full department — and how they fit together.</p>
-          <div class="bc-meta">9 min read</div>
-        </a>
-      </div>
+      <!-- Featured + recent posts: populated live from Supabase by prinfluence.js -->
+      <div id="blog-featured-slot"></div>
+      <div class="blog-grid" id="blog-grid-slot"></div>
     </div>
   </section>
 

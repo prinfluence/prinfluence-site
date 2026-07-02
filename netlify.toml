@@ -4,3 +4,6 @@
 
 [functions]
   node_bundler = "esbuild"
+
+[functions."draft-blog-post"]
+  schedule = "@weekly"

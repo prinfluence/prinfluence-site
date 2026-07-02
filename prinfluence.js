@@ -76,6 +76,18 @@
     });
   }
 
+  function sendWelcomeEmail(email) {
+    return fetch("/.netlify/functions/send-welcome-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email })
+    }).catch(function (err) {
+      // Don't block the signup UX if the welcome email fails to send —
+      // the person is still subscribed; just log it for follow-up.
+      console.error("Welcome email failed:", err);
+    });
+  }
+
   function initEmailForms() {
     document.querySelectorAll("[data-email-form]").forEach(function (form) {
       form.addEventListener("submit", function (e) {
@@ -86,9 +98,11 @@
         if (!input || !input.value) return;
 
         if (btn) { btn.disabled = true; btn.textContent = "Submitting..."; }
+        var emailVal = input.value.trim();
 
-        saveSubscriber(input.value.trim())
+        saveSubscriber(emailVal)
           .then(function () {
+            sendWelcomeEmail(emailVal);
             if (form.querySelector(".email-row")) form.querySelector(".email-row").style.display = "none";
             if (done) done.style.display = "flex";
           })
@@ -96,6 +110,7 @@
             console.error("Subscriber save failed:", err);
             // Still show success to the visitor — don't block UX on a backend hiccup,
             // but log it so Prin can investigate if signups aren't showing up in Supabase.
+            sendWelcomeEmail(emailVal);
             if (form.querySelector(".email-row")) form.querySelector(".email-row").style.display = "none";
             if (done) done.style.display = "flex";
           })
@@ -153,6 +168,92 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
+  function escapeHtml(s) {
+    return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function formatPostDate(iso) {
+    if (!iso) return "";
+    var d = new Date(iso);
+    return d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  }
+
+  function estimateReadMins(content) {
+    var words = (content || "").trim().split(/\s+/).length;
+    return Math.max(2, Math.round(words / 200)) + " min read";
+  }
+
+  function renderComingSoonBlog() {
+    var featuredSlot = document.getElementById("blog-featured-slot");
+    var gridSlot = document.getElementById("blog-grid-slot");
+    if (!featuredSlot || !gridSlot) return;
+    featuredSlot.innerHTML =
+      '<div class="blog-featured reveal" style="cursor:default;">' +
+        '<div class="bf-img"><span class="coming-soon"><span class="cs-pill"><span class="spk">✦</span> Coming soon</span>' +
+        '<span class="cs-sub">New posts dropping soon</span></span></div>' +
+        '<div class="bf-body"><div class="bf-meta"><span>AI &amp; Content</span></div>' +
+        '<h3>The first post is on its way</h3>' +
+        '<p>Check back soon — new posts go up here every week.</p></div></div>';
+    gridSlot.innerHTML = "";
+  }
+
+  function renderBlogPosts(posts) {
+    var featuredSlot = document.getElementById("blog-featured-slot");
+    var gridSlot = document.getElementById("blog-grid-slot");
+    if (!featuredSlot || !gridSlot) return;
+
+    if (!posts || posts.length === 0) {
+      renderComingSoonBlog();
+      return;
+    }
+
+    var featured = posts[0];
+    var rest = posts.slice(1, 4);
+
+    featuredSlot.innerHTML =
+      '<a class="blog-featured reveal" href="blog-post.html?slug=' + encodeURIComponent(featured.slug) + '">' +
+        '<div class="bf-img">' +
+          (featured.cover_image ? '<img src="' + escapeHtml(featured.cover_image) + '" alt="" style="width:100%;height:100%;object-fit:cover;" />' : "") +
+        '</div>' +
+        '<div class="bf-body">' +
+          '<div class="bf-meta"><span>' + escapeHtml(featured.category || "Blog") + '</span><span>' + estimateReadMins(featured.content) + '</span><span>' + formatPostDate(featured.published_at) + '</span></div>' +
+          '<h3>' + escapeHtml(featured.title) + '</h3>' +
+          '<p>' + escapeHtml(featured.excerpt || "") + '</p>' +
+          '<span class="bf-link">Read the post <span class="arr">→</span></span>' +
+        '</div>' +
+      '</a>';
+
+    gridSlot.innerHTML = rest.map(function (post, i) {
+      var dClass = i === 0 ? "" : (i === 1 ? " d1" : " d2");
+      return '<a class="blog-card reveal' + dClass + '" href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+        '<div class="blog-thumb"><span class="blog-cat">' + escapeHtml(post.category || "Blog") + '</span>' +
+        (post.cover_image ? '<img src="' + escapeHtml(post.cover_image) + '" alt="" style="width:100%;height:100%;object-fit:cover;" />' : "") +
+        '</div>' +
+        '<h4>' + escapeHtml(post.title) + '</h4>' +
+        '<p>' + escapeHtml(post.excerpt || "") + '</p>' +
+        '<div class="bc-meta">' + estimateReadMins(post.content) + '</div>' +
+      '</a>';
+    }).join("");
+  }
+
+  function initBlog() {
+    var featuredSlot = document.getElementById("blog-featured-slot");
+    if (!featuredSlot) return;
+
+    fetch(SUPABASE_URL + "/rest/v1/blog_posts?status=eq.published&order=published_at.desc&limit=4", {
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY
+      }
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (posts) { renderBlogPosts(posts); })
+      .catch(function (err) {
+        console.error("Failed to load blog posts:", err);
+        renderComingSoonBlog();
+      });
+  }
+
   function ready(fn) {
     if (document.readyState !== "loading") fn();
     else document.addEventListener("DOMContentLoaded", fn);
@@ -165,5 +266,6 @@
     initEmailForms();
     initRotators();
     initCounters();
+    initBlog();
   });
 })();

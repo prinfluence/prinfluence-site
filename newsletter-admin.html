@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsletter — Prinfluence Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F3EE;--panel:#FFFFFF;--ink:#1C1620;--ink-soft:rgba(28,22,32,0.62);--ink-faint:rgba(28,22,32,0.38);
+  --line:rgba(28,22,32,0.12);--rose:#CE4E84;--gold:#C5A062;
+  --font-display:"Fraunces",Georgia,serif;--font-sans:"DM Sans",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);min-height:100vh;padding:48px 24px}
+.wrap{max-width:760px;margin:0 auto}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:12px}
+h1{font-family:var(--font-display);font-size:32px;font-weight:600;margin-bottom:8px;letter-spacing:-.02em}
+.lead{font-size:14.5px;color:var(--ink-soft);margin-bottom:36px}
+.field{margin-bottom:22px}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.field input,.field textarea{width:100%;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-family:var(--font-sans);font-size:14.5px;color:var(--ink);outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--rose)}
+.field textarea{min-height:280px;resize:vertical;line-height:1.6;font-family:monospace;font-size:13.5px}
+.hint{font-size:12px;color:var(--ink-faint);margin-top:7px;line-height:1.5}
+.btn{background:var(--ink);color:var(--paper);border:none;padding:15px 28px;border-radius:100px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:var(--font-sans)}
+.btn:hover{background:var(--rose)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.result{margin-top:20px;padding:16px 18px;border-radius:10px;font-size:13.5px;display:none}
+.result.show{display:block}
+.result.success{background:rgba(168,230,193,0.2);color:#2F6B47}
+.result.error{background:rgba(206,78,132,0.08);color:#A93567}
+.preview{margin-top:36px;border-top:1px solid var(--line);padding-top:28px}
+.preview-label{font-size:12px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.preview-box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Admin only</div>
+  <h1>Send a newsletter</h1>
+  <p class="lead">Write your weekly email below. It goes to every subscriber in your list the moment you click send — there's no undo, so use Preview first.</p>
+
+  <div class="field">
+    <label for="adminKey">Admin key</label>
+    <input type="password" id="adminKey" placeholder="Your private send key" />
+    <div class="hint">This is the NEWSLETTER_ADMIN_KEY you set in Netlify — it stops anyone else from sending to your list. Not your subscribers' info, just a password only you know.</div>
+  </div>
+
+  <div class="field">
+    <label for="subject">Subject line</label>
+    <input type="text" id="subject" placeholder="This week: 3 hooks that are actually working right now" />
+  </div>
+
+  <div class="field">
+    <label for="body">Email content (HTML allowed)</label>
+    <textarea id="body" placeholder="&lt;p&gt;Hey friend,&lt;/p&gt;&lt;p&gt;This week I tried something new...&lt;/p&gt;"></textarea>
+    <div class="hint">Plain text works fine too. Use &lt;p&gt;...&lt;/p&gt; around each paragraph for proper spacing, and &lt;a href=&quot;...&quot;&gt;link text&lt;/a&gt; for links.</div>
+  </div>
+
+  <button class="btn" id="previewBtn" onclick="showPreview()">Preview</button>
+  <button class="btn" id="sendBtn" onclick="sendNewsletter()" style="margin-left:10px;background:var(--rose)">Send to all subscribers →</button>
+
+  <div class="result" id="resultBox"></div>
+
+  <div class="preview" id="previewSection" style="display:none">
+    <div class="preview-label">Preview</div>
+    <div class="preview-box" id="previewContent"></div>
+  </div>
+</div>
+
+<script>
+function showPreview() {
+  const body = document.getElementById('body').value;
+  document.getElementById('previewContent').innerHTML = body || '<em>Nothing written yet.</em>';
+  document.getElementById('previewSection').style.display = 'block';
+}
+
+async function sendNewsletter() {
+  const adminKey = document.getElementById('adminKey').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const bodyHtml = document.getElementById('body').value.trim();
+  const btn = document.getElementById('sendBtn');
+  const result = document.getElementById('resultBox');
+
+  result.className = 'result';
+
+  if (!adminKey || !subject || !bodyHtml) {
+    result.textContent = 'Please fill in the admin key, subject, and content before sending.';
+    result.classList.add('show', 'error');
+    return;
+  }
+
+  if (!confirm('This will send to every subscriber right now. Are you sure?')) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    const res = await fetch('/.netlify/functions/send-newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subject, bodyHtml, adminKey })
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.error || 'Send failed');
+
+    result.textContent = `Sent to ${data.sent} of ${data.total} subscribers.`;
+    result.classList.add('show', 'success');
+
+  } catch (err) {
+    result.textContent = 'Error: ' + err.message;
+    result.classList.add('show', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send to all subscribers →';
+  }
+}
+</script>
+</body>
+</html>
