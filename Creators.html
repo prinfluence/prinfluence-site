@@ -116,12 +116,12 @@
       <div class="nav-right">
         <a href="login.html" style="font-size:14px;color:var(--ink-2);margin-right:18px;text-decoration:none">My Products</a>
         <a class="btn btn-rose" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
-        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+        <button class="menu-btn" aria-label="Menu" onclick="var d=document.querySelector('.drawer');if(d){d.classList.add('open');document.body.style.overflow='hidden';}"><span></span><span></span><span></span></button>
       </div>
     </div>
   </nav>
   <div class="drawer">
-    <button class="close" aria-label="Close">&times;</button>
+    <button class="close" aria-label="Close" onclick="var d=document.querySelector('.drawer');if(d){d.classList.remove('open');document.body.style.overflow='';}"> &times;</button>
     <a href="Home.html">Home</a>
     <a href="Brands.html">For Brands</a>
     <a href="Creators.html">For Creators</a>
@@ -299,5 +299,53 @@
 
   <script src="image-slot.js"></script>
   <script src="prinfluence.js"></script>
+
+<script>
+/* Standalone mobile menu -- works independently of prinfluence.js */
+(function() {
+  function initMenu() {
+    var btn = document.querySelector('.menu-btn');
+    var drawer = document.querySelector('.drawer');
+    var closeBtn = drawer ? drawer.querySelector('.close') : null;
+    if (!btn || !drawer) return;
+    
+    function openDrawer() {
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    
+    // Remove any existing listeners by cloning
+    var newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', openDrawer);
+    
+    if (closeBtn) {
+      var newClose = closeBtn.cloneNode(true);
+      closeBtn.parentNode.replaceChild(newClose, closeBtn);
+      newClose.addEventListener('click', closeDrawer);
+    }
+    
+    // Close when tapping any link in the drawer
+    drawer.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeDrawer);
+    });
+    
+    // Close when tapping outside the drawer content
+    drawer.addEventListener('click', function(e) {
+      if (e.target === drawer) closeDrawer();
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMenu);
+  } else {
+    initMenu();
+  }
+})();
+</script>
 </body>
 </html>

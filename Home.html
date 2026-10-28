@@ -27,7 +27,7 @@
   body.theme-dark { background: var(--paper); }
 
   /* HERO */
-  .home-hero { padding: clamp(44px, 5vw, 64px) 0 clamp(8px, 1vw, 14px); text-align: center; position: relative; overflow: hidden; }
+  .home-hero { padding: clamp(76px, 8vw, 104px) 0 clamp(14px, 1.8vw, 22px); text-align: center; position: relative; overflow: hidden; }
   .aurora {
     position: absolute; inset: -25% -12% auto -12%; height: 135%; z-index: 0; pointer-events: none;
     filter: blur(28px); opacity: .95;
@@ -42,8 +42,8 @@
   .home-hero .wrap { position: relative; z-index: 1; }
   .home-hero h1 {
     font-family: var(--font-display); font-weight: 540;
-    font-size: clamp(32px, 4.6vw, 66px); line-height: 0.98; letter-spacing: -0.03em;
-    max-width: 15em; margin: 14px auto 0; text-wrap: balance;
+    font-size: clamp(36px, 5.6vw, 80px); line-height: 0.98; letter-spacing: -0.03em;
+    max-width: 15em; margin: 20px auto 0; text-wrap: balance;
   }
   .home-hero h1 .line2 { display: block; }
   .home-hero h1 .rotator { color: transparent; }
@@ -51,14 +51,14 @@
     background: var(--holo-text); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; font-style: italic; font-weight: 500;
   }
-  .home-hero .sub { margin: 12px auto 0; font-size: clamp(16px, 1.3vw, 19px); color: var(--ink-2); max-width: 24em; }
-  .scroll-cue { margin-top: 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 9px; }
+  .home-hero .sub { margin: 20px auto 0; font-size: clamp(16px, 1.3vw, 19px); color: var(--ink-2); max-width: 24em; }
+  .scroll-cue { margin-top: 22px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 9px; }
   .scroll-cue .down { display: inline-block; animation: bob 2s ease-in-out infinite; }
   @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(5px);} }
 
   /* THE FORK */
-  .fork-wrap { padding: 0 clamp(16px, 3vw, 40px) clamp(10px, 1.5vw, 18px); }
-  .fork { display: flex; gap: 14px; position: relative; max-width: 1480px; margin: 0 auto; min-height: clamp(200px, 26vh, 280px); }
+  .fork-wrap { padding: 0 clamp(16px, 3vw, 40px) clamp(20px, 3vw, 32px); }
+  .fork { display: flex; gap: 14px; position: relative; max-width: 1480px; margin: 0 auto; min-height: clamp(280px, 36vh, 380px); }
   .fork-half {
     flex: 1; position: relative; overflow: hidden; border-radius: 28px; cursor: pointer;
     display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(28px, 3.4vw, 56px);
@@ -98,7 +98,7 @@
   .fork-creator .fork-tag { color: var(--creator-pink); }
   .fork-creator .fork-tag .dot { background: var(--creator-pink); box-shadow: 0 0 12px var(--creator-pink); }
 
-  .fork-body { margin-top: clamp(14px, 2.5vw, 36px); position: relative; z-index: 1; }
+  .fork-body { margin-top: clamp(24px, 4vw, 60px); position: relative; z-index: 1; }
   .fork-h { font-family: var(--font-display); font-weight: 540; letter-spacing: -0.022em; font-size: clamp(34px, 4vw, 60px); line-height: 1.0; }
   .fork-brand .fork-h .it { font-style: italic; color: var(--gold); font-weight: 500; }
   .fork-creator .fork-h .grad { background: var(--holo-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; font-weight: 500; }
@@ -113,17 +113,17 @@
   .fork-half:hover .fork-cta .arr { transform: translateX(4px); }
   .fork-or { position: absolute; top: 41%; left: 50%; transform: translate(-50%,-50%); z-index: 6; width: 56px; height: 56px; border-radius: 50%; background: var(--paper); color: var(--ink-soft); display: grid; place-items: center; pointer-events: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 0 0 1px var(--line), 0 10px 30px -8px rgba(0,0,0,.6); }
 
-
   @media (max-width: 820px) {
     .fork { flex-direction: column; min-height: 0; gap: 10px; }
-    .fork-half { min-height: 140px !important; padding: 18px 20px !important; }
+    .fork-half { min-height: 168px; padding: 20px 22px !important; }
     .fork:has(.fork-half:hover) .fork-half:not(:hover) { flex: 1; }
     .fork-half:hover { flex: 1; }
     .fork-or { display: none; }
   }
+
   @media (max-width: 540px) {
-    .home-hero { padding: 54px 0 8px !important; }
-    .fork-half { min-height: 130px !important; }
+    .home-hero { padding: 78px 0 14px !important; }
+    .fork-half { min-height: 152px; }
   }
 
   /* MARQUEE */
@@ -283,12 +283,12 @@
       </div>
       <div class="nav-right">
         <a class="btn btn-rose" href="https://scheduler.zoom.us/prin-nwoye/30-mins-with-prin-" target="_blank">Book a Call</a>
-        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+        <button class="menu-btn" aria-label="Menu" onclick="var d=document.querySelector('.drawer');if(d){d.classList.add('open');document.body.style.overflow='hidden';}"><span></span><span></span><span></span></button>
       </div>
     </div>
   </nav>
   <div class="drawer">
-    <button class="close" aria-label="Close">&times;</button>
+    <button class="close" aria-label="Close" onclick="var d=document.querySelector('.drawer');if(d){d.classList.remove('open');document.body.style.overflow='';}"> &times;</button>
     <a href="Home.html">Home</a>
     <a href="Brands.html">For Brands</a>
     <a href="Creators.html">For Creators</a>
@@ -543,5 +543,53 @@
 
   <script src="image-slot.js"></script>
   <script src="prinfluence.js"></script>
+
+<script>
+/* Standalone mobile menu -- works independently of prinfluence.js */
+(function() {
+  function initMenu() {
+    var btn = document.querySelector('.menu-btn');
+    var drawer = document.querySelector('.drawer');
+    var closeBtn = drawer ? drawer.querySelector('.close') : null;
+    if (!btn || !drawer) return;
+    
+    function openDrawer() {
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    
+    // Remove any existing listeners by cloning
+    var newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', openDrawer);
+    
+    if (closeBtn) {
+      var newClose = closeBtn.cloneNode(true);
+      closeBtn.parentNode.replaceChild(newClose, closeBtn);
+      newClose.addEventListener('click', closeDrawer);
+    }
+    
+    // Close when tapping any link in the drawer
+    drawer.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeDrawer);
+    });
+    
+    // Close when tapping outside the drawer content
+    drawer.addEventListener('click', function(e) {
+      if (e.target === drawer) closeDrawer();
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMenu);
+  } else {
+    initMenu();
+  }
+})();
+</script>
 </body>
 </html>
