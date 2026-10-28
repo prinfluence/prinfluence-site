@@ -163,11 +163,23 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 880px) {
   .nav-links { display: none; }
   .menu-btn { display: block; }
+  /* Hide Book a Call from nav on mobile - it's in the drawer */
+  .nav-right .btn { display: none; }
+  /* Make menu button much easier to tap */
+  .menu-btn {
+    display: block;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    position: relative;
+    z-index: 100;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 /* mobile drawer */
 .drawer {
-  position: fixed; inset: 0; z-index: 90;
+  position: fixed; inset: 0; z-index: 200;
   background: var(--paper); padding: 90px var(--gut) 40px;
   display: flex; flex-direction: column; gap: 8px;
   transform: translateY(-100%); transition: transform .4s cubic-bezier(.2,.7,.3,1);
