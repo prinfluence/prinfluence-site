@@ -36,7 +36,6 @@ exports.handler = async function (event) {
         headers: {
           "Content-Type": "application/json",
           apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
           Prefer: "return=minimal",
         },
         body: JSON.stringify({ email, source, page_url: source }),
