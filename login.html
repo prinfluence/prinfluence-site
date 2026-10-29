@@ -24,7 +24,8 @@ html{-webkit-font-smoothing:antialiased}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);min-height:100vh}
 .layout{display:grid;grid-template-columns:46% 54%;min-height:100vh}
 .visual-side{position:relative;overflow:hidden;background:#1C1620}
-.visual-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+.visual-img{position:absolute;inset:0;background:    radial-gradient(60% 50% at 20% 18%, rgba(245,173,206,.85), transparent 62%),    radial-gradient(55% 55% at 85% 30%, rgba(233,201,119,.70), transparent 60%),    radial-gradient(70% 60% at 30% 90%, rgba(206,78,132,.80), transparent 65%),    radial-gradient(50% 50% at 90% 95%, rgba(200,160,240,.60), transparent 62%),    linear-gradient(160deg,#2A1628 0%,#1C1620 100%);}
+.visual-img::after{content:"";position:absolute;inset:0;background:radial-gradient(40% 30% at 70% 60%,rgba(255,255,255,.10),transparent 70%)}
 .visual-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,22,32,.05) 0%,rgba(28,22,32,.15) 55%,rgba(28,22,32,.78) 100%)}
 .visual-content{position:absolute;left:0;right:0;bottom:0;padding:56px 52px;z-index:2}
 .visual-eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:18px;display:flex;align-items:center;gap:10px}
@@ -69,7 +70,7 @@ h1{font-family:var(--font-display);font-size:32px;font-weight:500;margin-bottom:
 <body>
 <div class="layout">
   <div class="visual-side">
-    <img class="visual-img" src="images/post-magnify.webp" alt="">
+    <div class="visual-img" aria-hidden="true"></div>
     <div class="visual-overlay"></div>
     <div class="visual-content">
       <div class="visual-eyebrow">Member access</div>

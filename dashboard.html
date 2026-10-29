@@ -41,7 +41,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .hero-title{font-family:var(--font-display);font-size:clamp(26px,3.5vw,38px);font-weight:400;color:#fff;letter-spacing:-.02em;line-height:1.1}
 .hero-title em{font-style:italic;font-weight:500;background:linear-gradient(100deg,#F0CFA0,#F5ADCE,#C8A0F0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero-img-wrap{position:relative;overflow:hidden}
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.hero-img{position:absolute;inset:0;background:    radial-gradient(60% 50% at 20% 18%, rgba(245,173,206,.85), transparent 62%),    radial-gradient(55% 55% at 85% 30%, rgba(233,201,119,.70), transparent 60%),    radial-gradient(70% 60% at 30% 90%, rgba(206,78,132,.80), transparent 65%),    radial-gradient(50% 50% at 90% 95%, rgba(200,160,240,.60), transparent 62%),    linear-gradient(160deg,#2A1628 0%,#1C1620 100%);}
 .hero-img-fade{position:absolute;inset:0;background:linear-gradient(90deg,#1C1620 0%,rgba(28,22,32,.1) 40%,transparent 70%)}
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
 .section-eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px}
@@ -98,7 +98,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
           <div class="hero-title">Everything you've unlocked, <em>all in one place.</em></div>
         </div>
         <div class="hero-img-wrap">
-          <img class="hero-img" src="images/post-jumpsuit.webp" alt="">
+          <div class="hero-img" aria-hidden="true"></div>
           <div class="hero-img-fade"></div>
         </div>
       </div>
