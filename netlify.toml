@@ -7,3 +7,4 @@
 
 [functions."draft-blog-post"]
   schedule = "@weekly"
+
