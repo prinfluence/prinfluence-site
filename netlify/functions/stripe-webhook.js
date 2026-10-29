@@ -140,7 +140,8 @@ exports.handler = async function (event) {
   if (stripeEvent.type !== "checkout.session.completed") return { statusCode: 200, body: "Ignored" };
 
   const session = stripeEvent.data.object;
-  if (session.payment_status && session.payment_status !== "paid") {
+  // "no_payment_required" covers free orders (for example a 100% off code)
+  if (session.payment_status && !["paid", "no_payment_required"].includes(session.payment_status)) {
     return { statusCode: 200, body: "Not paid yet" };
   }
 
