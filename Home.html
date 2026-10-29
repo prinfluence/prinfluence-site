@@ -591,5 +591,398 @@
   }
 })();
 </script>
+<!-- ===== PRINFLUENCE EMAIL POPUP — COPY FROM HERE ===== -->
+<!--
+  PRINFLUENCE EMAIL POPUP — install instructions
+  Paste this whole block just before the closing </body> tag on every page (or in the site-wide footer / custom code area).
+  - Opens 3.5s after page load (or when a desktop visitor moves to leave), as a full-screen overlay on top of the site.
+  - It can only be closed by clicking "Maybe later" or by submitting an email. Clicking outside, pressing Escape, or scrolling does nothing.
+  - Subscribers never see it again on that browser. "Maybe later" hides it for 3 days.
+  - To collect emails, set PF_SUBSCRIBE_URL below to your email provider's form endpoint (ConvertKit, Beehiiv, Mailchimp, Formspree).
+  - Add ?popup=1 to any URL to force it open for testing.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("87f3c37b-fc80-44fa-b2bf-eb4fad66ea4a") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("818eb4d9-5295-4948-87ce-b935707dc303") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("87f3c37b-fc80-44fa-b2bf-eb4fad66ea4a") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("818eb4d9-5295-4948-87ce-b935707dc303") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("87f3c37b-fc80-44fa-b2bf-eb4fad66ea4a") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("818eb4d9-5295-4948-87ce-b935707dc303") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("671d009f-1562-482a-a7be-99d7da6bca18") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("cb94794a-2b32-41f8-b3b6-5f2a836ed0a3") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("53db222e-7e39-410a-a13c-a6290033c52c") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("a3ae9518-96f0-41df-b0e8-f0db772d9b96") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("d04bec78-9464-41c4-9dfa-8c6ead0030bb") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("ce21b157-b564-46a4-88d3-b207d35b4950") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("f91fe662-cc44-415e-9e53-5fbd0d019b2f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("264620e5-cc02-4281-ad8c-ad2b4252bc1c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("662ede9f-2d4d-433a-91c7-06bbfc8383b3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("55e0878d-eaf4-4fcc-959f-a6653e605113") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("1e8556f7-cf74-4790-b87a-b1d6afe4408d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("388591fe-e3dd-4c9c-a3ae-d08273233354") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("f91fe662-cc44-415e-9e53-5fbd0d019b2f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("264620e5-cc02-4281-ad8c-ad2b4252bc1c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("662ede9f-2d4d-433a-91c7-06bbfc8383b3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("55e0878d-eaf4-4fcc-959f-a6653e605113") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("1e8556f7-cf74-4790-b87a-b1d6afe4408d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("388591fe-e3dd-4c9c-a3ae-d08273233354") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<script>
+(function () {
+  // --- Email popup: "The Refresh" weekly newsletter ---
+  // Paste your email provider's form URL here (ConvertKit, Mailchimp, Beehiiv, Formspree...).
+  var PF_SUBSCRIBE_URL = "/.netlify/functions/send-welcome-email";
+  var PF_KEY_SUB = "pf_subscribed", PF_KEY_DISMISS = "pf_popup_dismissed_at";
+  var PF_SNOOZE_DAYS = 3, PF_DELAY_MS = 3500;
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function pfSubscribe(email, segment) {
+    store(PF_KEY_SUB, "1");
+    if (!PF_SUBSCRIBE_URL) return;
+    try {
+      fetch(PF_SUBSCRIBE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, source: location.pathname, segment: segment || "", context: "popup" })
+      });
+    } catch (e) {}
+  }
+  function shouldShowPopup() {
+    if (/[?&]popup=1/.test(location.search)) return true;
+    if (store(PF_KEY_SUB) === "1") return false;
+    try { if (sessionStorage.getItem("pf_popup_seen")) return false; } catch (e) {}
+    var d = parseInt(store(PF_KEY_DISMISS) || "0", 10);
+    return !(d && Date.now() - d < PF_SNOOZE_DAYS * 864e5);
+  }
+  var PF_COPY = {
+    brand: { h: "Your competitors are already using AI. <em>Get ahead of them.</em>", p: "Every Sunday: 3 AI plays brands are using to produce more content, rank higher and cut costs. Steal them before your competition does." },
+    creator: { h: "Stop guessing. <em>Start getting paid.</em>", p: "Every Sunday: 3 AI plays to grow faster, pitch better and land brand deals. The stuff creators charge for, sent free." },
+    both: { h: "The whole AI playbook. <em>Both sides of it.</em>", p: "Every Sunday: 3 AI plays for building a brand and growing as a creator. One 5-minute read that saves you hours." }
+  };
+  function initPopup() {
+    
+    var css = "" +
+      ".pfp-back{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;padding:20px;background:rgba(8,4,14,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .45s ease}" +
+      ".pfp-back.on{opacity:1}" +
+      ".pfp{position:relative;width:100%;max-width:520px;max-height:calc(100vh - 40px);overflow-x:hidden;overflow-y:auto;border-radius:28px;padding:44px 40px 30px;color:#F7F0F6;background:#0F0A18;border:1px solid rgba(255,255,255,.12);box-shadow:0 60px 140px -30px rgba(200,160,240,.45),0 0 0 1px rgba(245,173,206,.08) inset;transform:translateY(26px) scale(.96);transition:transform .6s cubic-bezier(.2,.8,.2,1);font-family:'DM Sans',system-ui,-apple-system,sans-serif;text-align:center;isolation:isolate}" +
+      ".pfp-back.on .pfp{transform:none}" +
+      ".pfp::before{content:'';position:absolute;inset:-40% -20% auto;height:80%;z-index:-1;filter:blur(50px);opacity:.55;background:radial-gradient(40% 50% at 25% 50%,#E274A0,transparent 70%),radial-gradient(40% 50% at 55% 40%,#C8A0F0,transparent 70%),radial-gradient(40% 50% at 80% 55%,#C5A062,transparent 70%);animation:pfpDrift 9s ease-in-out infinite alternate}" +
+      "@keyframes pfpDrift{to{transform:translateX(8%) rotate(6deg)}}" +
+      ".pfp-x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#F7F0F6;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s}" +
+      ".pfp-x:hover{background:rgba(255,255,255,.14)}" +
+      ".pfp-tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#150C1E;background:linear-gradient(115deg,#F5ADCE,#C8A0F0 50%,#E8C98E);padding:7px 14px;border-radius:100px;font-weight:600}" +
+      ".pfp-tag i{width:6px;height:6px;border-radius:50%;background:#150C1E;animation:pfpPulse 1.6s infinite}" +
+      "@keyframes pfpPulse{50%{opacity:.25}}" +
+      ".pfp h3{font-family:'Fraunces',Georgia,serif;font-weight:520;font-size:clamp(28px,6vw,38px);line-height:1.06;letter-spacing:-.02em;margin:20px 0 0;text-wrap:balance}" +
+      ".pfp h3 em{font-style:italic;background:linear-gradient(115deg,#F5ADCE,#C8A0F0 45%,#E8C98E);-webkit-background-clip:text;background-clip:text;color:transparent}" +
+      ".pfp p.pfp-sub{color:rgba(247,240,246,.78);font-size:16px;line-height:1.55;margin:14px auto 0;max-width:40ch;text-wrap:pretty}" +
+      ".pfp-q{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#E274A0;margin-top:28px}" +
+      ".pfp-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}" +
+      ".pfp-seg button{min-height:54px;border-radius:16px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#F7F0F6;font:600 15px 'DM Sans',system-ui,-apple-system,sans-serif;cursor:pointer;transition:transform .2s,border-color .2s,background .2s}" +
+      ".pfp-seg button:hover{transform:translateY(-2px);border-color:#F5ADCE;background:rgba(245,173,206,.12)}" +
+      ".pfp-seg button small{display:block;font-weight:400;font-size:12px;color:rgba(247,240,246,.6);margin-top:2px}" +
+      ".pfp-perks{display:flex;flex-direction:column;gap:10px;margin:24px auto 0;padding:0;list-style:none;text-align:left;max-width:380px}" +
+      ".pfp-perks li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4;color:rgba(247,240,246,.9)}" +
+      ".pfp-perks li b{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#150C1E;background:linear-gradient(135deg,#F5ADCE,#E8C98E)}" +
+      ".pfp-form{display:flex;gap:8px;margin-top:24px;padding:6px;border-radius:100px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);transition:border-color .2s}" +
+      ".pfp-form:focus-within{border-color:#F5ADCE}" +
+      ".pfp-form input{flex:1;min-width:0;background:none;border:0;outline:0;color:#F7F0F6;font:16px 'DM Sans',system-ui,-apple-system,sans-serif;padding:0 16px;min-height:48px}" +
+      ".pfp-form input::placeholder{color:rgba(247,240,246,.45)}" +
+      ".pfp-form button,.pfp-go{border:0;border-radius:100px;padding:0 24px;min-height:48px;font:700 15px 'DM Sans',system-ui,-apple-system,sans-serif;color:#150C1E;cursor:pointer;background:linear-gradient(115deg,#F5ADCE 0%,#C8A0F0 45%,#E8C98E 100%);background-size:200% 100%;transition:background-position .5s,transform .2s;white-space:nowrap}" +
+      ".pfp-form button:hover,.pfp-go:hover{background-position:100% 0;transform:translateY(-1px)}" +
+      ".pfp-err{color:#F5ADCE;font-size:13px;margin-top:8px;min-height:18px}" +
+      ".pfp-fine{font-size:12.5px;color:rgba(247,240,246,.5);margin-top:6px}" +
+      ".pfp-no{display:inline-block;margin-top:16px;background:none;border:0;color:rgba(247,240,246,.5);font:13px 'DM Sans',system-ui,-apple-system,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:32px}" +
+      ".pfp-no:hover{color:#F7F0F6}" +
+      ".pfp-step{display:none}.pfp-step.on{display:block;animation:pfpIn .5s cubic-bezier(.2,.8,.2,1)}" +
+      "@keyframes pfpIn{from{opacity:0;transform:translateY(10px)}}" +
+      ".pfp-check{width:72px;height:72px;border-radius:50%;margin:4px auto 0;display:grid;place-items:center;font-size:32px;color:#150C1E;background:linear-gradient(135deg,#F5ADCE,#C8A0F0 50%,#E8C98E);box-shadow:0 20px 50px -10px rgba(245,173,206,.6)}" +
+      ".pfp-spark{position:absolute;width:14px;height:14px;fill:#F5ADCE;pointer-events:none;animation:pfpTw 2.6s ease-in-out infinite}" +
+      "@keyframes pfpTw{50%{opacity:.2;transform:scale(.6) rotate(20deg)}}" +
+      "@media(max-width:520px){.pfp{padding:40px 22px 22px;border-radius:24px}.pfp-seg{grid-template-columns:1fr}.pfp-form{flex-direction:column;border-radius:22px;padding:8px}.pfp-form input{text-align:center}}";
+    var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+    var spark = '<svg viewBox="0 0 24 24"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12 6.9-1.2 11.4-5.7 12-12z"/></svg>';
+    var back = document.createElement("div");
+    back.className = "pfp-back";
+    back.innerHTML =
+      '<div class="pfp" role="dialog" aria-modal="true" aria-labelledby="pfp-h">' +
+        '<span class="pfp-spark" style="top:26px;left:30px">' + spark + '</span>' +
+        '<span class="pfp-spark" style="top:62px;left:64px;width:9px;height:9px;animation-delay:.8s;fill:#E8C98E">' + spark + '</span>' +
+        '<span class="pfp-spark" style="bottom:40px;right:34px;width:11px;height:11px;animation-delay:1.4s;fill:#C8A0F0">' + spark + '</span>' +
+        
+        '<div class="pfp-step on" data-s="2">' +
+          '<span class="pfp-tag"><i></i>Founding subscriber perks</span>' +
+          '<h3 id="pfp-h">The whole AI playbook. <em>Both sides of it.</em></h3>' +
+          '<p class="pfp-sub">Every Sunday: 3 AI plays for building a brand and growing as a creator. One 5-minute read that saves you hours.</p>' +
+          '<ul class="pfp-perks">' +
+            '<li><b>\u2713</b><span><strong>30% off</strong> any Prinfluence product, sent with your first email</span></li>' +
+            '<li><b>\u2713</b><span><strong>First access</strong> to every free template and video before it goes public</span></li>' +
+            '<li><b>\u2713</b><span>Copy-paste <strong>AI prompts</strong> in every issue, ready to use that day</span></li>' +
+            '<li><b>\u2713</b><span>Free instantly: <strong>The 50 AI Prompts Toolkit</strong> for content that sells, for brands and creators</span></li>' +
+          '</ul>' +
+          '<form class="pfp-form" novalidate>' +
+            '<input type="email" placeholder="Your best email" autocomplete="email" aria-label="Email address" required />' +
+            '<button type="submit">Send me The Refresh</button>' +
+          '</form>' +
+          '<div class="pfp-err" aria-live="polite"></div>' +
+          '<div class="pfp-fine">Free forever. No spam. Unsubscribe in one click.</div>' +
+          '<button class="pfp-no" data-no>Maybe later</button>' +
+        '</div>' +
+        '<div class="pfp-step" data-s="3">' +
+          '<div class="pfp-check">\u2713</div>' +
+          '<h3>You\u2019re in. <em>Welcome to The Refresh.</em></h3>' +
+          '<p class="pfp-sub">Check your inbox for your 30% off code and your free AI Prompts Toolkit. Your first issue lands this Sunday.</p>' +
+          '<button class="pfp-go" data-close style="margin-top:26px">Keep exploring</button>' +
+        '</div>' +
+      '</div>';
+    var seg = "both";
+    function go(n) { back.querySelectorAll(".pfp-step").forEach(function (s) { s.classList.toggle("on", s.getAttribute("data-s") == n); }); }
+    function close(snooze) {
+      if (snooze) store(PF_KEY_DISMISS, String(Date.now()));
+      back.classList.remove("on");
+      document.removeEventListener("keydown", onKey);
+      setTimeout(function () { back.remove(); document.documentElement.style.overflow = ""; }, 450);
+    }
+    function onKey(e) {}
+    back.addEventListener("click", function (e) {
+      if (e.target.closest("[data-no]")) { close(store(PF_KEY_SUB) !== "1"); return; }
+      if (e.target.closest("[data-close]")) { close(false); return; }
+      var b = e.target.closest("[data-seg]");
+      if (b) {
+        seg = b.getAttribute("data-seg");
+        back.querySelector("[data-h]").innerHTML = PF_COPY[seg].h;
+        back.querySelector("[data-p]").textContent = PF_COPY[seg].p;
+        go(2);
+        setTimeout(function () { var i = back.querySelector(".pfp-form input"); if (i && window.innerWidth > 700) i.focus(); }, 300);
+      }
+    });
+    back.querySelector(".pfp-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var input = this.querySelector("input"), err = back.querySelector(".pfp-err");
+      var v = (input.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { err.textContent = "That email doesn\u2019t look quite right. Mind checking it?"; input.focus(); return; }
+      err.textContent = "";
+      pfSubscribe(v, seg);
+      go(3);
+    });
+    function open() {
+      if (back.isConnected) return;
+      go(2);
+      try { sessionStorage.setItem("pf_popup_seen", "1"); } catch (e) {}
+      document.body.appendChild(back);
+      document.documentElement.style.overflow = "hidden";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { back.classList.add("on"); }); });
+      document.addEventListener("keydown", onKey);
+      document.removeEventListener("mouseout", onExit);
+    }
+    function onExit(e) { if (!e.relatedTarget && e.clientY <= 0) { clearTimeout(t); open(); } }
+    window.pfOpenPopup = open;
+    if (!shouldShowPopup()) return;
+    var t = setTimeout(open, PF_DELAY_MS);
+    document.addEventListener("mouseout", onExit);
+  }
+
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initPopup); else initPopup();
+})();
+</script>
+<!-- ===== PRINFLUENCE EMAIL POPUP — COPY TO HERE ===== -->
+
+</body></html>
 </body>
 </html>
+
+
