@@ -3,117 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Member Login — Prinfluence</title>
+<title>Sign In — Prinfluence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-*{box-sizing:border-box}
-html,body{margin:0}
-body{font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:#2A1030;background:#F7F0F6;-webkit-font-smoothing:antialiased}
-::selection{background:#C8A0F0;color:#fff}
-input{font-family:inherit}
-input::placeholder{color:#b3a7c0}
-@keyframes prinGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
-
-.page{min-height:100vh;background:#F7F0F6;position:relative;overflow:hidden}
-.glow-1{position:fixed;width:560px;height:560px;top:-220px;left:-180px;border-radius:50%;background:radial-gradient(circle,rgba(245,173,206,0.45),transparent 65%);filter:blur(40px);animation:prinGlow 12s ease-in-out infinite;pointer-events:none}
-.glow-2{position:fixed;width:520px;height:520px;bottom:-220px;right:-160px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,255,0.38),transparent 65%);filter:blur(40px);animation:prinGlow 14s ease-in-out infinite;pointer-events:none}
-
-.screen{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px 56px}
-
-.logo{margin:0 0 30px}
-.logo span{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:27px;letter-spacing:-0.02em;color:#2A1030}
-.logo .grad{font-style:italic;font-weight:500;background:linear-gradient(115deg,#2A1030 0%,#E274A0 30%,#C8A0F0 56%,#7EB8FF 82%,#2A1030 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-
-.card-border{width:100%;max-width:468px;padding:1.5px;border-radius:26px;background:linear-gradient(140deg,#F5ADCE,#C8A0F0,#7EB8FF);box-shadow:0 24px 60px rgba(42,16,48,0.14)}
-.card{background:#FFFFFF;border-radius:24.5px;padding:42px 40px 34px}
-
-.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.26em;color:#CE4E84;margin:0 0 16px;text-align:center}
-h1{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:42px;line-height:1.05;letter-spacing:-0.01em;margin:0 0 14px;color:#2A1030;text-align:center}
-h1 .grad{font-style:italic;background:linear-gradient(120deg,#E274A0,#C8A0F0,#7EB8FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.lead{font-size:15px;line-height:1.6;color:#6f6580;margin:0 auto 28px;max-width:340px;text-align:center}
-
-label{display:block;font-size:13px;font-weight:600;color:#3a2f46;margin:0 0 7px}
-input[type=email]{width:100%;height:50px;padding:0 15px;border:1px solid #E6D8EE;background:#FBF7FC;border-radius:12px;font-size:15px;color:#2A1030;margin:0 0 18px;outline:none;transition:border-color .2s,box-shadow .2s}
-input[type=email]:focus{border-color:#C8A0F0;box-shadow:0 0 0 3px rgba(200,160,240,0.22);background:#fff}
-
-.btn-go{width:100%;height:52px;border:none;background:linear-gradient(120deg,#E274A0,#C8A0F0);color:#fff;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 26px rgba(200,160,240,0.42);transition:filter .2s,opacity .2s;font-family:inherit}
-.btn-go:hover{filter:brightness(1.07)}
-.btn-go:disabled{opacity:.6;cursor:not-allowed}
-
-.secure-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:#9a8fa8;margin:13px 0 0}
-
-.divider{height:1px;background:#F0E7F4;margin:28px 0 22px}
-
-.chips-label{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.16em;color:#a89bb6;text-transform:uppercase;text-align:center;margin:0 0 16px}
-.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.chip{display:flex;align-items:center;gap:10px;padding:11px 14px;background:#FBF7FC;border:1px solid #F0E7F4;border-radius:12px}
-.chip-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#E274A0,#7EB8FF);flex:none}
-.chip span:last-child{font-size:13.5px;font-weight:600;color:#3a2f46}
-
-.msg{margin:14px 0 0;padding:13px 16px;border-radius:11px;font-size:13.5px;line-height:1.5;display:none}
-.msg.show{display:block}
-.msg.success{background:rgba(168,230,193,0.25);color:#2F6B47}
-.msg.error{background:rgba(206,78,132,0.10);color:#A93567}
-
-.below{text-align:center;font-size:14px;color:#8e84a0;margin:24px 0 0}
-.below a{color:#CE4E84;text-decoration:none;font-weight:600}
-.below a:hover{text-decoration:underline}
-
-@media (max-width:480px){
-  .card{padding:34px 26px 28px}
-  h1{font-size:34px}
-  .chips{grid-template-columns:1fr}
-}
-</style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HHHE3BLPL3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag("js", new Date());
-  gtag("config", "G-HHHE3BLPL3");
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HHHE3BLPL3");</script>
+<style>
+:root{
+  --paper:#F6F3EE;--panel:#FFFFFF;
+  --ink:#1C1620;--ink-soft:rgba(28,22,32,0.62);--ink-faint:rgba(28,22,32,0.38);
+  --line:rgba(28,22,32,0.10);
+  --rose:#CE4E84;--rose-deep:#A93567;
+  --font-display:"Fraunces",Georgia,serif;--font-sans:"DM Sans",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);min-height:100vh}
+.layout{display:grid;grid-template-columns:46% 54%;min-height:100vh}
+.visual-side{position:relative;overflow:hidden;background:#1C1620}
+.visual-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+.visual-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,22,32,.05) 0%,rgba(28,22,32,.15) 55%,rgba(28,22,32,.78) 100%)}
+.visual-content{position:absolute;left:0;right:0;bottom:0;padding:56px 52px;z-index:2}
+.visual-eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.visual-eyebrow::before{content:'';width:22px;height:1px;background:currentColor}
+.visual-quote{font-family:var(--font-display);font-size:28px;font-weight:400;line-height:1.28;color:#fff;letter-spacing:-.01em;max-width:13em}
+.visual-quote em{font-style:italic;font-weight:500;color:#F0CFA0}
+.visual-byline{margin-top:22px;font-size:13.5px;color:rgba(255,255,255,.62);font-weight:300}
+.form-side{display:flex;align-items:center;justify-content:center;padding:48px}
+.form-inner{width:100%;max-width:400px}
+.brandmark{display:flex;align-items:center;margin-bottom:6px}
+.brandmark .word{font-family:var(--font-display);font-size:23px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.logo-influence{background:linear-gradient(100deg,#E9C977 0%,#D7A964 20%,#E29ABF 52%,#A99AEC 74%,#7EB8FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.logo-it{font-style:italic;font-weight:500;-webkit-text-fill-color:transparent}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:36px}
+h1{font-family:var(--font-display);font-size:32px;font-weight:500;margin-bottom:12px;letter-spacing:-.02em;line-height:1.12}
+.lead{font-size:15px;color:var(--ink-soft);margin-bottom:32px;line-height:1.6;font-weight:300}
+.tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1.5px solid var(--line)}
+.tab{flex:1;text-align:center;padding:10px;font-size:14px;font-weight:500;color:var(--ink-faint);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all .2s}
+.tab.active{color:var(--rose);border-bottom-color:var(--rose)}
+.field{margin-bottom:16px;position:relative}
+.field label{display:block;font-size:12px;color:var(--ink-soft);margin-bottom:8px;font-weight:500}
+.field input{width:100%;padding:13px 16px;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;color:var(--ink);font-size:15px;font-family:var(--font-sans);outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--rose)}
+.field input::placeholder{color:var(--ink-faint)}
+.btn-main{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--ink);color:var(--paper);border:none;font-family:var(--font-sans);font-size:15px;font-weight:500;padding:16px 28px;border-radius:100px;cursor:pointer;transition:background .25s,transform .25s;margin-top:8px}
+.btn-main:hover{background:var(--rose);transform:translateY(-2px)}
+.btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.msg{margin-top:16px;padding:13px 16px;border-radius:10px;font-size:13.5px;line-height:1.55;display:none}
+.msg.show{display:block}
+.msg.success{background:rgba(168,230,193,.18);color:#2F6B47;border:1px solid rgba(168,230,193,.4)}
+.msg.error{background:rgba(206,78,132,.08);color:var(--rose-deep);border:1px solid rgba(206,78,132,.2)}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line)}
+.divider span{font-size:12px;color:var(--ink-faint)}
+.btn-ghost{width:100%;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--ink-soft);border:1.5px solid var(--line);font-family:var(--font-sans);font-size:14px;font-weight:500;padding:14px 28px;border-radius:100px;cursor:pointer;transition:all .2s}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.footer-link{margin-top:24px;font-size:13.5px;color:var(--ink-faint);text-align:center}
+.footer-link a{color:var(--rose);text-decoration:none;font-weight:500}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.visual-side{display:none}.form-side{padding:32px 24px}}
+</style>
 </head>
 <body>
+<div class="layout">
+  <div class="visual-side">
+    <img class="visual-img" src="images/post-magnify.webp" alt="">
+    <div class="visual-overlay"></div>
+    <div class="visual-content">
+      <div class="visual-eyebrow">Member access</div>
+      <div class="visual-quote">Your tools. Your progress. <em>Always waiting for you.</em></div>
+      <div class="visual-byline">— Prin, founder of Prinfluence</div>
+    </div>
+  </div>
 
-<div class="page">
-  <div class="glow-1"></div>
-  <div class="glow-2"></div>
+  <div class="form-side">
+    <div class="form-inner">
+      <div class="brandmark">
+        <span class="word">Prin<span class="logo-influence"><span class="logo-it">fluence</span></span></span>
+      </div>
+      <div class="eyebrow">Member access</div>
+      <h1>Welcome back.</h1>
+      <p class="lead">Sign in to access your products. Everything picks up right where you left off.</p>
 
-  <div class="screen">
-    <div class="logo"><span>Prin<span class="grad">fluence</span></span></div>
+      <div class="tabs">
+        <div class="tab active" id="tab-signin" onclick="switchTab('signin')">Sign in</div>
+        <div class="tab" id="tab-magic" onclick="switchTab('magic')">Email link</div>
+      </div>
 
-    <div class="card-border">
-      <div class="card">
-        <div class="eyebrow">MEMBER ACCESS</div>
-        <h1>Welcome <span class="grad">back</span></h1>
-        <p class="lead">Enter the email you used at checkout — we'll find what you've purchased and take you straight to it.</p>
-
-        <label for="email">Email address</label>
-        <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
-
-        <button class="btn-go" id="loginBtn" onclick="checkAccess()">Access my products →</button>
-
-        <p class="secure-note">🔒 We'll check your purchase history securely — no password needed.</p>
-
-        <div class="msg" id="msgBox"></div>
-
-        <div class="divider"></div>
-
-        <div class="chips-label">Your products live here</div>
-        <div class="chips">
-          <div class="chip"><span class="chip-dot"></span><span>Content Vault</span></div>
-          <div class="chip"><span class="chip-dot"></span><span>Outreach Tracker</span></div>
-          <div class="chip"><span class="chip-dot"></span><span>Pitch Vault</span></div>
-          <div class="chip"><span class="chip-dot"></span><span>Deal Worthy</span></div>
+      <!-- Sign in with password -->
+      <div id="form-signin">
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="si-email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="si-password" placeholder="Your password" autocomplete="current-password" />
+        </div>
+        <button class="btn-main" id="si-btn" onclick="signIn()">Sign in →</button>
+        <div class="msg" id="si-msg"></div>
+        <div style="text-align:center;margin-top:14px;">
+          <a href="#" onclick="switchTab('magic');return false;" style="font-size:13px;color:var(--rose);text-decoration:none;">Forgot password? Get a login link →</a>
         </div>
       </div>
-    </div>
 
-    <p class="below">Haven't purchased yet? <a href="Creators.html">See all products →</a></p>
+      <!-- Magic link / email link -->
+      <div id="form-magic" style="display:none">
+        <div id="magic-step1">
+          <div class="field">
+            <label>Email address</label>
+            <input type="email" id="ml-email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <button class="btn-main" id="ml-btn" onclick="sendMagicLink()">Send me a login link →</button>
+          <div class="msg" id="ml-msg"></div>
+        </div>
+        <div id="magic-step2" style="display:none;text-align:center;padding:20px 0;">
+          <div style="font-size:36px;margin-bottom:14px;">✦</div>
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:500;margin-bottom:10px;">Check your inbox</div>
+          <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;">We sent a secure link to <strong id="magic-email-sent"></strong> — click it to sign in instantly.</p>
+          <p style="font-size:13px;color:var(--ink-faint);margin-top:12px;">Didn't get it? <a href="#" onclick="document.getElementById('magic-step1').style.display='block';document.getElementById('magic-step2').style.display='none';return false;" style="color:var(--rose);text-decoration:none;">Try again</a></p>
+        </div>
+      </div>
+
+      <div class="footer-link">
+        Haven't purchased yet? <a href="Creators.html">See all products →</a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -122,10 +139,60 @@ const SUPABASE_URL = 'https://xavhjbcmqgoznuggzpep.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_oKv6t4MSb9mG8ggGedTwyQ_ZO3WeNEr';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-async function checkAccess() {
-  const email = document.getElementById('email').value.trim().toLowerCase();
-  const btn = document.getElementById('loginBtn');
-  const msg = document.getElementById('msgBox');
+// Check if already logged in
+sb.auth.getSession().then(({ data: { session } }) => {
+  if (session) window.location.href = 'dashboard.html';
+});
+
+// Check for magic link token in URL (Supabase handles this automatically)
+sb.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' && session) {
+    window.location.href = 'dashboard.html';
+  }
+});
+
+function switchTab(tab) {
+  document.getElementById('tab-signin').classList.toggle('active', tab === 'signin');
+  document.getElementById('tab-magic').classList.toggle('active', tab === 'magic');
+  document.getElementById('form-signin').style.display = tab === 'signin' ? 'block' : 'none';
+  document.getElementById('form-magic').style.display = tab === 'magic' ? 'block' : 'none';
+}
+
+async function signIn() {
+  const email = document.getElementById('si-email').value.trim();
+  const password = document.getElementById('si-password').value;
+  const btn = document.getElementById('si-btn');
+  const msg = document.getElementById('si-msg');
+
+  msg.className = 'msg';
+  if (!email || !password) {
+    msg.textContent = 'Please enter your email and password.';
+    msg.classList.add('show', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    msg.textContent = error.message.includes('Invalid') 
+      ? 'Email or password incorrect. Try the email link option if you haven\'t set a password yet.'
+      : error.message;
+    msg.classList.add('show', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Sign in →';
+    return;
+  }
+
+  window.location.href = 'dashboard.html';
+}
+
+async function sendMagicLink() {
+  const email = document.getElementById('ml-email').value.trim();
+  const btn = document.getElementById('ml-btn');
+  const msg = document.getElementById('ml-msg');
 
   msg.className = 'msg';
   if (!email || !email.includes('@')) {
@@ -135,41 +202,28 @@ async function checkAccess() {
   }
 
   btn.disabled = true;
-  btn.textContent = 'Checking...';
+  btn.textContent = 'Sending...';
 
-  try {
-    const { data, error } = await sb
-      .from('purchases')
-      .select('product')
-      .eq('email', email);
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: window.location.origin + '/dashboard.html' }
+  });
 
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      msg.textContent = "We couldn't find any purchases under that email. Double-check it matches what you used at checkout, or reach out if you think this is a mistake.";
-      msg.classList.add('show', 'error');
-      btn.disabled = false;
-      btn.textContent = 'Access my products →';
-      return;
-    }
-
-    sessionStorage.setItem('prinfluence_member_email', email);
-    msg.textContent = `Found ${data.length} product${data.length > 1 ? 's' : ''}! Redirecting...`;
-    msg.classList.add('show', 'success');
-
-    setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
-
-  } catch (err) {
-    console.error(err);
-    msg.textContent = 'Something went wrong checking your account. Please try again in a moment.';
+  if (error) {
+    msg.textContent = 'Something went wrong. Please try again.';
     msg.classList.add('show', 'error');
     btn.disabled = false;
-    btn.textContent = 'Access my products →';
+    btn.textContent = 'Send me a login link →';
+    return;
   }
+
+  document.getElementById('magic-email-sent').textContent = email;
+  document.getElementById('magic-step1').style.display = 'none';
+  document.getElementById('magic-step2').style.display = 'block';
 }
 
-document.getElementById('email').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') checkAccess();
+document.getElementById('si-password').addEventListener('keypress', e => {
+  if (e.key === 'Enter') signIn();
 });
 </script>
 </body>
