@@ -33,12 +33,18 @@ export default async (req) => {
     return;
   }
 
-  const month = new Date().toISOString().slice(0, 7);
+  // Batch label: runs in the last 3 days of a month count toward next month's batch
+  const month = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 7);
   const allTitles = []; // {niche, title, views}
   let inserted = 0;
 
+  // If this month's batch is already loaded, only redo the insight (no new content, no Claude cost for items)
+  const existing = await sbGet(`vault_content?select=id&month_batch=eq.${month}&source=eq.youtube`);
+  const insightOnly = existing.length >= 350;
+  console.log(insightOnly ? `${month} batch already loaded (${existing.length} items). Updating insight only.` : `Building ${month} batch.`);
+
   // Clear this month's YouTube rows so a re-run doesn't duplicate
-  await sb(`vault_content?month_batch=eq.${month}&source=eq.youtube`, "DELETE");
+  if (!insightOnly) await sb(`vault_content?month_batch=eq.${month}&source=eq.youtube`, "DELETE");
 
   for (const [niche, query] of Object.entries(NICHES)) {
     try {
@@ -46,6 +52,7 @@ export default async (req) => {
       console.log(`${niche}: ${videos.length} videos`);
       if (!videos.length) continue;
       videos.forEach((v) => allTitles.push({ niche, title: v.title, views: v.views }));
+      if (insightOnly) continue;
 
       const items = await generateForNiche(niche, videos);
       const rows = items
@@ -157,15 +164,31 @@ async function generateForNiche(niche, videos) {
 
 async function saveInsight(month, titles) {
   const codes = Object.entries(PATTERNS).map(([k, p]) => `${k} = ${p.label}`).join("\n");
-  const list = titles.map((t, i) => `${i}. ${t.title}`).join("\n");
-  const out = await claude(
-    "You classify video titles. Respond with only valid JSON, no preamble.",
-    `Classify each title into the single best-fitting pattern:\n${codes}\nG = Other\n\nTitles:\n${list}\n\n` +
-      `Return JSON only: {"labels":"<one letter per title, in order, no spaces>"}`,
-    2000
-  );
-  const labels = (JSON.parse(out).labels || "").replace(/[^A-G]/g, "");
-  if (labels.length < titles.length * 0.9) throw new Error("Label count mismatch");
+  const labels = new Array(titles.length).fill(null);
+
+  // Label one niche at a time so the count always lines up
+  for (const niche of Object.keys(NICHES)) {
+    const idx = titles.map((t, i) => (t.niche === niche ? i : -1)).filter((i) => i >= 0);
+    if (!idx.length) continue;
+    const list = idx.map((i, n) => `${n}. ${titles[i].title}`).join("\n");
+    try {
+      const out = await claude(
+        "You classify video titles. Respond with only valid JSON, no preamble.",
+        `Classify each of these ${idx.length} titles into the single best-fitting pattern:\n${codes}\nG = Other\n\nTitles:\n${list}\n\n` +
+          `Return JSON only: {"labels":[{"n":<title number>,"p":"<letter>"}]} with exactly one entry per title.`,
+        3000
+      );
+      for (const { n, p } of JSON.parse(out).labels || []) {
+        const i = idx[Number(n)];
+        if (i !== undefined && /^[A-G]$/.test(p)) labels[i] = p;
+      }
+    } catch (e) {
+      console.error(`Labels for ${niche} failed:`, e.message);
+    }
+  }
+  const labeled = labels.filter(Boolean).length;
+  console.log(`Labeled ${labeled} of ${titles.length} titles`);
+  if (labeled < titles.length * 0.8) throw new Error("Too few titles labeled");
 
   const counts = {};
   const nicheTop = {};
@@ -180,23 +203,32 @@ async function saveInsight(month, titles) {
   if (!top) return;
   const [code, n] = top;
   const p = PATTERNS[code];
-  const pct = Math.round((n / titles.length) * 100);
+  const pct = Math.round((n / labeled) * 100);
   const nichesLed = Object.values(nicheTop).filter(
     (c) => Object.entries(c).sort((a, b) => b[1] - a[1])[0][0] === code
   ).length;
   const nicheCount = Object.keys(nicheTop).length;
   const spread = nichesLed === nicheCount ? "across every niche" : `in ${nichesLed} of ${nicheCount} niches`;
 
-  const body = `${p.label} titles made up ${pct}% of the ${titles.length} most-viewed videos we tracked this month and led ${spread}. ${p.tip}`;
+  const body = `${p.label} titles made up ${pct}% of the ${labeled} most-viewed videos we tracked this month and led ${spread}. ${p.tip}`;
   await sb(`vault_insights?month_batch=eq.${month}`, "DELETE");
   await sb("vault_insights", "POST", {
     month_batch: month, title: p.quote, body, pattern: p.label,
-    pattern_pct: pct, niches_led: nichesLed, sample_size: titles.length,
+    pattern_pct: pct, niches_led: nichesLed, sample_size: labeled,
   });
   console.log("Insight:", body);
 }
 
 // ---------- Supabase (service key, bypasses read-only lock) ----------
+async function sbGet(path) {
+  const key = env("SUPABASE_SERVICE_ROLE_KEY");
+  const headers = { apikey: key };
+  if (!key.startsWith("sb_")) headers.Authorization = `Bearer ${key}`;
+  const res = await fetch(`${env("SUPABASE_URL")}/rest/v1/${path}`, { headers });
+  if (!res.ok) throw new Error(`Supabase GET ${path}: ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
 async function sb(path, method, body) {
   const key = env("SUPABASE_SERVICE_ROLE_KEY");
   const headers = { apikey: key, "content-type": "application/json", Prefer: "return=minimal" };
