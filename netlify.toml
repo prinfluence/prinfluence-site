@@ -8,3 +8,9 @@
 [functions."draft-blog-post"]
   schedule = "@weekly"
 
+# Show the homepage (with the popup) at prinfluence.com
+[[redirects]]
+  from = "/"
+  to = "/Home.html"
+  status = 200
+  force = true
