@@ -80,7 +80,7 @@
     return fetch("/.netlify/functions/send-welcome-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email })
+      body: JSON.stringify({ email: email, context: "newsletter", source: "resources_page" })
     }).catch(function (err) {
       // Don't block the signup UX if the welcome email fails to send —
       // the person is still subscribed; just log it for follow-up.
