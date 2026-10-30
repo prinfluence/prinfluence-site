@@ -14,12 +14,76 @@ window.__prinGate = new Promise(async function (resolve) {
     if (!session) { location.replace('/login.html?next=' + encodeURIComponent(location.pathname)); return; }
     var r = await sb.from('purchases').select('id').eq('product', PRODUCT).limit(1);
     if (r.error || !r.data || !r.data.length) { location.replace('/dashboard.html'); return; }
+    window.__prinSb = sb;
     resolve();
   } catch (e) {
     console.error('Access check failed:', e);
     location.replace('/login.html');
   }
 });
+</script>
+<!-- prinfluence saved progress: keeps this product's data in the customer's account, on every device -->
+<script>
+window.__prinSync = (async function () {
+  var PRODUCT = 'outreach-tracker';
+  var KEYS = ['prinfluence_brands'];
+  await window.__prinGate;
+  var sb = window.__prinSb;
+  var ls = window.localStorage;
+  var origSet = Storage.prototype.setItem;
+  var origRemove = Storage.prototype.removeItem;
+  var uid = null;
+  var timers = {};
+  try {
+    var s = await sb.auth.getSession();
+    uid = s.data.session.user.id;
+  } catch (e) { console.error('Saved progress: no session', e); return; }
+
+  // 1. Load this customer's saved data before the product opens (cloud copy wins)
+  try {
+    var load = sb.from('user_data').select('key,value').eq('product', PRODUCT);
+    var timeout = new Promise(function (r) { setTimeout(function () { r({ error: 'timeout' }); }, 8000); });
+    var res = await Promise.race([load, timeout]);
+    if (res.error) throw res.error;
+    var cloud = {};
+    (res.data || []).forEach(function (row) { cloud[row.key] = row.value; });
+    var firstTime = [];
+    KEYS.forEach(function (k) {
+      if (Object.prototype.hasOwnProperty.call(cloud, k)) {
+        if (cloud[k] === null) origRemove.call(ls, k); else origSet.call(ls, k, cloud[k]);
+      } else if (ls.getItem(k) !== null) {
+        firstTime.push(k); // data saved on this device before syncing existed: upload it
+      }
+    });
+    firstTime.forEach(function (k) { queue(k); });
+  } catch (e) { console.error('Saved progress: could not load', e); }
+
+  // 2. Save every change back to the customer's account
+  function push(k) {
+    var v = ls.getItem(k);
+    return sb.from('user_data').upsert(
+      { user_id: uid, product: PRODUCT, key: k, value: v, updated_at: new Date().toISOString() },
+      { onConflict: 'user_id,product,key' }
+    ).then(function (r) { if (r.error) console.error('Saved progress: save failed', r.error); });
+  }
+  function queue(k) {
+    clearTimeout(timers[k]);
+    timers[k] = setTimeout(function () { delete timers[k]; push(k); }, 700);
+  }
+  function flush() {
+    Object.keys(timers).forEach(function (k) { clearTimeout(timers[k]); delete timers[k]; push(k); });
+  }
+  Storage.prototype.setItem = function (k, v) {
+    origSet.call(this, k, v);
+    if (this === ls && KEYS.indexOf(k) !== -1) queue(k);
+  };
+  Storage.prototype.removeItem = function (k) {
+    origRemove.call(this, k);
+    if (this === ls && KEYS.indexOf(k) !== -1) queue(k);
+  };
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') flush(); });
+  window.addEventListener('pagehide', flush);
+})();
 </script>
   <title>UGC Outreach Tracker — Prinfluence</title>
   <style>
@@ -70,6 +134,8 @@ document.addEventListener('DOMContentLoaded', async function() {
   // Wait for the access check before unpacking the page
   setStatus('Checking access...');
   await (window.__prinGate || Promise.resolve());
+  setStatus('Loading your saved work...');
+  try { await window.__prinSync; } catch (e) { console.error(e); }
 
   // Error sink persists across replaceWith since it's on window, not the DOM.
   window.addEventListener('error', function(e) {
