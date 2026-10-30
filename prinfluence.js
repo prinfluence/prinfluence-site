@@ -31,21 +31,7 @@
   // --- Reveal on scroll ---
   function initReveal() {
     var els = document.querySelectorAll(".reveal");
-    if (!els.length) return;
-
-    // Mark elements that are BELOW the fold so they animate in on scroll.
-    // Elements already visible on page load stay at full opacity immediately.
-    var vh = window.innerHeight || 800;
-    els.forEach(function (el) {
-      var rect = el.getBoundingClientRect();
-      if (rect.top > vh * 0.92) {
-        // Below the fold: add animate class so it starts hidden and fades in
-        el.classList.add("animate");
-      }
-      // Above the fold: no animate class, so it's visible right away
-    });
-
-    if (!("IntersectionObserver" in window)) {
+    if (!("IntersectionObserver" in window) || !els.length) {
       els.forEach(function (el) { el.classList.add("in"); });
       return;
     }
@@ -53,10 +39,8 @@
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
       });
-    }, { threshold: 0.08 });
-    els.forEach(function (el) {
-      if (el.classList.contains("animate")) io.observe(el);
-    });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function (el) { io.observe(el); });
   }
 
   // --- FAQ accordion ---
