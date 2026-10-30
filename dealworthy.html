@@ -2,6 +2,25 @@
 <html>
 <head>
   <meta charset="utf-8">
+<!-- prinfluence access check: only customers who bought this product can open it -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.__prinGate = new Promise(async function (resolve) {
+  var PRODUCT = 'dealworthy';
+  try {
+    var sb = window.supabase.createClient('https://xavhjbcmqgoznuggzpep.supabase.co', 'sb_publishable_oKv6t4MSb9mG8ggGedTwyQ_ZO3WeNEr');
+    var s = await sb.auth.getSession();
+    var session = s && s.data && s.data.session;
+    if (!session) { location.replace('/login.html?next=' + encodeURIComponent(location.pathname)); return; }
+    var r = await sb.from('purchases').select('id').eq('product', PRODUCT).limit(1);
+    if (r.error || !r.data || !r.data.length) { location.replace('/dashboard.html'); return; }
+    resolve();
+  } catch (e) {
+    console.error('Access check failed:', e);
+    location.replace('/login.html');
+  }
+});
+</script>
   <title>Dealworthy — Prinfluence</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -102,6 +121,10 @@
 document.addEventListener('DOMContentLoaded', async function() {
   const loading = document.getElementById('__bundler_loading');
   function setStatus(msg) { if (loading) loading.textContent = msg; }
+
+  // Wait for the access check before unpacking the page
+  setStatus('Checking access...');
+  await (window.__prinGate || Promise.resolve());
 
   const FONT_MIME = /^(font[/]|application[/](x-)?font-|application[/]vnd\.ms-fontobject)/i;
   const MIME_TOKEN = /^[\w.+-]+[/][\w.+-]+$/;
