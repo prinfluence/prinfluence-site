@@ -3,27 +3,22 @@
 // Saves to Supabase, sends branded welcome email with toolkit link via Resend
 
 function subscriberEmailHtml(siteUrl, toolkitUrl) {
-  const card = (color, textColor, letter, label, title, desc, href, cta) => `
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px;background:#1B1228;border:1px solid #2A2032;">
-    <tr>
-      <td width="70" style="padding:20px;"><table width="46" height="46" cellpadding="0" cellspacing="0" style="background:${color};border-radius:12px;"><tr><td align="center" valign="middle" style="font-family:Georgia,serif;font-weight:bold;color:${textColor};font-size:20px;">${letter}</td></tr></table></td>
-      <td style="padding:20px 12px;font-family:Arial,sans-serif;">
-        <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#9A8FA0;">${label}</div>
-        <div style="font-family:Georgia,serif;font-size:19px;color:#F7F0F6;padding-top:3px;">${title}</div>
-        <div style="font-size:13px;color:#9A8FA0;padding-top:5px;line-height:1.5;">${desc}</div>
-      </td>
-      <td width="90" align="right" style="padding:20px;"><a href="${href}" style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#E274A0;white-space:nowrap;">${cta} &rarr;</a></td>
-    </tr>
-  </table>`;
-
-  const step = (n, title, desc, last) => `
-    <tr valign="top">
-      <td width="34"${last ? "" : ' style="padding-bottom:22px;"'}><table width="26" height="26" cellpadding="0" cellspacing="0" style="border:1.5px solid #E274A0;border-radius:50%;"><tr><td align="center" valign="middle" style="font-family:Arial,sans-serif;font-size:11px;color:#E274A0;">${n}</td></tr></table></td>
-      <td style="${last ? "" : "padding-bottom:22px;"}font-family:Arial,sans-serif;">
-        <div style="font-family:Georgia,serif;font-size:16.5px;color:#F7F0F6;">${title}</div>
-        <div style="font-size:13.5px;color:#9A8FA0;padding-top:4px;line-height:1.5;">${desc}</div>
-      </td>
-    </tr>`;
+  const product = (letter, color, name, forWho, desc, href) => `
+    <tr><td style="padding:0 0 12px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #EFE6EA;border-radius:14px;border-collapse:separate;">
+        <tr>
+          <td width="62" valign="top" style="padding:18px 0 18px 18px;">
+            <table role="presentation" width="44" height="44" cellpadding="0" cellspacing="0" style="background:${color};border-radius:12px;border-collapse:separate;"><tr><td align="center" valign="middle" style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#ffffff;">${letter}</td></tr></table>
+          </td>
+          <td valign="top" style="padding:16px 18px 16px 12px;font-family:Arial,Helvetica,sans-serif;">
+            <div style="font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:#B8336A;">${forWho}</div>
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;color:#2B2230;padding-top:3px;">${name}</div>
+            <div style="font-size:13.5px;line-height:1.55;color:#6E6372;padding-top:4px;">${desc}</div>
+            <div style="padding-top:8px;"><a href="${href}" style="font-size:13px;font-weight:bold;color:#E274A0;text-decoration:none;">Take a look &rarr;</a></div>
+          </td>
+        </tr>
+      </table>
+    </td></tr>`;
 
   return `<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -32,140 +27,170 @@ function subscriberEmailHtml(siteUrl, toolkitUrl) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="x-apple-disable-message-reformatting" />
 <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
-<title>Welcome to Prinfluence</title>
+<title>A welcome gift from Prin</title>
 <style>
   body,table,td{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
-  img{border:0;line-height:100%;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;}
-  table{border-collapse:collapse!important;}
-  body{margin:0;padding:0;width:100%!important;background:#0A0612;}
+  table{border-collapse:collapse;}
+  body{margin:0;padding:0;width:100%!important;background:#FBF8F4;}
   a{text-decoration:none;}
-  @media only screen and (max-width:620px){
-    .wrap{width:100%!important;}
-    .pad{padding-left:20px!important;padding-right:20px!important;}
-    .stack{display:block!important;width:100%!important;}
-    .h1{font-size:38px!important;}
+  @media only screen and (max-width:600px){
+    .pad{padding-left:22px!important;padding-right:22px!important;}
+    .h1{font-size:30px!important;}
+    .code{font-size:26px!important;letter-spacing:3px!important;}
   }
 </style>
 </head>
-<body style="margin:0;padding:0;background:#0A0612;">
-<!-- preheader -->
-<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">Your free 50 AI Prompts Toolkit is inside, plus 30% off with code HEYFRIEND30.</div>
+<body style="margin:0;padding:0;background:#FBF8F4;">
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">I saved this for you: 30% off any Prinfluence tool, code inside.</div>
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0A0612;">
-<tr><td align="center" style="padding:32px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF8F4;">
+<tr><td align="center" style="padding:28px 14px;">
 
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background:#150C1E;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;background:#ffffff;border-radius:18px;border-collapse:separate;border-top:4px solid #E274A0;">
 
-<!-- HERO -->
-<tr><td class="pad" style="padding:28px 40px 40px;background:#0A0612;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-    <tr>
-      <td style="font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#F7F0F6;font-weight:bold;">Prin<i style="font-weight:normal;color:#E274A0;">fluence</i></td>
-      <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9A8FA0;">Welcome aboard</td>
-    </tr>
-  </table>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:70px;">
-    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E274A0;padding-bottom:14px;">You just made a great decision</td></tr>
-    <tr><td class="h1" style="font-family:Georgia,'Times New Roman',serif;font-size:56px;line-height:1;letter-spacing:-1px;color:#F7F0F6;">You're <i style="color:#E274A0;">in</i>.</td></tr>
-    <tr><td style="padding-top:18px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#C9BFCB;max-width:420px;">Your free <b style="color:#F7F0F6;">50 AI Prompts Toolkit</b> is ready. Fifty copy-paste prompts for hooks, scripts, captions and pitches that work in ChatGPT, Claude or Gemini.</td></tr>
-    <tr><td style="padding-top:26px;">
-      <table role="presentation" cellpadding="0" cellspacing="0">
-        <tr><td align="center" style="background:#E274A0;border-radius:100px;">
-          <a href="${toolkitUrl}" style="display:inline-block;padding:15px 32px;font-family:Arial,sans-serif;font-size:14.5px;font-weight:bold;color:#150C1E;">Open my free toolkit &rarr;</a>
-        </td></tr>
-      </table>
-    </td></tr>
-  </table>
+<!-- HEADER -->
+<tr><td class="pad" style="padding:32px 38px 0;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+    <td style="font-family:Georgia,'Times New Roman',serif;font-size:21px;font-weight:bold;color:#2B2230;">Prin<i style="font-weight:normal;color:#E274A0;">fluence</i></td>
+    <td align="right" style="font-family:Arial,sans-serif;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:#B9A7B0;">A little gift</td>
+  </tr></table>
 </td></tr>
 
-<!-- NOTE -->
-<tr><td class="pad" style="padding:40px 44px 8px;background:#150C1E;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-    <tr><td style="font-family:Georgia,'Times New Roman',serif;font-size:26px;color:#F7F0F6;">Hey, and welcome!</td></tr>
-    <tr><td style="padding-top:18px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#C9BFCB;">I'm so glad you're here. Whether you're posting your first video or your five-hundredth, you just decided the same thing I did: <i style="color:#E274A0;">the tools are finally good enough to stop holding us back.</i></td></tr>
-    <tr><td style="padding:24px 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" style="border-left:3px solid #E274A0;">
-        <tr><td style="padding-left:18px;font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:1.4;color:#F7F0F6;">You don't need more time, more talent, or a bigger team. You need a <i style="color:#E274A0;">system</i>. That's exactly what we build here, together, one week at a time.</td></tr>
-      </table>
-    </td></tr>
-    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#C9BFCB;">Every Sunday, <b style="color:#F7F0F6;">The Refresh</b> lands in your inbox. It's short on purpose: one real idea, a few things to try, and the occasional thing I'm genuinely excited about. Read it in five minutes, then go make something. That's the whole deal.</td></tr>
-    <tr><td style="padding-top:26px;">
-      <table role="presentation" cellpadding="0" cellspacing="0">
-        <tr>
-          <td width="52" style="padding-right:14px;">
-            <table role="presentation" width="52" height="52" cellpadding="0" cellspacing="0" style="background:#E274A0;border-radius:50%;"><tr><td align="center" valign="middle" style="font-family:Georgia,serif;font-style:italic;color:#150C1E;font-size:20px;">P</td></tr></table>
-          </td>
-          <td style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:20px;color:#F7F0F6;">Prin<br /><span style="font-family:Arial,sans-serif;font-style:normal;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#9A8FA0;">Founder, Prinfluence</span></td>
-        </tr>
-      </table>
+<!-- HERO -->
+<tr><td class="pad" style="padding:34px 38px 8px;font-family:Arial,Helvetica,sans-serif;">
+  <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B8336A;padding-bottom:12px;">Welcome gift &middot; day two</div>
+  <div class="h1" style="font-family:Georgia,'Times New Roman',serif;font-size:36px;line-height:1.15;color:#2B2230;">Yesterday you got the toolkit.<br /><i style="color:#E274A0;">Today you get 30% off.</i></div>
+  <p style="margin:18px 0 0;font-size:15.5px;line-height:1.7;color:#4A3F4E;">Prompts get you posting. Getting paid takes more: a pitch that sounds like a pro wrote it, a way to track who you pitched, and something to post when your brain is empty. That's what my tools are for.</p>
+  <p style="margin:14px 0 0;font-size:15.5px;line-height:1.7;color:#4A3F4E;">So this is for you, on any of them:</p>
+</td></tr>
+
+<!-- CODE -->
+<tr><td class="pad" style="padding:22px 38px 6px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FDF1F6;border:1.5px dashed #E274A0;border-radius:14px;border-collapse:separate;">
+    <tr><td align="center" style="padding:22px 16px;font-family:Arial,sans-serif;">
+      <div style="font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:#B8336A;">Your code</div>
+      <div class="code" style="font-family:Georgia,'Times New Roman',serif;font-size:32px;letter-spacing:5px;color:#2B2230;padding-top:6px;">HEYFRIEND30</div>
+      <div style="font-size:12.5px;color:#8A7F8E;padding-top:6px;">30% off your first order. Enter it at checkout.</div>
     </td></tr>
   </table>
 </td></tr>
 
 <!-- PRODUCTS -->
-<tr><td class="pad" style="padding:36px 44px 0;background:#150C1E;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E274A0;border-bottom:1px solid #2A2032;padding-bottom:14px;">Start here &middot; where to go next</td></tr></table>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:16px 0 8px;font-family:Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#C9BFCB;">No rush. The Refresh is always free. When you're ready to move faster, here's a welcome gift for your first order:</td></tr></table>
-
-  <!-- code -->
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:10px;border:1.5px dashed #E274A0;">
-    <tr><td align="center" style="padding:18px 16px;font-family:Arial,sans-serif;">
-      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9A8FA0;">30% off your first order</div>
-      <div style="font-family:Georgia,serif;font-size:28px;letter-spacing:3px;color:#F7F0F6;padding-top:6px;">HEYFRIEND30</div>
-      <div style="font-size:12px;color:#9A8FA0;padding-top:6px;">Enter it at checkout on any product below.</div>
-    </td></tr>
+<tr><td class="pad" style="padding:28px 38px 4px;">
+  <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:#2B2230;padding-bottom:14px;">Pick your next move</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    ${product("V", "#7EB8FF", "The Content Vault", "For the blank-screen days", "1,200+ hooks, ideas and CTAs, refreshed every month from the most-viewed videos in your niche. Copy, tweak, post.", siteUrl + "/content-vault-landing.html")}
+    ${product("T", "#E274A0", "Outreach Tracker + AI Pitch Analyzer", "For when you're pitching brands", "Every brand you pitched and every follow-up due, in one place. The AI Pitch Analyzer checks your pitch before you hit send.", siteUrl + "/outreach-tracker-landing.html")}
+    ${product("P", "#C5A062", "[Pitch] Paid, Period.", "For when you freeze at a blank email", "10 pitch templates, 8 niche breakdowns and the P.A.I.D. Framework, so you always know what to say.", siteUrl + "/pitch-vault.html")}
+    ${product("D", "#A98BEA", "Deal Worthy: UGC Starter Kit", "For when you're starting from zero", "11 modules from no portfolio to your first paid deal, plus a rate calculator so you never undercharge.", siteUrl + "/dealworthy-landing.html")}
   </table>
-  ${card("#7EB8FF", "#150C1E", "V", "Monthly membership", "The Content Vault", "Fresh hooks, ideas and CTAs every month, modeled on the most-viewed videos in your niche.", siteUrl + "/content-vault-landing.html", "Explore")}
-  ${card("#E274A0", "#ffffff", "T", "Tool", "Outreach Tracker + AI Pitch Analyzer", "Track every brand you pitch and check your pitch with AI before you hit send.", siteUrl + "/outreach-tracker-landing.html", "Explore")}
-  ${card("#C5A062", "#1A1206", "P", "Template vault", "[Pitch] Paid, Period.", "10 pitch templates, 8 niche breakdowns and the P.A.I.D. Framework.", siteUrl + "/pitch-vault.html", "Explore")}
-  ${card("#B79CFF", "#150C1E", "D", "Starter kit", "Deal Worthy: UGC Starter Kit", "Everything you need to go from zero to your first brand deal.", siteUrl + "/dealworthy-landing.html", "Explore")}
-  <div style="height:6px;line-height:6px;">&nbsp;</div>
 </td></tr>
 
-<!-- WHAT'S NEXT -->
-<tr><td class="pad" style="padding:36px 44px 10px;background:#150C1E;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E274A0;border-bottom:1px solid #2A2032;padding-bottom:14px;">What happens next</td></tr></table>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:18px;">
-    ${step(1, "This Sunday, your first issue lands", "Look for The Refresh from Prin in your inbox. Drag it to your primary tab so it never gets lost.")}
-    ${step(2, "Try one thing. Just one.", "Open the toolkit, pick one prompt, and use it today. Momentum beats perfection.")}
-    ${step(3, "Hit reply anytime", "Stuck on something? Tell me what you're building. I read every reply.", true)}
-  </table>
+<!-- QUOTE -->
+<tr><td class="pad" style="padding:18px 38px 6px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+    <td style="border-left:3px solid #C5A062;padding:2px 0 2px 16px;font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.45;color:#2B2230;"><b>Brands can't hire a creator they've never heard from.</b></td>
+  </tr></table>
 </td></tr>
 
 <!-- CLOSE -->
-<tr><td align="center" class="pad" style="padding:44px 44px;background:#0A0612;">
-  <div style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E274A0;">One last thing</div>
-  <div style="font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.3;color:#F7F0F6;padding-top:16px;">The best time to start was a year ago.<br />The second best time is <i style="color:#E274A0;">this week</i>.</div>
-  <div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#C9BFCB;padding-top:14px;max-width:400px;margin:0 auto;">You've already done the hard part: you showed up. Now let's turn that into something you're proud of.</div>
-  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px auto 0;">
-    <tr><td align="center" style="background:#E274A0;border-radius:100px;">
-      <a href="${siteUrl}" style="display:inline-block;padding:15px 32px;font-family:Arial,sans-serif;font-size:14.5px;font-weight:bold;color:#150C1E;">Explore everything &rarr;</a>
-    </td></tr>
-  </table>
-  <div style="font-family:Arial,sans-serif;font-size:11.5px;color:#7A6F80;padding-top:20px;">Glad you're here, <b style="color:#E274A0;">Prin</b></div>
-</td></tr>
-
-<!-- FOOTER -->
-<tr><td class="pad" style="padding:28px 44px 36px;background:#0A0612;border-top:1px solid #2A2032;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-    <tr>
-      <td style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;">
-        <a href="https://www.youtube.com/@Prinfluence" style="color:#9A8FA0;padding-right:14px;">YouTube</a><a href="https://www.linkedin.com/in/nwoye/" style="color:#9A8FA0;padding-right:14px;">LinkedIn</a><a href="https://www.tiktok.com/@prinfluence.ugc" style="color:#9A8FA0;padding-right:14px;">TikTok</a><a href="https://www.instagram.com/prinfluence.ugc" style="color:#9A8FA0;">Instagram</a>
-      </td>
-      <td align="right" style="font-family:Georgia,serif;font-size:15px;color:#F7F0F6;">Prin<i style="color:#E274A0;">fluence</i></td>
-    </tr>
-  </table>
-  <div style="font-family:Arial,sans-serif;font-size:11px;color:#5F5566;line-height:1.7;padding-top:18px;">
-    You're getting this because you subscribed at prinfluence.com. Welcome aboard.<br />
-    <a href="mailto:talktome@prinfluence.com?subject=Unsubscribe" style="color:#9A8FA0;text-decoration:underline;">Unsubscribe</a> &middot; 2026 Prinfluence
-  </div>
+<tr><td class="pad" style="padding:20px 38px 30px;font-family:Arial,Helvetica,sans-serif;font-size:15.5px;line-height:1.7;color:#4A3F4E;">
+  <p style="margin:0 0 16px;">Not ready? Totally fine. The Refresh is free and still lands every Sunday.</p>
+  <p style="margin:0 0 20px;">But if you've been telling yourself you'll start pitching "next month," let this be your nudge to start this week. (Haven't opened your toolkit yet? <a href="${toolkitUrl}" style="color:#E274A0;font-weight:bold;">It's right here.</a>)</p>
+  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:21px;font-style:italic;color:#E274A0;">Prin &#10024;</p>
+  <p style="margin:2px 0 20px;font-size:12.5px;color:#8A7F8E;">Founder, Prinfluence</p>
+  <p style="margin:0;padding-top:16px;border-top:1px solid #EFE8EC;"><b>P.S.</b> Not sure which tool fits you? Hit reply with what you're stuck on, and I'll tell you exactly where I'd start.</p>
 </td></tr>
 
 </table>
+
+<!-- FOOTER -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;">
+  <tr><td align="center" style="padding:20px 10px 0;font-family:Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;">
+    <a href="https://www.youtube.com/@Prinfluence" style="color:#A79DAA;padding:0 8px;">YouTube</a>
+    <a href="https://www.linkedin.com/in/nwoye/" style="color:#A79DAA;padding:0 8px;">LinkedIn</a>
+    <a href="https://www.tiktok.com/@prinfluence.ugc" style="color:#A79DAA;padding:0 8px;">TikTok</a>
+    <a href="https://www.instagram.com/prinfluence.ugc" style="color:#A79DAA;padding:0 8px;">Instagram</a>
+  </td></tr>
+  <tr><td align="center" style="padding:12px 10px 0;font-family:Arial,sans-serif;font-size:11.5px;line-height:1.6;color:#A79DAA;">
+    You're getting this because you subscribed at prinfluence.com. <a href="mailto:talktome@prinfluence.com?subject=Unsubscribe" style="color:#A79DAA;text-decoration:underline;">Unsubscribe</a>
+  </td></tr>
+</table>
+
 </td></tr>
 </table>
 </body>
 </html>`;
+}
+
+// Email 1: short, personal note sent right away (built to land in Primary)
+function personalEmailHtml(siteUrl, toolkitUrl) {
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="x-apple-disable-message-reformatting"></head>
+<body style="margin:0;padding:0;background:#FBF8F4;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF8F4;">
+<tr><td align="center" style="padding:28px 14px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:540px;background:#ffffff;border-radius:16px;border-top:4px solid #E274A0;">
+<tr><td style="padding:34px 34px 30px;font-family:Arial,Helvetica,sans-serif;font-size:15.5px;line-height:1.7;color:#2B2230;">
+
+  <div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;font-weight:bold;color:#2B2230;padding-bottom:22px;">Prin<i style="font-weight:normal;color:#E274A0;">fluence</i></div>
+
+  <p style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:23px;line-height:1.35;color:#2B2230;">Most people download a freebie and never open it. <i style="color:#E274A0;">You're not most people.</i></p>
+
+  <p style="margin:0 0 16px;">Your <b>50 AI Prompts Toolkit</b> is ready. Hooks, scripts, captions, brand pitches. Every prompt is fill-in-the-blank, so you never stare at an empty chat box wondering what to type.</p>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 22px;"><tr>
+    <td style="background:#E274A0;border-radius:100px;"><a href="${toolkitUrl}" style="display:inline-block;padding:13px 26px;font-family:Arial,sans-serif;font-size:14.5px;font-weight:bold;color:#ffffff;text-decoration:none;">Open my toolkit &rarr;</a></td>
+  </tr></table>
+
+  <p style="margin:0 0 16px;">One ask: use a single prompt in the next 24 hours. Pick the first one that makes you think <i>"oh, I need that,"</i> fill in the brackets, and post whatever comes out. Messy counts.</p>
+
+  <p style="margin:0 0 18px;padding:2px 0 2px 16px;border-left:3px solid #C5A062;font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.45;color:#2B2230;"><b>The algorithm can't push a draft sitting in your notes app.</b></p>
+
+  <p style="margin:0 0 16px;">Tomorrow I'm sending you something you won't find anywhere on my site. Watch for it.</p>
+
+  <p style="margin:0 0 16px;">After that, <b>The Refresh</b> lands every Sunday: one idea that's working in AI content right now, readable in five minutes.</p>
+
+  <p style="margin:0 0 22px;">Before you go, hit reply and tell me one thing: <b>what do you want to get paid for?</b> One sentence is plenty. I read every reply.</p>
+
+  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:21px;font-style:italic;color:#E274A0;">Prin &#10024;</p>
+  <p style="margin:2px 0 22px;font-size:12.5px;color:#8A7F8E;">Founder, Prinfluence</p>
+
+  <p style="margin:0;padding-top:16px;border-top:1px solid #EFE8EC;"><b>P.S.</b> Add talktome@prinfluence.com to your contacts so tomorrow's gift doesn't get buried. Gmail listens to you more than it listens to me. &#127873;</p>
+
+</td></tr>
+</table>
+<div style="max-width:540px;padding:16px 10px 0;font-family:Arial,sans-serif;font-size:11.5px;line-height:1.6;color:#A79DAA;">You're getting this because you subscribed at prinfluence.com. <a href="mailto:talktome@prinfluence.com?subject=Unsubscribe" style="color:#A79DAA;">Unsubscribe</a></div>
+</td></tr>
+</table>
+</body></html>`;
+}
+
+function personalEmailText(toolkitUrl) {
+  return [
+    "Most people download a freebie and never open it. You're not most people.",
+    "",
+    "Your 50 AI Prompts Toolkit is ready. Hooks, scripts, captions, brand pitches. Every prompt is fill-in-the-blank, so you never stare at an empty chat box wondering what to type.",
+    "",
+    "Open it here: " + toolkitUrl,
+    "",
+    "One ask: use a single prompt in the next 24 hours. Pick the first one that makes you think \"oh, I need that,\" fill in the brackets, and post whatever comes out. Messy counts.",
+    "",
+    "The algorithm can't push a draft sitting in your notes app.",
+    "",
+    "Tomorrow I'm sending you something you won't find anywhere on my site. Watch for it.",
+    "",
+    "After that, The Refresh lands every Sunday: one idea that's working in AI content right now, readable in five minutes.",
+    "",
+    "Before you go, hit reply and tell me one thing: what do you want to get paid for? One sentence is plenty. I read every reply.",
+    "",
+    "Prin",
+    "Founder, Prinfluence",
+    "",
+    "P.S. Add talktome@prinfluence.com to your contacts so tomorrow's gift doesn't get buried. Gmail listens to you more than it listens to me.",
+    "",
+    "You're getting this because you subscribed at prinfluence.com. To unsubscribe, reply with the word Unsubscribe.",
+  ].join("\n");
 }
 
 exports.handler = async function (event) {
@@ -289,27 +314,34 @@ exports.handler = async function (event) {
 </body>
 </html>`;
 
-    const subject = isPopup
-      ? "You're in! Your free 50 AI Prompts Toolkit is inside ✦"
-      : "Welcome to Prinfluence — you're all set";
+    const sendEmail = async (payload) => {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${resendKey}` },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) console.error("Resend error:", await res.json().catch(() => res.status));
+      return res.ok;
+    };
+    const from = "Prin from Prinfluence <talktome@prinfluence.com>";
 
-    const emailRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: "Prin from Prinfluence <talktome@prinfluence.com>",
-        to: [email],
-        subject,
+    if (isPopup) {
+      // Email 1 now: short and personal
+      await sendEmail({
+        from, to: [email],
+        subject: "Your 50 prompts are here (start with one) 👀",
+        html: personalEmailHtml(siteUrl, toolkitUrl),
+        text: personalEmailText(toolkitUrl),
+      });
+      // Email 2 tomorrow: the designed welcome with HEYFRIEND30 and products
+      await sendEmail({
+        from, to: [email],
+        subject: "I saved this for you 🎁",
         html,
-      }),
-    });
-
-    if (!emailRes.ok) {
-      const err = await emailRes.json();
-      console.error("Resend error:", err);
+        scheduled_at: "in 1 day",
+      });
+    } else {
+      await sendEmail({ from, to: [email], subject: "Welcome to Prinfluence — you're all set", html });
     }
 
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
