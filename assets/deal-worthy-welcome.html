@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>You're in! | Deal Worthy | Prinfluence</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1597113481621559');
+fbq('track', 'PageView');
+// Report the sale once per checkout (refreshing this page won't count it twice)
+(function () {
+  var id = new URLSearchParams(location.search).get('session_id') || '';
+  var key = 'dw_purchase_' + (id || 'no-session');
+  var seen = false;
+  try { seen = !!localStorage.getItem(key); } catch (_) {}
+  if (id && !seen) {
+    fbq('track', 'Purchase', { content_name: 'Deal Worthy', content_type: 'product', value: 125, currency: 'USD' }, { eventID: id });
+    try { localStorage.setItem(key, '1'); } catch (_) {}
+  }
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1597113481621559&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{--cream:#FBF8F4;--ink:#2B2230;--ink2:#4A3F4E;--muted:#8A7F8E;--pink:#E274A0;--deep:#B8336A;--blush:#FDF1F6;--line:#EFE6EA;--gold:#C5A062;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',Arial,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:44px 20px 60px}
+  .logo{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:22px;color:var(--ink);text-decoration:none}
+  .logo i{font-weight:600;color:var(--pink)}
+  .card{margin-top:24px;background:#fff;border-radius:20px;border-top:4px solid var(--pink);padding:40px 38px;box-shadow:0 20px 50px rgba(43,34,48,.07);text-align:center}
+  .check{width:60px;height:60px;border-radius:50%;background:var(--blush);color:var(--deep);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px}
+  h1{font-family:'Fraunces',Georgia,serif;font-size:40px;line-height:1.1;margin:0 0 12px}
+  h1 em{color:var(--pink)}
+  p{color:var(--ink2);margin:0 0 14px}
+  .steps{text-align:left;background:var(--blush);border-radius:14px;padding:18px 22px;margin:22px 0}
+  .steps div{margin:6px 0;color:var(--ink2)}
+  .steps b{color:var(--deep)}
+  .btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;padding:14px 28px;border-radius:999px;box-shadow:0 10px 24px rgba(226,116,160,.32)}
+  .btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .small{font-size:13.5px;color:var(--muted);margin-top:18px}
+  .small a{color:var(--deep)}
+  @media (max-width:560px){.card{padding:30px 22px}h1{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">Prin<i>fluence</i></a>
+  <div class="card">
+    <div class="check">&#10003;</div>
+    <h1>You're in. <em>Welcome to Deal Worthy.</em></h1>
+    <p>Your payment went through, and your access email is on its way to the address you used at checkout.</p>
+    <div class="steps">
+      <div><b>1.</b> Check your inbox for your Deal Worthy access email.</div>
+      <div><b>2.</b> Log in with that same email to open the kit.</div>
+      <div><b>3.</b> Start with Module 01, then pitch your first brand this week.</div>
+    </div>
+    <a class="btn" href="/dashboard.html">Go to my dashboard &rarr;</a>
+    <p class="small">Don't see the email in a few minutes? Check spam or promotions, or email <a href="mailto:talktome@prinfluence.com">talktome@prinfluence.com</a>.</p>
+  </div>
+</div>
+</body>
+</html>
