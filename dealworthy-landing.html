@@ -2,6 +2,37 @@
 <html>
 <head>
   <meta charset="utf-8">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1597113481621559');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1597113481621559&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script>
+// Deal Worthy sales page: tell Meta someone viewed the offer, and when they click Buy
+fbq('track', 'ViewContent', { content_name: 'Deal Worthy', content_type: 'product', value: 125, currency: 'USD' });
+(function () {
+  var sent = false;
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.com"]') : null;
+    if (!a || sent) return;
+    sent = true;
+    try { fbq('track', 'InitiateCheckout', { content_name: 'Deal Worthy', value: 125, currency: 'USD' }); } catch (_) {}
+    setTimeout(function () { sent = false; }, 3000);
+  }, true);
+})();
+</script>
   <title>Deal Worthy — The UGC Starter Kit</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
