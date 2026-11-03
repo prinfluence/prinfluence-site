@@ -197,7 +197,7 @@ function personalEmailText(toolkitUrl) {
 function classEmailHtml(siteUrl, name) {
   const dl = (file) => `${siteUrl}/downloads/${file}`;
   const hi = name ? `Hey ${name.replace(/[<>&"]/g, "")},` : "Hey there,";
-  const item = (title, kind, file) => `
+  const item = (title, kind, href, cta) => `
     <tr><td style="padding:0 0 10px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #EFE6EA;border-radius:12px;border-collapse:separate;">
         <tr>
@@ -205,7 +205,7 @@ function classEmailHtml(siteUrl, name) {
             <div style="font-family:Georgia,'Times New Roman',serif;font-size:17px;color:#2B2230;">${title}</div>
             <div style="font-size:12.5px;color:#8A7F8E;padding-top:2px;">${kind}</div>
           </td>
-          <td align="right" style="padding:14px 16px;"><a href="${dl(file)}" style="font-family:Arial,sans-serif;font-size:13.5px;font-weight:bold;color:#E274A0;text-decoration:none;white-space:nowrap;">Download &rarr;</a></td>
+          <td align="right" style="padding:14px 16px;"><a href="${href}" style="font-family:Arial,sans-serif;font-size:13.5px;font-weight:bold;color:#E274A0;text-decoration:none;white-space:nowrap;">${cta} &rarr;</a></td>
         </tr>
       </table>
     </td></tr>`;
@@ -230,9 +230,9 @@ function classEmailHtml(siteUrl, name) {
 
   <p style="margin:0 0 12px;"><b>Your 3 templates:</b></p>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-    ${item("The Three-Sentence Cold Pitch Framework", "PDF &middot; the exact pitch formula, with examples", "Three-Sentence-Cold-Pitch-Framework.pdf")}
-    ${item("The Rate Floor Worksheet", "Word doc &middot; the lowest number you ever say yes to", "Rate-Floor-Worksheet.docx")}
-    ${item("25 Brands Hiring Right Now", "Spreadsheet &middot; your starter pitch list", "25-Brands-Hiring-Right-Now.xlsx")}
+    ${item("The Three-Sentence Cold Pitch Framework", "PDF &middot; the exact pitch formula, with examples", dl("Three-Sentence-Cold-Pitch-Framework.pdf"), "Open")}
+    ${item("The Rate Floor Worksheet", "PDF &middot; the lowest number you ever say yes to", dl("Rate-Floor-Worksheet.pdf"), "Open")}
+    ${item("25 Brands Hiring Right Now", "Web page + Excel download &middot; your starter pitch list", `${siteUrl}/25-brands.html`, "Open")}
   </table>
 
   <p style="margin:14px 0 18px;padding:2px 0 2px 16px;border-left:3px solid #C5A062;font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.45;color:#2B2230;"><b>Know your floor before a brand asks for your rate.</b></p>
