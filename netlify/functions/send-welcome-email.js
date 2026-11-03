@@ -193,6 +193,65 @@ function personalEmailText(toolkitUrl) {
   ].join("\n");
 }
 
+// Free class email: class link + the 3 templates (light style, same as Email 1)
+function classEmailHtml(siteUrl, name) {
+  const dl = (file) => `${siteUrl}/downloads/${file}`;
+  const hi = name ? `Hey ${name.replace(/[<>&"]/g, "")},` : "Hey there,";
+  const item = (title, kind, file) => `
+    <tr><td style="padding:0 0 10px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #EFE6EA;border-radius:12px;border-collapse:separate;">
+        <tr>
+          <td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:17px;color:#2B2230;">${title}</div>
+            <div style="font-size:12.5px;color:#8A7F8E;padding-top:2px;">${kind}</div>
+          </td>
+          <td align="right" style="padding:14px 16px;"><a href="${dl(file)}" style="font-family:Arial,sans-serif;font-size:13.5px;font-weight:bold;color:#E274A0;text-decoration:none;white-space:nowrap;">Download &rarr;</a></td>
+        </tr>
+      </table>
+    </td></tr>`;
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="x-apple-disable-message-reformatting"></head>
+<body style="margin:0;padding:0;background:#FBF8F4;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF8F4;">
+<tr><td align="center" style="padding:28px 14px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:540px;background:#ffffff;border-radius:16px;border-top:4px solid #E274A0;border-collapse:separate;">
+<tr><td style="padding:34px 34px 30px;font-family:Arial,Helvetica,sans-serif;font-size:15.5px;line-height:1.7;color:#2B2230;">
+
+  <div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;font-weight:bold;color:#2B2230;padding-bottom:22px;">Prin<i style="font-weight:normal;color:#E274A0;">fluence</i></div>
+
+  <p style="margin:0 0 12px;">${hi}</p>
+  <p style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:23px;line-height:1.35;color:#2B2230;">Your class is ready. <i style="color:#E274A0;">Watch it before you pitch anyone.</i></p>
+
+  <p style="margin:0 0 18px;">Most creators pitch first and figure out their rates later. You're about to do it the other way around. Watch the class, then fill in the templates while it's fresh.</p>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px;"><tr>
+    <td style="background:#E274A0;border-radius:100px;"><a href="${siteUrl}/deal-worthy-thank-you.html" style="display:inline-block;padding:13px 26px;font-family:Arial,sans-serif;font-size:14.5px;font-weight:bold;color:#ffffff;text-decoration:none;">Watch the free class &rarr;</a></td>
+  </tr></table>
+
+  <p style="margin:0 0 12px;"><b>Your 3 templates:</b></p>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    ${item("The Three-Sentence Cold Pitch Framework", "PDF &middot; the exact pitch formula, with examples", "Three-Sentence-Cold-Pitch-Framework.pdf")}
+    ${item("The Rate Floor Worksheet", "Word doc &middot; the lowest number you ever say yes to", "Rate-Floor-Worksheet.docx")}
+    ${item("25 Brands Hiring Right Now", "Spreadsheet &middot; your starter pitch list", "25-Brands-Hiring-Right-Now.xlsx")}
+  </table>
+
+  <p style="margin:14px 0 18px;padding:2px 0 2px 16px;border-left:3px solid #C5A062;font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.45;color:#2B2230;"><b>Know your floor before a brand asks for your rate.</b></p>
+
+  <p style="margin:0 0 22px;">Your turn: hit reply and tell me the first brand you're going to pitch. I read every reply.</p>
+
+  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:21px;font-style:italic;color:#E274A0;">Prin &#10024;</p>
+  <p style="margin:2px 0 22px;font-size:12.5px;color:#8A7F8E;">Founder, Prinfluence</p>
+
+  <p style="margin:0;padding-top:16px;border-top:1px solid #EFE8EC;"><b>P.S.</b> Add talktome@prinfluence.com to your contacts. Tomorrow I'm sending you a little welcome gift, and I don't want it buried. &#127873;</p>
+
+</td></tr>
+</table>
+<div style="max-width:540px;padding:16px 10px 0;font-family:Arial,sans-serif;font-size:11.5px;line-height:1.6;color:#A79DAA;">You're getting this because you signed up for the free class at prinfluence.com. <a href="mailto:talktome@prinfluence.com?subject=Unsubscribe" style="color:#A79DAA;">Unsubscribe</a></div>
+</td></tr>
+</table>
+</body></html>`;
+}
+
 exports.handler = async function (event) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -240,8 +299,10 @@ exports.handler = async function (event) {
     const toolkitUrl = `${siteUrl}/ai-prompts-toolkit.html`;
     // Subscribers (homepage popup or newsletter form) get the free toolkit email
     const isPopup = context === "popup" || context === "newsletter";
+    const isClass = context === "freeclass" || context === "freeclass_templates";
+    const name = (body.name || "").trim().slice(0, 60);
 
-    const html = isPopup ? subscriberEmailHtml(siteUrl, toolkitUrl) : `<!DOCTYPE html>
+    const html = (isPopup || isClass) ? subscriberEmailHtml(siteUrl, toolkitUrl) : `<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#F6F3EE;font-family:Arial,Helvetica,sans-serif;">
@@ -325,7 +386,18 @@ exports.handler = async function (event) {
     };
     const from = "Prin from Prinfluence <talktome@prinfluence.com>";
 
-    if (isPopup) {
+    if (isClass) {
+      // Free class: class link + 3 templates now
+      await sendEmail({
+        from, to: [email],
+        subject: "Your free class + 3 templates are here 🎬",
+        html: classEmailHtml(siteUrl, name),
+      });
+      // New signups also get the welcome gift tomorrow (not when they just re-request templates)
+      if (context === "freeclass") {
+        await sendEmail({ from, to: [email], subject: "I saved this for you 🎁", html, scheduled_at: "in 1 day" });
+      }
+    } else if (isPopup) {
       // Email 1 now: short and personal
       await sendEmail({
         from, to: [email],
